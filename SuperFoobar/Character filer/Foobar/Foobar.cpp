@@ -1,10 +1,5 @@
 #include "Foobar.h"
 
-
-Foobar::~Foobar()
-{
-}
-
 void Foobar::set_invulnarable()
 {
 	if (invulnerable)
@@ -19,10 +14,7 @@ void Foobar::set_invulnarable()
 
 void Foobar::power_up(Power_up immortal)
 {
-	if (immortal == invulnerable)
-	{
-		
-	}
+	
 }
 
 

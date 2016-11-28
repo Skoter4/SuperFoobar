@@ -10,6 +10,8 @@ public:
 	int begin_y();
 	int end_x();
 	int end_y();
+	int get_x();
+	int get_y();
 	void set_des_x(int x);
 	void set_des_y(int y);
 
