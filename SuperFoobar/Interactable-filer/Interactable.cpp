@@ -1,9 +1,9 @@
-#include "Interactable.h"
+#include "../Interactable-filer/Interactable.h"
 
 using namespace std;
 
 Interactable::Interactable(int x_pos, int y_pos, int width, int length)
-	: position{ make_unique<Position>(x_pos, y_pos) }, width{ width }, length{ length }
+	: position{ new Cluster(x_pos, y_pos, width, length) }
 {}
 
 bool Interactable::is_dead()
