@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "../Collision/Cluster.h"
 
 class Interactable
 {
@@ -12,7 +13,7 @@ public:
 	~Interactable() = default;
 protected:
 	Interactable(int, int, int, int); // x_pos, y_pos, width, length
-	std::unique_ptr<Position> position;
+	std::unique_ptr<Cluster> position;
 	int width{};
 	int length{};
 	bool dead{ false };

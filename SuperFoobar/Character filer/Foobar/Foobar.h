@@ -1,5 +1,6 @@
 #pragma once
-#include "Character.h"
+#include "../Character.h"
+#include "../Interactable-filer/Power_up.h"
 
 class Foobar :
 	public Character
