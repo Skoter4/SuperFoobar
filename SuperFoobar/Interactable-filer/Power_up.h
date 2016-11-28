@@ -1,5 +1,6 @@
 #pragma once
-#include "Interactable.h"
+#include "../Interactable-filer/Interactable.h"
+#include "../Collision/Cluster.h"
 
 class Power_up : public Interactable
 {

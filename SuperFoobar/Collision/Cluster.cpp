@@ -8,6 +8,16 @@ Cluster::Cluster(int x_s, int y_s, int height_s, int width_s){
   width = width_s;
 } 
 
+void Cluster::move_x()
+{
+
+}
+
+void Cluster::move_y()
+{
+
+}
+
 int Cluster::begin_x(){
   return desired_x;
 }
@@ -26,6 +36,16 @@ int Cluster::end_y(){
   int endy = 0;
   endy = desired_y + height;
   return endy;
+}
+
+int Cluster::get_x()
+{
+	return x;
+}
+
+int Cluster::get_y()
+{
+	return y;
 }
 
 void Cluster::set_des_x(int x){
