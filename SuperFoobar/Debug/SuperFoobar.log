@@ -1,28 +1,5 @@
 ﻿  Source.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\source.cpp(5): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-  Time.cpp
-  Position.cpp
-  Power_up.cpp
-  Interactable.cpp
-  Finish_line.cpp
-  Coin.cpp
-  Collision_matrix.cpp
-  Collision_handler.cpp
-  Cluster.cpp
-  Foobar.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\character filer\character.h(12): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Enemy_3.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\character filer\character.h(12): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Enemy_2.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\character filer\character.h(12): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Enemy_1.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\character filer\character.h(12): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Character.cpp
-c:\users\tomas\documents\github\superfoobar\superfoobar\character filer\character.h(12): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  Generator.cc
-  Breakable.cc
-  Block.cc
-  Generating Code...
-  LINK : C:\Users\tomas\Documents\GitHub\SuperFoobar\SuperFoobar\Debug\SuperFoobar.exe not found or not built by the last incremental link; performing full link
-  SuperFoobar.vcxproj -> C:\Users\tomas\Documents\GitHub\SuperFoobar\SuperFoobar\Debug\SuperFoobar.exe
-  SuperFoobar.vcxproj -> C:\Users\tomas\Documents\GitHub\SuperFoobar\SuperFoobar\Debug\SuperFoobar.pdb (Full PDB)
+c:\users\skote\documents\github\superfoobar\superfoobar\source.cpp(23): error C4996: 'sf::Text::setColor': was declared deprecated
+  c:\users\skote\documents\github\superfoobar\superfoobar\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
+c:\users\skote\documents\github\superfoobar\superfoobar\source.cpp(33): error C4996: 'sf::Text::setColor': was declared deprecated
+  c:\users\skote\documents\github\superfoobar\superfoobar\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
