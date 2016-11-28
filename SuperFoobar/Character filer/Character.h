@@ -1,5 +1,5 @@
 #pragma once
-#include "Position.h"
+#include "../Collision/Cluster.h"
 
 #include <memory>
 #include <utility>
@@ -10,7 +10,7 @@ public:
 	Character();
 	virtual ~Character() = default;
 	Character(float, float, float, float)
-		: position {new Position(x_pos, y_pos) } {}
+		: position {new Cluster(x_pos, y_pos, height, width) } {}
 	void move_x(float);
 	void move_y(float);
 	float get_x_pos();
@@ -22,7 +22,7 @@ public:
 
 
 protected:
-	std::unique_ptr<Position> position{};
+	std::unique_ptr<Cluster> position{};
 	float height{};
 	float width{};
 	float x_pos{};

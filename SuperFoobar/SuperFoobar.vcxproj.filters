@@ -55,9 +55,6 @@
     <ClCompile Include="Interactable-filer\Interactable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Interactable-filer\Position.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Interactable-filer\Power_up.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -109,9 +106,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Interactable-filer\Interactable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Interactable-filer\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Interactable-filer\Power_up.h">

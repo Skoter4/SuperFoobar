@@ -4,11 +4,6 @@
 
 Character::Character()
 {
-}
-
-
-Character::~Character() 
-{
 
 }
 
