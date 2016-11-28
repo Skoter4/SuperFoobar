@@ -12,6 +12,7 @@ public:
 	int end_y();
 	void set_des_x(int x);
 	void set_des_y(int y);
+	void test_git();
 
 private:
 
