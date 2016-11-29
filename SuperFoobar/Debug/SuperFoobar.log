@@ -1,5 +1,13 @@
-﻿  Source.cpp
-c:\users\skote\documents\github\superfoobar\superfoobar\source.cpp(23): error C4996: 'sf::Text::setColor': was declared deprecated
-  c:\users\skote\documents\github\superfoobar\superfoobar\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
-c:\users\skote\documents\github\superfoobar\superfoobar\source.cpp(33): error C4996: 'sf::Text::setColor': was declared deprecated
-  c:\users\skote\documents\github\superfoobar\superfoobar\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
+﻿  Enemy_3.cpp
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(11): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\enemy\enemy_3.cpp(6): error C2512: 'Character': no appropriate default constructor available
+  c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(8): note: see declaration of 'Character'
+  Enemy_2.cpp
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(11): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\enemy\enemy_2.cpp(6): error C2512: 'Character': no appropriate default constructor available
+  c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(8): note: see declaration of 'Character'
+  Enemy_1.cpp
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(11): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\skote\documents\github\superfoobar\superfoobar\character filer\enemy\enemy_1.cpp(6): error C2512: 'Character': no appropriate default constructor available
+  c:\users\skote\documents\github\superfoobar\superfoobar\character filer\character.h(8): note: see declaration of 'Character'
+  Generating Code...

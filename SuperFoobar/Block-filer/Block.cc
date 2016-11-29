@@ -3,36 +3,35 @@
 
 using namespace std;
 
-Block::Block(int x_pos, int y_pos, int length, int width)
-	:position{ new Cluster(x_pos, y_pos, length, width) }
+Block::Block(float x, float y, float length, float width)
+	:cluster{ new Cluster(x, y, length, width) }
 {}
 
-
-int Block::get_x_pos()
+float Block::get_x_pos()
 {
-  return position->get_x();
+	return this->cluster->get_x();
 }
 
-int Block::get_y_pos()
+float Block::get_y_pos()
 {
-  return position->get_y();
+	return this->cluster->get_y();
 }
-void Block::set_x_pos(int new_coord)
+void Block::set_x_pos(float new_x)
 {
-  position->set_des_x(new_coord);
-}
-
-void Block::set_y_pos(int new_coord)
-{
-  position->set_des_y(new_coord);
+	this->cluster->set_des_x(new_x);
 }
 
-int Block::area()
+void Block::set_y_pos(float new_y)
 {
-  return width*length;
+	this->cluster->set_des_y(new_y);
+}
+
+float Block::area()
+{
+	return this->cluster->get_height()*cluster->get_width();
 }
 
 void Block::flip_dead()
 {
-  dead = !dead;
+	this->dead = !(this->dead);
 }

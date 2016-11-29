@@ -4,6 +4,6 @@
 class Coin : public Interactable
 {
 public:
-	Coin(int, int, int, int);
+	Coin(float, float, float, float);
 	~Coin() = default;
 };
