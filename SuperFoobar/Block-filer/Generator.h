@@ -10,7 +10,7 @@ class Generator: protected Block
   ~Generator();
   
  protected:
-  Generator(int, int, int, int, std::unique_ptr<Interactable>);
+  Generator(float, float, float, float, std::unique_ptr<Interactable>);
 
  private:
 	 bool deactivated{ false };
