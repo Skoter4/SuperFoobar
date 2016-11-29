@@ -35,7 +35,7 @@ void Collision_handler::remove_cluster(Cluster to_remove){
     }
   }
 }
-
+/*
 int main(){
   Cluster clust = Cluster(1, 1, 2, 2);
   clust.set_des_x(1);
@@ -44,4 +44,4 @@ int main(){
   col.fill_cluster(clust);
   col.move_event(clust);
   return 0;
-};
+};*/
