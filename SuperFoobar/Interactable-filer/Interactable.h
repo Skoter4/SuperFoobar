@@ -8,14 +8,14 @@ public:
 	bool is_dead(); // Returns the bool dead
 	void interact(); // Sets dead = true (works as a flag)
 	void flip_dead(); // Flips the bool dead
-	int get_width();
-	int get_length();
+	float get_width();
+	float get_length();
 	~Interactable() = default;
 protected:
-	Interactable(int, int, int, int); // x_pos, y_pos, width, length
+	Interactable(float, float, float, float); // x_pos, y_pos, height, width
 	std::unique_ptr<Cluster> position;
-	int width{};
-	int length{};
+	float width{};
+	float length{};
 	bool dead{ false };
 };
 

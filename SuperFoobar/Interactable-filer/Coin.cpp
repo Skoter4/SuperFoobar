@@ -2,6 +2,6 @@
 
 using namespace std;
 
-Coin::Coin(int x_pos, int y_pos, int width, int length)
-	: Interactable(x_pos, y_pos, width, length)
+Coin::Coin(float x_pos, float y_pos, float height, float width)
+	: Interactable(x_pos, y_pos, height, width)
 {}
