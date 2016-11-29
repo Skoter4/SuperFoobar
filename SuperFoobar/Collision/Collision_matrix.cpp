@@ -1,23 +1,31 @@
 #include "Collision_matrix.h"
+#include "Cluster.h"
+#include <memory>
 #include <iostream>
 using namespace std;
 
 Collision_matrix::Collision_matrix(int rows, int cols) {
-  matrix = vector < vector <bool> > (rows, vector<bool>(cols, false));
+	matrix = vector < vector <shared_ptr<Cluster>> >(rows, vector<shared_ptr<Cluster>>(cols, false));
 }
 
 
 
-bool Collision_matrix::get_element(int row, int col) {
-  return matrix.at(row).at(col);
+shared_ptr<Cluster> Collision_matrix::get_element(int row, int col) {
+	if (matrix.at(row).at(col) == nullptr) {
+		return nullptr;
+	}
+	else {
+		return matrix.at(row).at(col);
+	}
 }
 
-void Collision_matrix::true_element(int row, int col) {
-  matrix.at(row).at(col) = true;
+void Collision_matrix::true_element(int row, int col, shared_ptr<Cluster> to_fill) {
+	shared_ptr<Cluster> my_ptr = to_fill;
+	matrix.at(row).at(col) = my_ptr;
 }
 
 void Collision_matrix::false_element(int row, int col) {
-  matrix.at(row).at(col) = false;
+	matrix.at(row).at(col) = nullptr;
 }
 /*
 int main(){
