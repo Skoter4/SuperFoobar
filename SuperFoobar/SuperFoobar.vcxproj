@@ -174,8 +174,10 @@
     <ClCompile Include="Interactable-filer\Interactable.cpp" />
     <ClCompile Include="Interactable-filer\Power_up.cpp" />
     <ClCompile Include="Position-filer\Position.cpp" />
-    <ClCompile Include="Position-filer\Time.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Scoreboard.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block-filer\Block.h" />
@@ -194,7 +196,9 @@
     <ClInclude Include="Interactable-filer\Interactable.h" />
     <ClInclude Include="Interactable-filer\Power_up.h" />
     <ClInclude Include="Position-filer\Position.h" />
-    <ClInclude Include="Position-filer\Time.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="Scoreboard.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
