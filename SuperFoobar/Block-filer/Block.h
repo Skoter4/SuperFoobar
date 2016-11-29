@@ -21,7 +21,7 @@ public:
 protected:
 
 	Block(float, float, float, float); // Block-position and area is defined in its contructor.
-	std::unique_ptr<Cluster> cluster;
+	std::shared_ptr<Cluster> cluster;
 	float length;
 	float width;
 	std::string block_color{};
