@@ -20,7 +20,6 @@ int main()
 	scoreText.setString(std::to_string(static_cast<int>(score))); // Conversion to int to get rid of decimals
 	scoreText.setPosition(15, 5);
 	scoreText.setCharacterSize(50); // Default = 30
-	scoreText.setColor(sf::Color::White); // Default = White
 
 	// Timer, top-right corner
 	float time_remaining{ 600.0f };
@@ -30,7 +29,6 @@ int main()
 	timerText.setString(std::to_string(static_cast<int>(time_remaining)));
 	timerText.setPosition(1500, 5);
 	timerText.setCharacterSize(50);
-	timerText.setColor(sf::Color::White);
 	sf::Clock clock; // Starts the clock
 
 	while (window.isOpen())
