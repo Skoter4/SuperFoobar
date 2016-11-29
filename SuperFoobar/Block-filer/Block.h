@@ -1,6 +1,6 @@
 #include <utility>
 #include <string>
-#include "Position.h"
+#include "../Collision/Cluster.h"
 #include <memory>
 
 class Block {
@@ -17,7 +17,7 @@ class Block {
   void flip_dead();
  protected:
    Block(int, int, int, int); // Block-position and area is defined in its contructor.
-  std::unique_ptr<Position> position;
+  std::unique_ptr<Cluster> position;
   int length;
   int width;
   std::string block_color{};
