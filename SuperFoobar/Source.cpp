@@ -2,7 +2,7 @@
 #include <iostream> //std::cout
 #include <string> //std::to_string
 #include <vector> //std::static_cast
-
+/*
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML");
@@ -30,7 +30,7 @@ int main()
 	timerText.setString(std::to_string(static_cast<int>(time_remaining)));
 	timerText.setPosition(1500, 5);
 	timerText.setCharacterSize(50);
-	timerText.setColor(sf::Color::White);
+	//timerText.setColor(sf::Color::White);
 	sf::Clock clock; // Starts the clock
 
 	while (window.isOpen())
@@ -62,3 +62,4 @@ int main()
 
 	return 0;
 }
+*/
