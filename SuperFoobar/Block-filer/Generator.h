@@ -1,19 +1,28 @@
 #include "../Block-filer/Block.h"
 #include "../Interactable-filer/Interactable.h"
-class Generator: protected Block
+class Generator
+	: protected Block
 {
- public:
- 
-  auto generate();
-  void deactivate();
-  
-  ~Generator();
-  
- protected:
-  Generator(int, int, int, int, std::unique_ptr<Interactable>);
+public:
+	void interact() override;
 
- private:
-	 bool deactivated{ false };
-	 std::unique_ptr<Interactable> reward;
-  
+	auto generate();
+	void deactivate();
+
+	void flip_deactivated();
+	void flip_generating();
+
+	~Generator() = default;
+
+protected:
+
+	Generator(float, float, float, float, std::unique_ptr<Interactable>);
+
+private:
+
+	bool deactivated{ false };
+	bool generating{ false };
+
+	std::unique_ptr<Interactable> reward;
+
 };
