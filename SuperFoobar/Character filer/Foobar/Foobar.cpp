@@ -1,20 +1,9 @@
 #include "Foobar.h"
 
-void Foobar::set_invulnarable()
-{
-	if (invulnerable)
-	{
-		this->invulnerable = false;
-	}
-	else
-	{
-		this->invulnerable = true;
-	}
-}
 
 void Foobar::power_up(Power_up immortal)
 {
-	
+	this->flip_invulnerable();
 }
 
 
@@ -32,4 +21,19 @@ void Foobar::pick_up_coin()
 void Foobar::jump()
 {
 
+}
+
+void Foobar::duck()
+{
+	this->set_height(0.5f * this->height);
+}
+
+void Foobar::set_max_speed_x(float new_max_speed_x)
+{
+	this->max_speed_x = new_max_speed_x;
+}
+
+void Foobar::run()
+{
+	this->set_max_speed_x(2.0f * this->max_speed_x);
 }

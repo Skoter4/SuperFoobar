@@ -40,7 +40,20 @@ void Character::set_height(float new_height)
 	height = new_height;
 }
 
+void Character::flip_dead()
+{
+	dead = !dead;
+}
+
 void Character::die()
 {
-	
+	if (invulnerable = false)
+	{
+		this->flip_dead;
+	}
+}
+
+void Character::flip_invulnerable()
+{
+	invulnerable = !invulnerable;
 }
