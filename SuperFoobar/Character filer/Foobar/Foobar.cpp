@@ -4,11 +4,11 @@ void Foobar::set_invulnarable()
 {
 	if (invulnerable)
 	{
-		invulnerable = false;
+		this->invulnerable = false;
 	}
 	else
 	{
-		invulnerable = true;
+		this->invulnerable = true;
 	}
 }
 
@@ -25,6 +25,11 @@ void Foobar::increase_size(float new_width, float new_height)
 }
 
 void Foobar::pick_up_coin()
+{
+
+}
+
+void Foobar::jump()
 {
 
 }
