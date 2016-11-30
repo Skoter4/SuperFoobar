@@ -70,6 +70,15 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Make_Track.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Block-filer\Non_breakable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block-filer\Breakable.h">
@@ -114,9 +123,6 @@
     <ClInclude Include="Interactable-filer\Interactable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Interactable-filer\Power_up.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Position-filer\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -127,6 +133,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Interactable-filer\Power_up.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Block-filer\Non_breakable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

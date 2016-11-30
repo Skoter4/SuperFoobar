@@ -7,9 +7,8 @@ class Block
 {
 public:
 
+	Block(float, float, float, float); // Block-position and area is defined in its contructor.
 	~Block() = default;
-
-	virtual void interact() = 0;
 
 	float get_x_pos();
 	float get_y_pos();
@@ -20,7 +19,7 @@ public:
 
 protected:
 
-	Block(float, float, float, float); // Block-position and area is defined in its contructor.
+
 	std::unique_ptr<Cluster> cluster;
 	float length;
 	float width;

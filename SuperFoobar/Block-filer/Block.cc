@@ -3,8 +3,8 @@
 
 using namespace std;
 
-Block::Block(float x, float y, float length, float width)
-	:cluster{ new Cluster(x, y, length, width) }
+Block::Block(float x, float y, float height, float width)
+	:cluster{ new Cluster(x, y, height, width) }
 {}
 
 float Block::get_x_pos()

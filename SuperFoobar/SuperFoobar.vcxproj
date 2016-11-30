@@ -161,6 +161,7 @@
     <ClCompile Include="Block-filer\Block.cc" />
     <ClCompile Include="Block-filer\Breakable.cc" />
     <ClCompile Include="Block-filer\Generator.cc" />
+    <ClCompile Include="Block-filer\Non_breakable.cpp" />
     <ClCompile Include="Character filer\Character.cpp" />
     <ClCompile Include="Character filer\Enemy\Enemy_1.cpp" />
     <ClCompile Include="Character filer\Enemy\Enemy_2.cpp" />
@@ -173,16 +174,19 @@
     <ClCompile Include="Interactable-filer\Finish_line.cpp" />
     <ClCompile Include="Interactable-filer\Interactable.cpp" />
     <ClCompile Include="Interactable-filer\Power_up.cpp" />
+    <ClCompile Include="Make_Track.cpp" />
     <ClCompile Include="Position-filer\Position.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Scoreboard.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Track.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block-filer\Block.h" />
     <ClInclude Include="Block-filer\Breakable.h" />
     <ClInclude Include="Block-filer\Generator.h" />
+    <ClInclude Include="Block-filer\Non_breakable.h" />
     <ClInclude Include="Character filer\Character.h" />
     <ClInclude Include="Character filer\Enemy\Enemy_1.h" />
     <ClInclude Include="Character filer\Enemy\Enemy_2.h" />
@@ -199,6 +203,7 @@
     <ClInclude Include="Score.h" />
     <ClInclude Include="Scoreboard.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Track.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,7 +4,7 @@ class Generator
 	: protected Block
 {
 public:
-	void interact() override;
+	void interact();
 
 	auto generate();
 	void deactivate();
