@@ -8,22 +8,22 @@ class Block
 public:
 
 	~Block() = default;
+	Block() = default;
 
 	virtual void interact() = 0;
 
-	float get_x_pos();
-	float get_y_pos();
-	void set_x_pos(float);
-	void set_y_pos(float);
-	float area();
+	int get_x_pos();
+	int get_y_pos();
+	void set_x_pos(int);
+	void set_y_pos(int);
+	int area();
 	void flip_dead();
+	std::shared_ptr<Cluster> get_cluster();
 
 protected:
 
-	Block(float, float, float, float); // Block-position and area is defined in its contructor.
+	Block(int, int, int, int); // Block-position and area is defined in its contructor.
 	std::shared_ptr<Cluster> cluster;
-	float length;
-	float width;
 	std::string block_color{};
 	bool block_outline{};
 	bool dead{ false };

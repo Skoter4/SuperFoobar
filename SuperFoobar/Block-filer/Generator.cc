@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Generator::Generator(float x, float y, float height, float width,
+Generator::Generator(int x, int y, int height, int width,
 		    std::unique_ptr<Interactable> interactable)
   :Block(x, y, height, width), reward(std::move(interactable))
 {}

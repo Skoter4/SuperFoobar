@@ -11,11 +11,15 @@ Collision_handler::Collision_handler(int rows, int cols){
   matrix = Collision_matrix(rows, cols); 
 }
 
-void Collision_handler::move_event(shared_ptr<Cluster> moving){
+bool Collision_handler::move_event(shared_ptr<Cluster> moving){
   for (int i = moving->begin_x(); i < moving->end_x(); i++){
     for (int j = moving->begin_y(); j < moving->end_y(); j++){
       if (matrix.get_element(i, j) != nullptr){
 		cout << "Cant move here" << endl;
+		return false;
+	  }
+	  else {
+		  return true;
 	  }
     }
   }
@@ -38,13 +42,15 @@ void Collision_handler::remove_cluster(shared_ptr<Cluster> to_remove){
 }
 
 int main(){
+  Breakable break_block = Breakable(1, 4, 2, 2);
+  break_block.set_x_pos(1);
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Cluster> my_ptr;
   my_ptr = shared_ptr<Cluster>{new Cluster(1, 1, 2, 2)} ;
-  my_ptr->set_des_x(1);
-  my_ptr->set_des_y(2);
+  //my_ptr->set_des_x(1);
+  //my_ptr->set_des_y(2);
   col.fill_cluster(my_ptr);
-  col.move_event(my_ptr);
+  col.move_event(break_block.get_cluster());
   return 0;
 };

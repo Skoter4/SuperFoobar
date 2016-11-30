@@ -16,7 +16,7 @@ public:
 
 protected:
 
-	Generator(float, float, float, float, std::unique_ptr<Interactable>);
+	Generator(int, int, int, int, std::unique_ptr<Interactable>);
 
 private:
 
