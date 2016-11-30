@@ -2,9 +2,13 @@
 #include <iostream> //std::cout
 #include <string> //std::to_string
 #include <vector> //std::static_cast
+#include "Scoreboard.h"
 
 int main()
 {
+	bool gameover{ false }; // Hur ska game-over hanteras? Gjorde detta som en temporär lösning
+	bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
+
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML");
 
 	// Load font
@@ -14,22 +18,21 @@ int main()
 	}
 
 	// Score, top-left corner
-	float score{ 0.0f };
+	Score score;
 	sf::Text scoreText;
 	scoreText.setFont(font);
-	scoreText.setString(std::to_string(static_cast<int>(score))); // Conversion to int to get rid of decimals
 	scoreText.setPosition(15, 5);
-	scoreText.setCharacterSize(50); // Default = 30
+	scoreText.setCharacterSize(50);
+	scoreText.setString("0");
 
 	// Timer, top-right corner
-	float time_remaining{ 600.0f };
-	float timer{}; // Used to count down
+	Timer timer;
 	sf::Text timerText;
 	timerText.setFont(font);
-	timerText.setString(std::to_string(static_cast<int>(time_remaining)));
 	timerText.setPosition(1500, 5);
 	timerText.setCharacterSize(50);
-	sf::Clock clock; // Starts the clock
+
+	Scoreboard scoreboard;
 
 	while (window.isOpen())
 	{
@@ -41,15 +44,22 @@ int main()
 				window.close();
 		}
 
-		// Timer countdown
-		if (time_remaining > 0.0f) {
-			timer = clock.getElapsedTime().asSeconds();
-			time_remaining = time_remaining - timer;
-			timerText.setString(std::to_string(static_cast<int>(time_remaining)));
-			clock.restart();
+		if (!gameover) {
+			// Timer countdown
+			if (timer.get_time_remaining() > 0.0f) {
+				timer.countdown();
+				timerText.setString(std::to_string(static_cast<int>(timer.get_time_remaining())));
+			}
+			else {
+				gameover = true; // När tiden är slut = game-over
+			}
+
 		}
-		else {
-			// Gamer over. End the game, add time_remaining to score, save if top 10
+		else if (first_time) {
+			score.time_to_score(timer);
+			scoreText.setString(std::to_string(static_cast<int>(score.get_score())));
+			scoreboard.write(std::to_string(static_cast<int>(score.get_score())));
+			first_time = false;
 		}
 
 		window.clear(sf::Color::Black);
