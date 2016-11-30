@@ -2,7 +2,7 @@
 #include <iostream> //std::cout
 #include <string> //std::to_string
 #include <vector> //std::static_cast
-/*
+
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML");
@@ -59,4 +59,4 @@ int main()
 	}
 
 	return 0;
-}*/
+}
