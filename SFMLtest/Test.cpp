@@ -33,7 +33,7 @@ int main()
 
 	sf::Texture texture;
 	texture.setRepeated(true);
-	texture.loadFromFile("Background.png");
+	texture.loadFromFile("Images/Background.png");
 	
 
 	sf::Sprite sprite(texture);
@@ -176,7 +176,7 @@ int main()
 		text.setCharacterSize(30);
 		text.setStyle(sf::Text::Bold);
 		text.setPosition(camera_x, 100);
-		text.setColor(sf::Color::Red);
+		//text.setColor(sf::Color::Red);
 
 		if (ball.getPosition().x > 512.0f)
 		{ 

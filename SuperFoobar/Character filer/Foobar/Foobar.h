@@ -14,6 +14,7 @@ public:
 	void increase_size(float, float);
 	void pick_up_coin();
 	void set_invulnarable();
+	void jump();
 
 private:
 	bool invulnerable{ false };
