@@ -1,12 +1,5 @@
 #include "Character.h"
 
-
-
-Character::Character()
-{
-
-}
-
 float Character::get_x_pos() 
 {
 	return x_pos;
@@ -35,6 +28,16 @@ void Character::set_x_pos(float new_pos)
 void Character::set_y_pos(float new_pos)
 {
 	y_pos += new_pos;
+}
+
+void Character::set_width(float new_width)
+{
+	width = new_width;
+}
+
+void Character::set_height(float new_height)
+{
+	height = new_height;
 }
 
 void Character::die()
