@@ -7,7 +7,7 @@
 class Character
 {
 public:
-	virtual ~Character() = default;
+	~Character() = default;
 	Character(float, float, float, float)
 		: position {new Cluster(x_pos, y_pos, height, width) } {}
 	void move_x(float);
