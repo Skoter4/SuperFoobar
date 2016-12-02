@@ -7,7 +7,7 @@
 class Character
 {
 public:
-	virtual ~Character() = default;
+	~Character() = default;
 	Character(float, float, float, float)
 		: position {new Cluster(x_pos, y_pos, height, width) } {}
 	void move_x(float);
@@ -19,7 +19,9 @@ public:
 	void set_width(float);
 	void set_height(float);
 
+	void flip_dead();
 	void die();
+	void flip_invulnerable();
 
 
 protected:
@@ -28,7 +30,9 @@ protected:
 	float width{};
 	float x_pos{};
 	float y_pos{};
-
+	
+	bool dead{ false };
+	bool invulnerable{ false };
 
 	struct Velocity {
 		float x_velocity{};
