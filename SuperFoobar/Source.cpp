@@ -6,9 +6,6 @@
 
 int main()
 {
-	bool gameover{ false }; // Hur ska game-over hanteras? Gjorde detta som en temporär lösning
-	bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
-
 	sf::RenderWindow window(sf::VideoMode(1600, 900), "SFML");
 
 	// Load font
@@ -34,6 +31,9 @@ int main()
 
 	Scoreboard scoreboard;
 
+	bool gameover{ false }; // Hur ska game-over hanteras? Gjorde detta som en temporär lösning
+	bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -45,13 +45,14 @@ int main()
 		}
 
 		if (!gameover) {
+
 			// Timer countdown
 			if (timer.get_time_remaining() > 0.0f) {
 				timer.countdown();
 				timerText.setString(std::to_string(static_cast<int>(timer.get_time_remaining())));
 			}
 			else {
-				gameover = true; // När tiden är slut = game-over
+				gameover = true; // Timer hits 0 => game-over
 			}
 
 		}
