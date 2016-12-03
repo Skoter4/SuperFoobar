@@ -13,11 +13,14 @@ public:
 	void power_up(Power_up);
 	void increase_size(float, float);
 	void pick_up_coin();
-	void set_invulnarable();
 	void jump();
+	void duck();
+	void run();
+	void set_max_speed_x(float);
+
 
 private:
-	bool invulnerable{ false };
+	float max_speed_x{1.0f};
 
 };
 

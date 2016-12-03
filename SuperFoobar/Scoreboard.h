@@ -3,6 +3,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <functional> // std::greater<int>
 
 class Scoreboard
 {
@@ -11,5 +13,4 @@ public:
 	~Scoreboard() = default;
 	std::string read();
 	void write(std::string);
-	//void sort();
 };
