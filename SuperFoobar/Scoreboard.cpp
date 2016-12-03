@@ -2,31 +2,45 @@
 
 using namespace std;
 
+// Reads txt file and returns a sorted string
 string Scoreboard::read()
 {
-	string str{};
-	ifstream input ("Scoreboard.txt");
+	string sorted_str{};
+	string temp_str{};
+	vector<int> score_vector{};
+	ifstream input("Scoreboard.txt");
+
+	// Coverts highscores to a vector
 	while (!input.eof())
 	{
-		getline(input, str);
+		temp_str = "";
+		getline(input, temp_str, ' ');
+		if (temp_str != "") {
+			score_vector.push_back(stoi(temp_str));
+		}
 	}
 	input.close();
-	return str;
+
+	// Sorts vector in descending order
+	std::sort(score_vector.begin(), score_vector.end(), greater<int>()); 
+
+	// Vector to string
+	for (int i{ (int)score_vector.size() }; i > 0; i--) {
+		sorted_str = to_string(score_vector.back()) + " " + sorted_str;
+		score_vector.pop_back();
+	}
+
+	return sorted_str + " ";
 }
 
-void Scoreboard::write(string new_str)
+// Appends new_score to end of txt file
+void Scoreboard::write(string new_score)
 {
-	string current_str = read();
-	ofstream output ("Scoreboard.txt");
-	output << current_str << new_str << " ";
+	// Space to separate highscores
+	string new_score_space{ new_score + " " };
+	ofstream output;
+	
+	output.open("Scoreboard.txt", std::ios_base::app);
+	output << new_score_space;
 	output.close();
 }
-
-/*
-
-void Scoreboard::sort()
-{
-
-}
-
-*/

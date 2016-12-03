@@ -18,7 +18,9 @@ public:
 	void set_x_pos(int);
 	void set_y_pos(int);
 
+	void flip_dead();
 	void die();
+	void flip_invulnerable();
 
 
 protected:
@@ -27,7 +29,9 @@ protected:
 	float width{};
 	float x_pos{};
 	float y_pos{};
-
+	
+	bool dead{ false };
+	bool invulnerable{ false };
 
 	struct Velocity {
 		float x_velocity{};
