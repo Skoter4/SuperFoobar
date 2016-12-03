@@ -12,7 +12,7 @@ public:
 	void flip_deactivated();
 	void flip_generating();
 
-	~Generator();
+	~Generator() = default;
 
 protected:
 
