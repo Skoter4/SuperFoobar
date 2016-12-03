@@ -6,21 +6,23 @@ class Foobar :
 	public Character
 {
 public:
-	Foobar() = default;
+	//Foobar();
 	~Foobar() = default;
-	Foobar(float x_pos, float y_pos, float width, float height)
+	Foobar(int x_pos, int y_pos, int width, int height)
 		: Character(x_pos, y_pos, width, height) {}
+	void poly() override;
 	void power_up(Power_up);
-	void increase_size(float, float);
+	void increase_size(int, int);
 	void pick_up_coin();
 	void jump();
 	void duck();
 	void run();
-	void set_max_speed_x(float);
+	void set_max_speed_x(int);
+	std::shared_ptr<Cluster> get_cluster();
 
 
 private:
-	float max_speed_x{1.0f};
+	int max_speed_x{1};
 
 };
 

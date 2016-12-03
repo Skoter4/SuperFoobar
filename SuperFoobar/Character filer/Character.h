@@ -1,11 +1,15 @@
 #pragma once
-#include "../Collision/Cluster.h"
-
+//#ifndef CLUSTER_H
+//#define CLUSTER_H
+//#include "../Collision/Cluster.h"
+#include "../Block-filer/Block.h"
+#include "../Map_object.h"
 #include <memory>
 #include <utility>
 
-class Character
-{
+//class Cluster;
+
+class Character : public Map_object{
 public:
 	Character();
 	virtual ~Character() = default;
@@ -17,6 +21,8 @@ public:
 	int get_y_pos();
 	void set_x_pos(int);
 	void set_y_pos(int);
+	void set_height(int);
+	void set_width(int);
 
 	void flip_dead();
 	void die();
@@ -24,24 +30,24 @@ public:
 
 
 protected:
-	std::unique_ptr<Cluster> position{};
-	float height{};
-	float width{};
-	float x_pos{};
-	float y_pos{};
+	std::shared_ptr<Cluster> position{};
+	int height{};
+	int width{};
+	int x_pos{};
+	int y_pos{};
 	
 	bool dead{ false };
 	bool invulnerable{ false };
 
 	struct Velocity {
-		float x_velocity{};
-		float y_velocity{};
+		int x_velocity{};
+		int y_velocity{};
 	};
 
 	Velocity velocity{};
 
 };
-
+//#endif
 
 
 

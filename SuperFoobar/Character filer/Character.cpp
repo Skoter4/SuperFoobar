@@ -1,4 +1,5 @@
 #include "Character.h"
+//#include "../Collision/Cluster.h"
 
 
 
@@ -37,14 +38,14 @@ void Character::set_y_pos(int new_pos)
 	y_pos += new_pos;
 }
 
-<<<<<<< HEAD
-=======
-void Character::set_width(float new_width)
+//<<<<<<< HEAD
+//=======
+void Character::set_width(int new_width)
 {
 	width = new_width;
 }
 
-void Character::set_height(float new_height)
+void Character::set_height(int new_height)
 {
 	height = new_height;
 }
@@ -54,12 +55,12 @@ void Character::flip_dead()
 	dead = !dead;
 }
 
->>>>>>> refs/remotes/origin/master
+//>>>>>>> refs/remotes/origin/master
 void Character::die()
 {
 	if (invulnerable = false)
 	{
-		this->flip_dead;
+		this->flip_dead();
 	}
 }
 

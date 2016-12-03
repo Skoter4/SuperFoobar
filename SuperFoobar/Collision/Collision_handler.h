@@ -14,5 +14,5 @@ public:
 	void remove_cluster(std::shared_ptr<Cluster> to_remove);
 
 private:
-	Collision_matrix matrix;
+	Collision_matrix matrix{};
 };
