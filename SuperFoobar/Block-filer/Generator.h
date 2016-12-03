@@ -1,9 +1,13 @@
+#pragma once
 #include "../Block-filer/Block.h"
-#include "../Interactable-filer/Interactable.h"
+
+class Interactable;
+
 class Generator
-	: protected Block
+	: public Block
 {
 public:
+	Generator(float, float, float, float, std::unique_ptr<Interactable>);
 	void interact();
 
 	auto generate();
@@ -16,7 +20,7 @@ public:
 
 protected:
 
-	Generator(float, float, float, float, std::unique_ptr<Interactable>);
+	
 
 private:
 

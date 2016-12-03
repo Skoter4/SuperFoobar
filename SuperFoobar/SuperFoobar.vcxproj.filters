@@ -73,10 +73,10 @@
     <ClCompile Include="Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Make_Track.cpp">
+    <ClCompile Include="Block-filer\Non_breakable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Block-filer\Non_breakable.cpp">
+    <ClCompile Include="Make_track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

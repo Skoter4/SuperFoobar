@@ -1,6 +1,6 @@
 #include "../Block-filer/Block.h"
 class Non_breakable
-	: protected Block
+	: public Block
 {
 public:
 

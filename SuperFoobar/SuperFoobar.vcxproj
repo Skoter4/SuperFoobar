@@ -174,7 +174,7 @@
     <ClCompile Include="Interactable-filer\Finish_line.cpp" />
     <ClCompile Include="Interactable-filer\Interactable.cpp" />
     <ClCompile Include="Interactable-filer\Power_up.cpp" />
-    <ClCompile Include="Make_Track.cpp" />
+    <ClCompile Include="Make_track.cpp" />
     <ClCompile Include="Position-filer\Position.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Scoreboard.cpp" />

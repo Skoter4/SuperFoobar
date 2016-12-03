@@ -49,7 +49,7 @@ void Character::die()
 {
 	if (invulnerable = false)
 	{
-		this->flip_dead;
+		this->flip_dead();
 	}
 }
 
