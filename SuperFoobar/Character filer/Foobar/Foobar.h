@@ -19,7 +19,7 @@ public:
 	void set_max_speed_x(float);
 
 private:
-	float max_speed_x{1.0f};
+	float max_speed_x{1.0};
 };
 
 

@@ -8,8 +8,8 @@ void Foobar::power_up(Power_up immortal)
 
 void Foobar::power_up(Power_up huuuge)
 {
-	this->set_lifes(2.0f);
-	this->increase_size(10.0f, 10.0f);
+	this->set_lifes(2);
+	this->increase_size(10, 10);
 }
 
 void Foobar::increase_size(float new_width, float new_height)
@@ -30,7 +30,7 @@ void Foobar::jump()
 
 void Foobar::duck()
 {
-	this->set_height(0.5f * this->height);
+	this->set_height(0.5 * this->height);
 }
 
 void Foobar::set_max_speed_x(float new_max_speed_x)
@@ -40,5 +40,5 @@ void Foobar::set_max_speed_x(float new_max_speed_x)
 
 void Foobar::run()
 {
-	this->set_max_speed_x(2.0f * this->max_speed_x);
+	this->set_max_speed_x(2 * this->max_speed_x);
 }
