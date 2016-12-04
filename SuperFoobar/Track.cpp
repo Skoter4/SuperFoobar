@@ -2,41 +2,39 @@
 
 using namespace std;
 
-Track::Track(initializer_list<shared_ptr<Block>> blocks,
-	initializer_list<shared_ptr<Character>> characters,
-	initializer_list<shared_ptr<Interactable>> interactables,
-	float width, float height, float floor)
-	:block_list{ move(blocks) }, character_list{ move(characters) },
-	interactable_list{ move(interactables) }, height{ height },
+Track::Track(list<shared_ptr<Block>> blocks, list<shared_ptr<Character>> characters, list<shared_ptr<Interactable>> interactables,
+	int width, int height, int floor)
+	:block_list{ blocks }, character_list{ characters },
+	interactable_list{ interactables }, height{ height },
 	width{ width }, floor{ floor }
 {}
 
-float Track::get_floor()
+int Track::get_floor()
 {
 	return this->floor;
 }
 
-float Track::get_height()
+int Track::get_height()
 {
 	return this->height;
 }
 
-float Track::get_width()
+int Track::get_width()
 {
 	return this->width;
 }
 
-void Track::set_floor(float new_floor)
+void Track::set_floor(int new_floor)
 {
 	this->floor = new_floor;
 }
 
-void Track::set_height(float new_height)
+void Track::set_height(int new_height)
 {
 	this->height = new_height;
 }
 
-void Track::set_width(float new_width)
+void Track::set_width(int new_width)
 {
 	this->width = new_width;
 }

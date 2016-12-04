@@ -1,9 +1,9 @@
 #pragma once
 #include "Interactable.h"
 
-class Finish_line : protected Interactable
+class Finish_line : public Interactable
 {
 public:
-	Finish_line(float, float, float, float);
+	Finish_line(int, int, int, int);
 	~Finish_line() = default;
 };

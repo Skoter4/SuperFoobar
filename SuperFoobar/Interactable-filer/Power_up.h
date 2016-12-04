@@ -5,6 +5,6 @@
 class Power_up : public Interactable
 {
 public:
-	Power_up(float, float, float, float);
+	Power_up(int, int, int, int);
 	~Power_up() = default;
 };
