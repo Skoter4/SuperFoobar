@@ -3,10 +3,10 @@
 
 
 
-Character::Character()
-{
+Character::Character(int x_pos, int y_pos,int height, int width) 
+	: Map_object(x_pos, y_pos, height, width)
+{}
 
-}
 
 int Character::get_x_pos() 
 {
@@ -43,6 +43,11 @@ void Character::set_y_pos(int new_pos)
 void Character::set_width(int new_width)
 {
 	width = new_width;
+}
+
+std::shared_ptr<Cluster> Character::get_cluster()
+{
+	return cluster;
 }
 
 void Character::set_height(int new_height)

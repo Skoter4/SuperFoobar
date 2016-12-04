@@ -2,9 +2,8 @@
 #include "Block.h"
 
 using namespace std;
-
 Block::Block(int x, int y, int length, int width)
-	:cluster{ new Cluster(x, y, length, width) }
+	:Map_object(x, y, length, width) 
 {}
 
 int Block::get_x_pos()
@@ -35,6 +34,7 @@ void Block::flip_dead()
 {
 	this->dead = !(this->dead);
 }
+
 
 shared_ptr<Cluster> Block::get_cluster() {
 	return cluster;

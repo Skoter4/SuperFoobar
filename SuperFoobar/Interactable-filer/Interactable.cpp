@@ -5,7 +5,7 @@
 using namespace std;
 
 Interactable::Interactable(int x_pos, int y_pos, int height, int width)
-	: position{ new Cluster(x_pos, y_pos, height, width) }
+	: Map_object(x_pos, y_pos, height, width)
 {}
 
 bool Interactable::is_dead()

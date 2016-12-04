@@ -38,6 +38,8 @@ public:
 
 	void set_remove(bool);
 
+	void print_x_y();
+
 private:
 
 	int x;

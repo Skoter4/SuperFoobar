@@ -13,8 +13,6 @@ class Character : public Map_object{
 public:
 	Character();
 	virtual ~Character() = default;
-	Character(int, int, int, int)
-		: position {new Cluster(x_pos, y_pos, height, width) } {}
 	void move_x(int);
 	void move_y(int);
 	int get_x_pos();
@@ -23,6 +21,7 @@ public:
 	void set_y_pos(int);
 	void set_height(int);
 	void set_width(int);
+	std::shared_ptr<Cluster> get_cluster() override;
 
 	void flip_dead();
 	void die();
@@ -30,7 +29,7 @@ public:
 
 
 protected:
-	std::shared_ptr<Cluster> position{};
+	Character(int, int, int, int);
 	int height{};
 	int width{};
 	int x_pos{};

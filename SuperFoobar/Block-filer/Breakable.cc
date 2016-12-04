@@ -15,6 +15,7 @@ void Breakable::destruct()
 }
 
 bool Breakable::interact_type(shared_ptr<Map_object> my_char) {
+	cout << "In here" << endl;
 	auto foobar = dynamic_cast<Foobar*>(my_char.get());
 	if (foobar != nullptr) {
 		cout << "Break" << endl;

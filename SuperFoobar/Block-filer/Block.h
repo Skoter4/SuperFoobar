@@ -24,12 +24,10 @@ public:
 	void set_y_pos(int);
 	int area();
 	void flip_dead();
-	std::shared_ptr<Cluster> get_cluster();
+	std::shared_ptr<Cluster> get_cluster() override;
 
 protected:
-
 	Block(int, int, int, int); // Block-position and area is defined in its contructor.
-	std::shared_ptr<Cluster> cluster;
 	std::string block_color{};
 	bool block_outline{};
 	bool dead{ false };

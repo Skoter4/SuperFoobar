@@ -43,7 +43,3 @@ void Foobar::run()
 {
 	this->set_max_speed_x(2 * this->max_speed_x);
 }
-
-shared_ptr<Cluster> Foobar::get_cluster() {
-	return position;
-}

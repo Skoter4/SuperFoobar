@@ -1,6 +1,7 @@
 //#include "../Block-filer/Block.h"
 #include "Cluster.h"
 #include <iostream>
+using namespace std;
 
 Cluster::Cluster(int x_s, int y_s, int height_s, int width_s) {
 	x = x_s;
@@ -79,4 +80,8 @@ void Cluster::set_y(int new_y)
 
 void Cluster::set_remove(bool status) {
 	to_remove = status;
+}
+
+void Cluster::print_x_y() {
+	cout << x << " and " << y << endl;
 }
