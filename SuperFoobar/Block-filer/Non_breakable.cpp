@@ -1,5 +1,5 @@
 #include "Non_breakable.h"
 
-Non_breakable::Non_breakable(float x, float y, float height, float width)
+Non_breakable::Non_breakable(int x, int y, int height, int width)
 	:Block(x, y, height, width)
 {}

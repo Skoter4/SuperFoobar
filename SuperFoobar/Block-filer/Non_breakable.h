@@ -4,7 +4,7 @@ class Non_breakable
 {
 public:
 
-	Non_breakable(float, float, float, float);
+	Non_breakable(int, int, int, int);
 
 	void interact();
 

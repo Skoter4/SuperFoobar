@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Interactable::Interactable(float x_pos, float y_pos, float height, float width)
+Interactable::Interactable(int x_pos, int y_pos, int height, int width)
 	: position{ new Cluster(x_pos, y_pos, height, width) }
 {}
 
@@ -16,12 +16,12 @@ void Interactable::interact()
 	dead = true;
 }
 
-float Interactable::get_width()
+int Interactable::get_width()
 {
 	return width;
 }
 
-float Interactable::get_length()
+int Interactable::get_length()
 {
 	return length;
 }

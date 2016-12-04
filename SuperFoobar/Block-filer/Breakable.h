@@ -7,6 +7,6 @@ class Breakable :public Block
   void interact();
 
   void destruct();
-  ~Breakable();
+  ~Breakable() = default;
 };
 
