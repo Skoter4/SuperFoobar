@@ -1,13 +1,24 @@
 #include "Foobar.h"
+#include <memory>
 
+using namespace std;
+
+void Foobar::poly()
+{
+}
 
 void Foobar::power_up(Power_up immortal)
 {
 	this->flip_invulnerable();
 }
 
+void Foobar::power_up(Power_up huuuge)
+{
+	this->set_lifes(2);
+	this->increase_size(10, 10);
+}
 
-void Foobar::increase_size(float new_width, float new_height)
+void Foobar::increase_size(int new_width, int new_height)
 {
 	this->set_width(new_width);
 	this->set_height(new_height);
@@ -25,15 +36,15 @@ void Foobar::jump()
 
 void Foobar::duck()
 {
-	this->set_height(0.5f * this->height);
+	this->set_height( (this->height) / 2);
 }
 
-void Foobar::set_max_speed_x(float new_max_speed_x)
+void Foobar::set_max_speed_x(int new_max_speed_x)
 {
 	this->max_speed_x = new_max_speed_x;
 }
 
 void Foobar::run()
 {
-	this->set_max_speed_x(2.0f * this->max_speed_x);
+	this->set_max_speed_x(2 * this->max_speed_x);
 }

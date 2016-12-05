@@ -2,6 +2,6 @@
 
 using namespace std;
 
-Finish_line::Finish_line(float x_pos, float y_pos, float height, float width)
+Finish_line::Finish_line(int x_pos, int y_pos, int height, int width)
 	: Interactable(x_pos, y_pos, height, width)
 {}
