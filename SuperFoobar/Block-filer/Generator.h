@@ -17,10 +17,6 @@ public:
 
 	~Generator() = default;
 
-protected:
-
-	
-
 private:
 
 	bool deactivated{ false };

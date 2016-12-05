@@ -1,16 +1,24 @@
 #include "Character.h"
+//#include "../Collision/Cluster.h"
 
-int Character::get_x_pos()
+
+Character::Character(int x_pos, int y_pos,int height, int width) 
+	: Map_object(x_pos, y_pos, height, width)
+{}
+
+
+int Character::get_x_pos() 
 {
 	return x_pos;
 }
 
-int Character::get_y_pos()
+int Character::get_y_pos() 
 {
 	return y_pos;
 }
 
-void Character::move_x(int x_speed)
+void Character::move_x(int x_speed) 
+
 {
 	set_x_pos(x_speed);
 }
@@ -33,6 +41,11 @@ void Character::set_y_pos(int new_pos)
 void Character::set_width(int new_width)
 {
 	width = new_width;
+}
+
+std::shared_ptr<Cluster> Character::get_cluster()
+{
+	return cluster;
 }
 
 void Character::set_height(int new_height)

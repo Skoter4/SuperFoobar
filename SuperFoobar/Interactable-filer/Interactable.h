@@ -1,8 +1,14 @@
 #pragma once
+//#ifndef CLUSTER_H
+//#define CLUSTER_H
 #include <memory>
-#include "../Collision/Cluster.h"
+//#include "../Collision/Cluster.h"
+#include "../Block-filer/Block.h"
+#include "../Map_object.h"
 
-class Interactable
+//class Cluster;
+
+class Interactable : public Map_object
 {
 public:
 	bool is_dead(); // Returns the bool dead
@@ -18,4 +24,4 @@ protected:
 	int length{};
 	bool dead{ false };
 };
-
+//#endif

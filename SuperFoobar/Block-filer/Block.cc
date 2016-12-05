@@ -1,10 +1,10 @@
+//#include "../Collision/Cluster.h"
 #include "Block.h"
-
 
 using namespace std;
 
-Block::Block(int x, int y, int height, int width)
-	:cluster{ new Cluster(x, y, height, width) }
+Block::Block(int x, int y, int length, int width)
+	:Map_object(x, y, length, width) 
 {}
 
 int Block::get_x_pos()
@@ -34,4 +34,9 @@ int Block::area()
 void Block::flip_dead()
 {
 	this->dead = !(this->dead);
+}
+
+
+shared_ptr<Cluster> Block::get_cluster() {
+	return cluster;
 }
