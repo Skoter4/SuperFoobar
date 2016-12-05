@@ -176,6 +176,7 @@
     <ClCompile Include="Interactable-filer\Power_up.cpp" />
     <ClCompile Include="Make_track.cpp" />
     <ClCompile Include="Position-filer\Position.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Scoreboard.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="Interactable-filer\Interactable.h" />
     <ClInclude Include="Interactable-filer\Power_up.h" />
     <ClInclude Include="Position-filer\Position.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Scoreboard.h" />
     <ClInclude Include="Timer.h" />

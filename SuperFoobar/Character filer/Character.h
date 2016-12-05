@@ -23,8 +23,8 @@ public:
 	void die();
 	void flip_invulnerable();
 	void flip_active();
-	void set_lifes(float);
-	float get_lifes();
+	void set_lifes(int);
+	int get_lifes();
 
 protected:
 	std::unique_ptr<Cluster> position{};

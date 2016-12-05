@@ -53,7 +53,7 @@ void Character::die()
 	}
 	else
 	{
-		this->set_lifes(1.0f);
+		this->set_lifes(1);
 	}
 }
 
