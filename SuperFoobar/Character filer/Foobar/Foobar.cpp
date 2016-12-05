@@ -7,11 +7,6 @@ void Foobar::poly()
 {
 }
 
-void Foobar::power_up(Power_up immortal)
-{
-	this->flip_invulnerable();
-}
-
 void Foobar::power_up(Power_up huuuge)
 {
 	this->set_lifes(2);
