@@ -31,7 +31,7 @@ void Foobar::jump()
 
 void Foobar::duck()
 {
-	this->set_height( (this->height) / 2);
+	this->set_height( (get_height()) / 2);
 }
 
 void Foobar::set_max_speed_x(int new_max_speed_x)
