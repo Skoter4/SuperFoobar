@@ -27,7 +27,16 @@ auto Generator::generate()
 	return move(this->reward);
 }
 
+bool Generator::interact_type(std::shared_ptr<Map_object> my_char)
+{
+	return false;
+}
+
 void Generator::interact()
 {
 	this->generate();
+}
+
+void Generator::poly()
+{
 }

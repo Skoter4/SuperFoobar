@@ -4,6 +4,7 @@
 class Coin : public Interactable
 {
 public:
+	void poly() override;
 	Coin(int, int, int, int);
 	~Coin() = default;
 };

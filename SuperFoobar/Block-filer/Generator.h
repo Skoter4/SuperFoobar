@@ -8,10 +8,10 @@ class Generator
 {
 public:
 	Generator(int, int, int, int, std::shared_ptr<Interactable>);
-	void interact();
-
+	void interact() override;
+	void poly() override;
 	auto generate();
-
+	bool interact_type(std::shared_ptr<Map_object> my_char) override;
 	void flip_deactivated();
 	void flip_generating();
 

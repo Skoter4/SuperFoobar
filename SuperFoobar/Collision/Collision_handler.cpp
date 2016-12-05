@@ -49,7 +49,7 @@ void Collision_handler::remove_cluster(shared_ptr<Map_object> to_remove){
   }
 }
 
-int main(){
+/*int main(){
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Map_object> break_ptr;
@@ -65,4 +65,4 @@ int main(){
   //break_ptr->interact_type(kek);
   //break_ptr->interact_type(my_ptr);
   return 0;
-};
+};*/

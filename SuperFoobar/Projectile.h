@@ -5,7 +5,7 @@ class Projectile :
 {
 public:
 	Projectile(int, int, int, int);
-
+	void poly() override;
 	~Projectile();
 
 };

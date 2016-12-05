@@ -11,8 +11,6 @@
 
 class Block :public Map_object{
 public:
-
-	Block(int, int, int, int); // Block-position and area is defined in its contructor.
 	~Block() = default;
 	Block() = default;
 
