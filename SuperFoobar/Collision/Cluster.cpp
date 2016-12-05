@@ -78,6 +78,16 @@ void Cluster::set_y(int new_y)
 	y = new_y;
 }
 
+void Cluster::set_width(int width_set)
+{
+	width = width_set;
+}
+
+void Cluster::set_height(int height_set)
+{
+	height = height_set;
+}
+
 void Cluster::set_remove(bool status) {
 	to_remove = status;
 }
