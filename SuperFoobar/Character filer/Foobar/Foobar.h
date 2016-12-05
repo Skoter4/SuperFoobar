@@ -10,9 +10,7 @@ public:
 	//Foobar();
 	~Foobar() = default;
 	Foobar(int x_pos, int y_pos, int width, int height)
-		: Character(x_pos, y_pos, width, height) {
-		std::cout << "Im a foobar" << std::endl;
-	}
+		: Character(x_pos, y_pos, width, height) {}
 	void poly() override;
 	void power_up(Power_up);
 	void increase_size(int, int);
@@ -22,10 +20,8 @@ public:
 	void run();
 	void set_max_speed_x(int);
 
-
 private:
 	int max_speed_x{1};
-
 };
 
 

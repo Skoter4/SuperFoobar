@@ -11,29 +11,29 @@ class Track
 {
 public:
 
-	Track(std::initializer_list<std::shared_ptr<Block>>,
-		std::initializer_list<std::shared_ptr<Character>>,
-		std::initializer_list<std::shared_ptr<Interactable>>,
-		float, float, float);
+	Track(std::list<std::shared_ptr<Block>>,
+		std::list<std::shared_ptr<Character>>,
+		std::list<std::shared_ptr<Interactable>>,
+		int, int, int);
 
-	float get_width();
-	float get_height();
-	float get_floor();
+	int get_width();
+	int get_height();
+	int get_floor();
 	std::list<std::shared_ptr<Block>> get_block_list();
 	std::list<std::shared_ptr<Character>> get_character_list();
 	std::list<std::shared_ptr<Interactable>> get_interactable_list();
 
-	void set_width(float);
-	void set_height(float);
-	void set_floor(float);
+	void set_width(int);
+	void set_height(int);
+	void set_floor(int);
 
 	~Track() = default;
 
 private:
 
-	float floor;
-	float width;
-	float height;
+	int floor;
+	int width;
+	int height;
 
 	//Score score;
 	//Timer timer;

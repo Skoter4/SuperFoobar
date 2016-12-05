@@ -11,7 +11,6 @@
 
 class Block :public Map_object{
 public:
-
 	~Block() = default;
 	Block() = default;
 

@@ -12,7 +12,7 @@
 class Character : public Map_object{
 public:
 	Character();
-	virtual ~Character() = default;
+	~Character() = default;
 	void move_x(int);
 	void move_y(int);
 	int get_x_pos();
@@ -26,7 +26,9 @@ public:
 	void flip_dead();
 	void die();
 	void flip_invulnerable();
-
+	void flip_active();
+	void set_lifes(int);
+	int get_lifes();
 
 protected:
 	Character(int, int, int, int);
@@ -34,9 +36,13 @@ protected:
 	int width{};
 	int x_pos{};
 	int y_pos{};
+
+	int lifes{ 1 };
 	
 	bool dead{ false };
 	bool invulnerable{ false };
+	bool active{ true };
+	
 
 	struct Velocity {
 		int x_velocity{};

@@ -2,7 +2,6 @@
 //#include "../Collision/Cluster.h"
 
 
-
 Character::Character(int x_pos, int y_pos,int height, int width) 
 	: Map_object(x_pos, y_pos, height, width)
 {}
@@ -19,6 +18,7 @@ int Character::get_y_pos()
 }
 
 void Character::move_x(int x_speed) 
+
 {
 	set_x_pos(x_speed);
 }
@@ -38,8 +38,6 @@ void Character::set_y_pos(int new_pos)
 	y_pos += new_pos;
 }
 
-//<<<<<<< HEAD
-//=======
 void Character::set_width(int new_width)
 {
 	width = new_width;
@@ -60,16 +58,34 @@ void Character::flip_dead()
 	dead = !dead;
 }
 
-//>>>>>>> refs/remotes/origin/master
 void Character::die()
 {
-	if (invulnerable = false)
+	if (invulnerable = false && this->get_lifes() == 1)
 	{
 		this->flip_dead();
+	}
+	else
+	{
+		this->set_lifes(1);
 	}
 }
 
 void Character::flip_invulnerable()
 {
 	invulnerable = !invulnerable;
+}
+
+void Character::flip_active()
+{
+	active = !active;
+}
+
+void Character::set_lifes(int new_amount_lifes)
+{
+	this->lifes = new_amount_lifes;
+}
+
+int Character::get_lifes()
+{
+	return this->lifes;
 }

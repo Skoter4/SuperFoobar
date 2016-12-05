@@ -7,11 +7,11 @@ void Foobar::poly()
 {
 }
 
-void Foobar::power_up(Power_up immortal)
+void Foobar::power_up(Power_up huuuge)
 {
-	this->flip_invulnerable();
+	this->set_lifes(2);
+	this->increase_size(10, 10);
 }
-
 
 void Foobar::increase_size(int new_width, int new_height)
 {
@@ -31,7 +31,7 @@ void Foobar::jump()
 
 void Foobar::duck()
 {
-	this->set_height(this->height / 2);
+	this->set_height( (this->height) / 2);
 }
 
 void Foobar::set_max_speed_x(int new_max_speed_x)
