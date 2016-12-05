@@ -10,14 +10,13 @@ Character::Character(int x_pos, int y_pos,int height, int width)
 void Character::move_x(int x_speed) 
 
 {
-	set_x_pos(x_speed);
+	set_desx_pos(x_speed + cluster->get_x());
 }
 
 void Character::move_y(int y_speed)
 {
-	set_y_pos(y_speed);
+	set_desy_pos(y_speed + cluster->get_x());
 }
-
 
 void Character::flip_dead()
 {

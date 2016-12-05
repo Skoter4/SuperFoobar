@@ -20,8 +20,10 @@ public:
 
 	int get_x_pos();
 	int get_y_pos();
-	void set_x_pos(int);
-	void set_y_pos(int);
+	void set_x(int);
+	void set_y(int);
+	void set_desx_pos(int);
+	void set_desy_pos(int);
 	//int area();
 	//void flip_dead();
 

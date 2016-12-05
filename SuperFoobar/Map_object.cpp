@@ -31,15 +31,26 @@ int Map_object::get_y_pos()
 	return cluster->get_x();
 }
 
-void Map_object::set_x_pos(int x)
+void Map_object::set_x(int x)
+{
+	cluster->set_x(x);
+}
+
+void Map_object::set_y(int y)
+{
+	cluster->set_y(y);
+}
+
+void Map_object::set_desx_pos(int x)
 {
 	cluster->set_des_x(x);
 }
 
-void Map_object::set_y_pos(int y)
+void Map_object::set_desy_pos(int y)
 {
 	cluster->set_des_y(y);
 }
+
 
 Map_object::Map_object(int x, int y, int length, int width)
 	:cluster{ new Cluster(x, y, length, width) }
