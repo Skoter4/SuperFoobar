@@ -22,7 +22,9 @@ public:
 	void flip_dead();
 	void die();
 	void flip_invulnerable();
-
+	void flip_active();
+	void set_lifes(float);
+	float get_lifes();
 
 protected:
 	std::unique_ptr<Cluster> position{};
@@ -30,9 +32,12 @@ protected:
 	int width{};
 	int x_pos{};
 	int y_pos{};
+	int lifes{ 1 };
 	
 	bool dead{ false };
 	bool invulnerable{ false };
+	bool active{ true };
+	
 
 	struct Velocity {
 		int x_velocity{};

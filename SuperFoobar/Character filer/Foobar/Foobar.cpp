@@ -6,6 +6,11 @@ void Foobar::power_up(Power_up immortal)
 	this->flip_invulnerable();
 }
 
+void Foobar::power_up(Power_up huuuge)
+{
+	this->set_lifes(2);
+	this->increase_size(10, 10);
+}
 
 void Foobar::increase_size(int new_width, int new_height)
 {

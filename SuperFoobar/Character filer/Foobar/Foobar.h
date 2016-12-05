@@ -18,10 +18,8 @@ public:
 	void run();
 	void set_max_speed_x(int);
 
-
 private:
 	int max_speed_x{1};
-
 };
 
 

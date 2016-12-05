@@ -47,13 +47,32 @@ void Character::flip_dead()
 
 void Character::die()
 {
-	if (invulnerable = false)
+	if (invulnerable = false && this->get_lifes() == 1.0f)
 	{
 		this->flip_dead();
+	}
+	else
+	{
+		this->set_lifes(1.0f);
 	}
 }
 
 void Character::flip_invulnerable()
 {
 	invulnerable = !invulnerable;
+}
+
+void Character::flip_active()
+{
+	active = !active;
+}
+
+void Character::set_lifes(float new_amount_lifes)
+{
+	this->lifes = new_amount_lifes;
+}
+
+float Character::get_lifes()
+{
+	return this->lifes;
 }
