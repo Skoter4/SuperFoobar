@@ -4,7 +4,7 @@ class Enemy_3 :
 	public Character
 {
 public:
-	Enemy_3(float x, float y, float width, float height)
+	Enemy_3(int x, int y, int width, int height)
 		: Character(x, y, width, height) {}
 	~Enemy_3();
 };

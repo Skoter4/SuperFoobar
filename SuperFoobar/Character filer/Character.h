@@ -1,38 +1,43 @@
 #pragma once
-#include "../Collision/Cluster.h"
-
+//#ifndef CLUSTER_H
+//#define CLUSTER_H
+//#include "../Collision/Cluster.h"
+#include "../Block-filer/Block.h"
+#include "../Map_object.h"
 #include <memory>
 #include <utility>
 
-class Character
-{
+//class Cluster;
+
+class Character : public Map_object{
 public:
+	Character();
 	~Character() = default;
-	Character(float, float, float, float)
-		: position {new Cluster(x_pos, y_pos, height, width) } {}
-	void move_x(float);
-	void move_y(float);
-	float get_x_pos();
-	float get_y_pos();
-	void set_x_pos(float);
-	void set_y_pos(float);
-	void set_width(float);
-	void set_height(float);
+	void move_x(int);
+	void move_y(int);
+	int get_x_pos();
+	int get_y_pos();
+	void set_x_pos(int);
+	void set_y_pos(int);
+	void set_height(int);
+	void set_width(int);
+	std::shared_ptr<Cluster> get_cluster() override;
 
 	void flip_dead();
 	void die();
 	void flip_invulnerable();
 	void flip_active();
-	void set_lifes(float);
-	float get_lifes();
+	void set_lifes(int);
+	int get_lifes();
 
 protected:
-	std::unique_ptr<Cluster> position{};
-	float height{};
-	float width{};
-	float x_pos{};
-	float y_pos{};
-	float lifes{ 1.0f };
+	Character(int, int, int, int);
+	int height{};
+	int width{};
+	int x_pos{};
+	int y_pos{};
+
+	int lifes{ 1 };
 	
 	bool dead{ false };
 	bool invulnerable{ false };
@@ -40,14 +45,14 @@ protected:
 	
 
 	struct Velocity {
-		float x_velocity{};
-		float y_velocity{};
+		int x_velocity{};
+		int y_velocity{};
 	};
 
 	Velocity velocity{};
 
 };
-
+//#endif
 
 
 

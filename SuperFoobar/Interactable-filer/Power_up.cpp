@@ -2,6 +2,10 @@
 
 using namespace std;
 
-Power_up::Power_up(float x_pos, float y_pos, float height, float width)
+void Power_up::poly()
+{
+}
+
+Power_up::Power_up(int x_pos, int y_pos, int height, int width)
 	: Interactable(x_pos, y_pos, height, width)
 {}

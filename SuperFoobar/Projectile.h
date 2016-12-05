@@ -4,8 +4,8 @@ class Projectile :
 	protected Enemy_1
 {
 public:
-	Projectile(float, float, float, float);
-
+	Projectile(int, int, int, int);
+	void poly() override;
 	~Projectile();
 
 };

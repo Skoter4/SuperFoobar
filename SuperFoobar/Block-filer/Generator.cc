@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Generator::Generator(float x, float y, float height, float width,
-		    std::unique_ptr<Interactable> interactable)
+Generator::Generator(int x, int y, int height, int width,
+		    std::shared_ptr<Interactable> interactable)
   :Block(x, y, height, width), reward(std::move(interactable))
 {}
 
@@ -27,7 +27,16 @@ auto Generator::generate()
 	return move(this->reward);
 }
 
+bool Generator::interact_type(std::shared_ptr<Map_object> my_char)
+{
+	return false;
+}
+
 void Generator::interact()
 {
 	this->generate();
+}
+
+void Generator::poly()
+{
 }
