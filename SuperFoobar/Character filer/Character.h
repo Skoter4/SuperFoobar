@@ -11,7 +11,7 @@
 
 class Character : public Map_object{
 public:
-	Character();
+	Character() = default;
 	~Character() = default;
 	void move_x(int);
 	void move_y(int);
