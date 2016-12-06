@@ -41,6 +41,16 @@ void Map_object::set_y(int y)
 	cluster->set_y(y);
 }
 
+int Map_object::get_desx_pos()
+{
+	return cluster->get_des_x();
+}
+
+int Map_object::get_desy_pos()
+{
+	return cluster->get_des_y();
+}
+
 void Map_object::set_desx_pos(int x)
 {
 	cluster->set_des_x(x);

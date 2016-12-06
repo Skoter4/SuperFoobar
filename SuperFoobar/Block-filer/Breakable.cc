@@ -19,7 +19,7 @@ std::string Breakable::type_str()
 	return "breakable";
 }
 
-bool Breakable::interact_type(shared_ptr<Map_object> my_char) {
+bool Breakable::interact_with(shared_ptr<Map_object> my_char) {
 	cout << "In here" << endl;
 	if (my_char->type_str() == "foobar") {
 		cout << "Break" << endl;
@@ -27,16 +27,13 @@ bool Breakable::interact_type(shared_ptr<Map_object> my_char) {
 			interact();
 			get_cluster()->set_remove(true);
 			cout << "Removed" << endl;
-			return true;
-	}
-	else {
-		return false;
-	}
+		}
+	return false;
 }
 
 bool Breakable::to_break(shared_ptr<Cluster> other_cluster) {
 	int block_y = get_y_pos();
-	int other_y = other_cluster->get_x();
+	int other_y = other_cluster->get_y();
 	if (other_y < block_y) {
 		return true;
 	}
