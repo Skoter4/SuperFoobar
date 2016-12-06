@@ -14,12 +14,16 @@ void Breakable::destruct()
   this->flip_dead();
 }
 
+std::string Breakable::type_str()
+{
+	return "breakable";
+}
+
 bool Breakable::interact_type(shared_ptr<Map_object> my_char) {
 	cout << "In here" << endl;
-	auto foobar = dynamic_cast<Foobar*>(my_char.get());
-	if (foobar != nullptr) {
+	if (my_char->type_str() == "foobar") {
 		cout << "Break" << endl;
-		if (to_break(foobar->get_cluster()))
+		if (to_break(my_char->get_cluster()))
 			interact();
 			get_cluster()->set_remove(true);
 			cout << "Removed" << endl;

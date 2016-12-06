@@ -11,8 +11,9 @@ public:
 
 	std::shared_ptr<Cluster> get_cluster();
 
-	//virtual void interact() = 0;
-	//virtual bool interact_type(std::shared_ptr<Map_object>) = 0;
+	virtual std::string type_str() = 0;
+	virtual void interact() = 0;
+	virtual bool interact_type(std::shared_ptr<Map_object>) = 0;
 	int get_height();
 	int get_width();
 	void set_height(int);

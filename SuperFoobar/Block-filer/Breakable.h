@@ -4,8 +4,6 @@ class Breakable :public Block
 {
  public:
   Breakable(int, int, int, int);
-  
-  void interact();
 
   void poly() override;
 
@@ -13,7 +11,11 @@ class Breakable :public Block
 
   bool interact_type(std::shared_ptr<Map_object> my_char) override;
 
+  void interact() override;
+
   void destruct();
+
+  std::string type_str() override;
 
   ~Breakable() = default;
 };
