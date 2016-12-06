@@ -26,18 +26,10 @@ shared_ptr<Map_object> Collision_handler::move_event(shared_ptr<Map_object> & mo
 }
 
 void Collision_handler::fill_cluster(shared_ptr <Map_object> & to_fill) {
-	auto foobar = dynamic_cast<Foobar*>(to_fill.get());
-	if (foobar == nullptr) {
-		cout << "Casted in handlr lmao" << endl;
-	}
   for (int i = to_fill->get_cluster()->begin_x(); i < to_fill->get_cluster()->end_x(); i++){
     for (int j = to_fill->get_cluster()->begin_y(); j < to_fill->get_cluster()->end_y(); j++){
-	  auto foobar = dynamic_cast<Foobar*>(to_fill.get());
-	  if (foobar == nullptr){
-		  cout << "Casted in handlr" << endl;
-	  }
-      matrix.true_element(i,j, to_fill);
-    }
+		matrix.true_element(i, j, to_fill);
+	  }    
   }
 }
 
@@ -49,7 +41,7 @@ void Collision_handler::remove_cluster(shared_ptr<Map_object> to_remove){
   }
 }
 
-/*int main(){
+int main(){
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Map_object> break_ptr;
@@ -57,12 +49,11 @@ void Collision_handler::remove_cluster(shared_ptr<Map_object> to_remove){
   col.fill_cluster(break_ptr);
   shared_ptr<Map_object> my_ptr;
   my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
-  //break_ptr->set_x_pos(1);
-  //break_ptr->set_y_pos(1);
-  //col.fill_cluster(my_ptr);
-  //auto kek = col.move_event(break_ptr);
-  //kek->get_cluster()->print_x_y();
-  //break_ptr->interact_type(kek);
-  //break_ptr->interact_type(my_ptr);
+  break_ptr->set_desx_pos(1);
+  break_ptr->set_desy_pos(1);
+  col.fill_cluster(my_ptr);
+  auto kek = col.move_event(break_ptr);
+  break_ptr->interact_type(kek);
+  break_ptr->interact_type(my_ptr);
   return 0;
-};*/
+};
