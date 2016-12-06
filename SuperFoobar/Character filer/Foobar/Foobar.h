@@ -3,6 +3,8 @@
 #include "../Interactable-filer/Power_up.h"
 #include <iostream>
 
+
+
 class Foobar :
 	public Character
 {
