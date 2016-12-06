@@ -18,15 +18,6 @@ void Interactable::interact()
 	dead = true;
 }
 
-int Interactable::get_width()
-{
-	return width;
-}
-
-int Interactable::get_length()
-{
-	return length;
-}
 void Interactable::flip_dead()
 {
 	dead = !dead;

@@ -6,7 +6,7 @@ using namespace std;
 Block::Block(int x, int y, int length, int width)
 	:Map_object(x, y, length, width) 
 {}
-
+/*
 int Block::get_x_pos()
 {
 	return this->cluster->get_x();
@@ -24,7 +24,7 @@ void Block::set_x_pos(int new_x)
 void Block::set_y_pos(int new_y)
 {
 	this->cluster->set_des_y(new_y);
-}
+}*/
 
 int Block::area()
 {
@@ -34,9 +34,4 @@ int Block::area()
 void Block::flip_dead()
 {
 	this->dead = !(this->dead);
-}
-
-
-shared_ptr<Cluster> Block::get_cluster() {
-	return cluster;
 }

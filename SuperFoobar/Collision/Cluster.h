@@ -30,13 +30,20 @@ public:
 	int get_width();
 	int get_height();
 
+	int get_des_x();
+	int get_des_y();
+
 	void set_des_x(int x);
 	void set_des_y(int y);
 
 	void set_x(int);
 	void set_y(int);
 
+	void set_width(int);
+	void set_height(int);
+
 	void set_remove(bool);
+	bool get_to_remove();
 
 	void print_x_y();
 
@@ -49,8 +56,4 @@ private:
 	int desired_x = 0;
 	int desired_y = 0;
 	bool to_remove{ false };
-	//std::shared_ptr<Block> block_ptr{nullptr};
-	//std::shared_ptr<Character> char_ptr{nullptr};
-	//std::shared_ptr<Interactable> inter_ptr{nullptr};
 };
-//#endif

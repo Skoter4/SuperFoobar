@@ -8,4 +8,10 @@ public:
 	void poly() override;
 	Power_up(int, int, int, int);
 	~Power_up() = default;
+
+	bool interact_with(std::shared_ptr<Map_object> my_char) override;
+
+	void interact() override;
+
+	std::string type_str() override;
 };
