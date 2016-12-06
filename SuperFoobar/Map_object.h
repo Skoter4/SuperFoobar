@@ -40,13 +40,11 @@ public:
 	//int area();
 	//void flip_dead();
 
-	//sf::Texture get_texture();
-	//sf::Sprite get_sprite();
+	sf::Sprite* get_sprite();
 
 protected:
 
-	sf::Texture* texture_ptr{};
-	sf::Sprite* sprite_ptr{};
+	sf::Sprite* object_sprite;
 
 	Map_object(int, int, int, int);
 

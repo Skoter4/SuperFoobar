@@ -40,7 +40,7 @@ void Collision_handler::remove_cluster(shared_ptr<Map_object> to_remove){
     }
   }
 }
-
+/*
 int main(){
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
@@ -52,4 +52,4 @@ int main(){
   auto ptr = col.move_event(my_ptr);
   ptr->interact_type(my_ptr);
   return 0;
-};
+};*/
