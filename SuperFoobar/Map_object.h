@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "../Collision/Cluster.h"
+#include <string>
 
 class Map_object {
 public:
