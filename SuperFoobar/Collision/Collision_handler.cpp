@@ -13,16 +13,23 @@ Collision_handler::Collision_handler(int rows, int cols)
 	:matrix{rows,cols} {
 }
 
-shared_ptr<Map_object> Collision_handler::move_event(shared_ptr<Map_object> & moving){
+void Collision_handler::move_event(shared_ptr<Map_object> & moving){
   for (int i = moving->get_cluster()->begin_x(); i < moving->get_cluster()->end_x(); i++){
     for (int j = moving->get_cluster()->begin_y(); j < moving->get_cluster()->end_y(); j++){
       if (matrix.get_element(i, j) != nullptr){
 		cout << "Cant move here" << endl;
-		return matrix.get_element(i,j);
+		if (matrix.get_element(i, j)->interact_with(moving)) {
+			update_position(moving);
+		}
+		if (matrix.get_element(i, j)->get_cluster()->get_to_remove()) {
+			remove_cluster(matrix.get_element(i, j));
+		}
+		if (moving->get_cluster()->get_to_remove()) {
+			remove_cluster(moving);
+		}
 	  }
     }
   }
-  return nullptr;
 }
 
 void Collision_handler::fill_cluster(shared_ptr <Map_object> & to_fill) {
@@ -40,7 +47,16 @@ void Collision_handler::remove_cluster(shared_ptr<Map_object> to_remove){
     }
   }
 }
-/*
+
+void Collision_handler::update_position(shared_ptr<Map_object> to_update) {
+	remove_cluster(to_update);
+	int new_x_pos = to_update->get_desx_pos();
+	int new_y_pos = to_update->get_desy_pos();
+	to_update->set_x(new_x_pos);
+	to_update->set_y(new_y_pos);
+	fill_cluster(to_update);
+}
+
 int main(){
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
@@ -49,7 +65,7 @@ int main(){
   col.fill_cluster(break_ptr);
   shared_ptr<Map_object> my_ptr;
   my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
-  auto ptr = col.move_event(my_ptr);
-  ptr->interact_type(my_ptr);
+  //auto ptr = col.move_event(my_ptr);
+  //ptr->interact_with(my_ptr);
   return 0;
-};*/
+};
