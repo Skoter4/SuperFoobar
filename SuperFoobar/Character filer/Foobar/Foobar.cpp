@@ -44,9 +44,27 @@ void Foobar::set_max_speed_x(int new_max_speed_x)
 	this->max_speed_x = new_max_speed_x;
 }
 
-bool Foobar::interact_type(std::shared_ptr<Map_object> my_char)
+bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 {
-	return false;
+	if (my_char->type_str() == "projectile") {
+		//Is kill
+	}
+	else if (my_char->type_str() == "power_up"){
+		//TODO
+	}
+	else if (my_char->type_str() == "coin") {
+		pick_up_coin();
+		my_char->interact();
+	}
+	else if (my_char->type_str() == "enemy_1") {
+		//TODO
+	}
+	else if (my_char->type_str() == "enemy_2") {
+		//TODO
+	}
+	else if (my_char->type_str() == "enemy_3") {
+		//TODO
+	}
 }
 
 void Foobar::interact()

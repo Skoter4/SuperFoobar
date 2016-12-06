@@ -32,9 +32,27 @@ auto Generator::generate()
 	return move(this->reward);
 }
 
-bool Generator::interact_type(std::shared_ptr<Map_object> my_char)
+bool Generator::interact_with(std::shared_ptr<Map_object> my_char)
 {
+	if (my_char->type_str() == "foobar") {
+		if (to_break(my_char->get_cluster())) {
+			interact();
+		}
+	}
 	return false;
+}
+
+bool Generator::to_break(shared_ptr<Cluster> other_cluster) {
+	int block_y = get_y_pos();
+	int other_y = other_cluster->get_y();
+	if (other_y < block_y) {
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 void Generator::interact()

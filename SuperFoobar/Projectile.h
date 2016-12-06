@@ -6,7 +6,7 @@ class Projectile :
 public:
 	Projectile(int, int, int, int);
 
-	bool interact_type(std::shared_ptr<Map_object> my_char) override;
+	bool interact_with(std::shared_ptr<Map_object> my_char) override;
 
 	void interact() override;
 

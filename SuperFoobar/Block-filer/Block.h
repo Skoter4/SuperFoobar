@@ -15,7 +15,7 @@ public:
 	Block() = default;
 
 	virtual void interact() = 0;
-	virtual bool interact_type(std::shared_ptr<Map_object>) = 0;
+	virtual bool interact_with(std::shared_ptr<Map_object>) = 0;
 
 	int area();
 	void flip_dead();

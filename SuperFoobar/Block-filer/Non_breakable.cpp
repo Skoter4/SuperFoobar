@@ -12,7 +12,7 @@ void Non_breakable::interact()
 {
 }
 
-bool Non_breakable::interact_type(std::shared_ptr<Map_object> my_char)
+bool Non_breakable::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	return false;
 }
