@@ -7,6 +7,11 @@ void Foobar::poly()
 {
 }
 
+std::string Foobar::type_str()
+{
+	return "foobar";
+}
+
 void Foobar::power_up(Power_up huuuge)
 {
 	this->set_lifes(2);
@@ -31,12 +36,21 @@ void Foobar::jump()
 
 void Foobar::duck()
 {
-	this->set_height( (this->height) / 2);
+	this->set_height( (get_height()) / 2);
 }
 
 void Foobar::set_max_speed_x(int new_max_speed_x)
 {
 	this->max_speed_x = new_max_speed_x;
+}
+
+bool Foobar::interact_type(std::shared_ptr<Map_object> my_char)
+{
+	return false;
+}
+
+void Foobar::interact()
+{
 }
 
 void Foobar::run()

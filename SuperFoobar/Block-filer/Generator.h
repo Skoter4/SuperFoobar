@@ -14,6 +14,7 @@ public:
 	bool interact_type(std::shared_ptr<Map_object> my_char) override;
 	void flip_deactivated();
 	void flip_generating();
+	std::string type_str() override;
 
 	~Generator() = default;
 

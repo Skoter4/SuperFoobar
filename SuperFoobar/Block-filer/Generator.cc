@@ -19,6 +19,11 @@ void Generator::flip_generating()
 	generating = !generating;
 }
 
+std::string Generator::type_str()
+{
+	return "generator";
+}
+
 auto Generator::generate()
 {
 	this->flip_generating();
