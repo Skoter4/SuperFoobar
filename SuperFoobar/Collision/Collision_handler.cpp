@@ -49,11 +49,7 @@ int main(){
   col.fill_cluster(break_ptr);
   shared_ptr<Map_object> my_ptr;
   my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
-  break_ptr->set_desx_pos(1);
-  break_ptr->set_desy_pos(1);
-  col.fill_cluster(my_ptr);
-  auto kek = col.move_event(break_ptr);
-  break_ptr->interact_type(kek);
-  break_ptr->interact_type(my_ptr);
+  auto ptr = col.move_event(my_ptr);
+  ptr->interact_type(my_ptr);
   return 0;
 };
