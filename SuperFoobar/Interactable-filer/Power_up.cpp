@@ -10,7 +10,7 @@ Power_up::Power_up(int x_pos, int y_pos, int height, int width)
 	: Interactable(x_pos, y_pos, height, width)
 {}
 
-bool Power_up::interact_type(std::shared_ptr<Map_object> my_char)
+bool Power_up::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	return false;
 }

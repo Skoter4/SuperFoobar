@@ -30,6 +30,9 @@ public:
 	int get_width();
 	int get_height();
 
+	int get_des_x();
+	int get_des_y();
+
 	void set_des_x(int x);
 	void set_des_y(int y);
 
@@ -40,6 +43,7 @@ public:
 	void set_height(int);
 
 	void set_remove(bool);
+	bool get_to_remove();
 
 	void print_x_y();
 

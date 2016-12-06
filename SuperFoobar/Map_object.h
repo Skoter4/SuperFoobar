@@ -14,7 +14,7 @@ public:
 
 	virtual std::string type_str() = 0;
 	virtual void interact() = 0;
-	virtual bool interact_type(std::shared_ptr<Map_object>) = 0;
+	virtual bool interact_with(std::shared_ptr<Map_object>) = 0;
 	int get_height();
 	int get_width();
 	void set_height(int);
@@ -24,6 +24,8 @@ public:
 	int get_y_pos();
 	void set_x(int);
 	void set_y(int);
+	int get_desx_pos();
+	int get_desy_pos();
 	void set_desx_pos(int);
 	void set_desy_pos(int);
 	//int area();
