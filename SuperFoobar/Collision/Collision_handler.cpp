@@ -57,7 +57,7 @@ void Collision_handler::update_position(shared_ptr<Map_object> to_update) {
 	fill_cluster(to_update);
 }
 
-int main(){
+/*int main(){
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Map_object> break_ptr;
@@ -69,3 +69,4 @@ int main(){
   //ptr->interact_with(my_ptr);
   return 0;
 };
+*/
