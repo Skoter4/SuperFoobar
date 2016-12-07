@@ -158,6 +158,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\SFMLtest\Test.cpp" />
     <ClCompile Include="Block-filer\Block.cc" />
     <ClCompile Include="Block-filer\Breakable.cc" />
     <ClCompile Include="Block-filer\Generator.cc" />
@@ -174,8 +175,11 @@
     <ClCompile Include="Interactable-filer\Finish_line.cpp" />
     <ClCompile Include="Interactable-filer\Interactable.cpp" />
     <ClCompile Include="Interactable-filer\Power_up.cpp" />
+    <ClCompile Include="main_game.cpp" />
     <ClCompile Include="Make_track.cpp" />
+    <ClCompile Include="Map_object.cpp" />
     <ClCompile Include="Position-filer\Position.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Scoreboard.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -199,7 +203,9 @@
     <ClInclude Include="Interactable-filer\Finish_line.h" />
     <ClInclude Include="Interactable-filer\Interactable.h" />
     <ClInclude Include="Interactable-filer\Power_up.h" />
+    <ClInclude Include="Map_object.h" />
     <ClInclude Include="Position-filer\Position.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Scoreboard.h" />
     <ClInclude Include="Timer.h" />

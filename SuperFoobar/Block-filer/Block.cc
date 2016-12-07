@@ -1,12 +1,12 @@
+//#include "../Collision/Cluster.h"
 #include "Block.h"
-
 
 using namespace std;
 
-Block::Block(int x, int y, int height, int width)
-	:cluster{ new Cluster(x, y, height, width) }
+Block::Block(int x, int y, int length, int width)
+	:Map_object(x, y, length, width) 
 {}
-
+/*
 int Block::get_x_pos()
 {
 	return this->cluster->get_x();
@@ -24,7 +24,7 @@ void Block::set_x_pos(int new_x)
 void Block::set_y_pos(int new_y)
 {
 	this->cluster->set_des_y(new_y);
-}
+}*/
 
 int Block::area()
 {
