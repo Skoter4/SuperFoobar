@@ -11,9 +11,11 @@ public:
 	void interact() override;
 	void poly() override;
 	auto generate();
-	bool interact_type(std::shared_ptr<Map_object> my_char) override;
+	bool interact_with(std::shared_ptr<Map_object> my_char) override;
 	void flip_deactivated();
 	void flip_generating();
+	std::string type_str() override;
+	bool to_break(std::shared_ptr<Cluster> other_cluster);
 
 	~Generator() = default;
 
