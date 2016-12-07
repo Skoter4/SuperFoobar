@@ -17,10 +17,6 @@ shared_ptr<Map_object> Collision_matrix::get_element(int row, int col) {
 
 void Collision_matrix::true_element(int row, int col, shared_ptr<Map_object> to_fill) {
 	matrix.at(row).at(col) = to_fill;
-	auto foobar = dynamic_cast<Foobar*>(to_fill.get());
-	if (foobar == nullptr) {
-		cout << "Casted in matrx kek" << endl;
-	}
 }
 
 void Collision_matrix::false_element(int row, int col) {

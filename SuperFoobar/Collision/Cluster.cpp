@@ -60,6 +60,16 @@ int Cluster::get_width()
 	return width;
 }
 
+int Cluster::get_des_x()
+{
+	return desired_x;
+}
+
+int Cluster::get_des_y()
+{
+	return desired_y;
+}
+
 void Cluster::set_des_x(int x) {
 	desired_x = x;
 }
@@ -78,8 +88,23 @@ void Cluster::set_y(int new_y)
 	y = new_y;
 }
 
+void Cluster::set_width(int width_set)
+{
+	width = width_set;
+}
+
+void Cluster::set_height(int height_set)
+{
+	height = height_set;
+}
+
 void Cluster::set_remove(bool status) {
 	to_remove = status;
+}
+
+bool Cluster::get_to_remove()
+{
+	return to_remove;
 }
 
 void Cluster::print_x_y() {
