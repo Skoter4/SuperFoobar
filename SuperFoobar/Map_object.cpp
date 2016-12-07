@@ -70,13 +70,9 @@ std::shared_ptr<Cluster> Map_object::get_cluster()
 {
 	return cluster;
 }
-/*
-sf::Texture get_texture()
-{
-	return this->texture_ptr;
-}
 
-sf::Sprite get_sprite()
+
+sf::Sprite* Map_object::get_sprite()
 {
-	return this->sprite_ptr;
-}*/
+	return object_sprite;
+}
