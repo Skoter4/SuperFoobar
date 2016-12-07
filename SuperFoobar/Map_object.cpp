@@ -72,7 +72,18 @@ std::shared_ptr<Cluster> Map_object::get_cluster()
 }
 
 
-sf::Sprite* Map_object::get_sprite()
+std::shared_ptr<sf::Sprite> Map_object::get_sprite()
 {
-	return object_sprite;
+	return this->object_sprite;
+}
+
+void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
+{
+	if (new_sprite == nullptr)
+	{
+		std::cout << "HELLO";
+	}
+	else {
+		object_sprite = new_sprite;
+	}
 }

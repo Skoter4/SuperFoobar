@@ -1,14 +1,18 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Character filer\Foobar\Foobar.h"
+
 int main()
 {
 
 	//skapa foobar
 	Foobar Foobar(45,35,12,80);
-	sf::Sprite x = *Foobar.get_sprite();
+	
 	sf::Texture texture1;
-	texture1.loadFromFile("Pictures/generator.png");
-	x.setTexture(texture1);
+	texture1.loadFromFile("Pictures/Generator.png");
+	std::shared_ptr<sf::Sprite> x{new sf::Sprite};
+	x->setTexture(texture1);
+	Foobar.setSprite(x);
 
 	//Skapa spelfönstret
 	sf::ContextSettings settings;
@@ -23,6 +27,10 @@ int main()
 	sf::Sprite sprite(texture);
 	sprite.setTexture(texture);
 	sprite.setTextureRect(sf::IntRect(0, 0, 4096, 592));
+
+
+	
+
 
 	sf::Event event;
 
@@ -39,14 +47,22 @@ int main()
 
 			if (event.type == sf::Event::KeyPressed)
 			{
+
+				if (event.key.code == sf::Keyboard::LShift)
+				{
+					Foobar.run();
+				}
+
 				if (event.key.code == sf::Keyboard::Left)
 				{
-					//Foobars hastighet i x-led ändras
+					//Ska även ändra bild
+					Foobar.set_x_velocity(-Foobar.get_max_speed_x());
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
-					//Foobars hastighet i x-led ändras
+					//ska även ändra bild
+					Foobar.set_x_velocity(Foobar.get_max_speed_x());
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
@@ -55,8 +71,13 @@ int main()
 				}
 
 				if (event.key.code == sf::Keyboard::Down)
-				{
-					//Foobars duckar
+				{	
+					if(!Foobar.get_is_ducking())
+					{ 
+						Foobar.duck();
+						Foobar.flip_is_ducking();
+					}
+					//Ska även ändra bild
 				}
 			}
 
@@ -69,17 +90,27 @@ int main()
 
 				if (event.key.code == sf::Keyboard::Left)
 				{
-					//Foobar stannar
+					Foobar.set_x_velocity(0);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
-					//Foobar stannar
+					Foobar.set_x_velocity(0);
 				}
 
 				if (event.key.code == sf::Keyboard::Down)
 				{
-					//Foobar slutar ducka
+					if (Foobar.get_is_ducking())
+					{
+						Foobar.stand_up();
+						Foobar.flip_is_ducking();
+					}
+					//Ska även ändra tillbaka bilden
+				}
+
+				if (event.key.code == sf::Keyboard::LShift)
+				{
+					Foobar.set_max_speed_x(50);
 				}
 			}
 		}
@@ -102,9 +133,9 @@ int main()
 
 
 		/*Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition*/
-		if (Foobar.get_x_pos() == 0)
+		if (Foobar.get_x_pos() == 0 && Foobar.get_x_velocity() < 0)
 		{
-			/*Sätt Foobars x-hastighet till 0*/
+			Foobar.set_x_velocity(0);
 		}
 
 		//if (/*Foobar y-pos*/ < /*markens nivå*/)
@@ -124,7 +155,8 @@ int main()
 		// Rita ut det som är aktivt
 
 		GameWindow.clear();
-		GameWindow.draw(x);
+		GameWindow.draw(sprite);
+		GameWindow.draw(*Foobar.get_sprite());
 		GameWindow.display();
 /*
 	void run_game()
