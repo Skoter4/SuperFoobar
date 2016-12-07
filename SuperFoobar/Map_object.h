@@ -2,6 +2,17 @@
 #include <memory>
 #include "../Collision/Cluster.h"
 #include <string>
+//#include "SFML\Graphics\Texture.hpp"
+//#include "SFML\Graphics\Sprite.hpp"
+
+namespace sf
+{
+	class Sprite;
+	class Texture;
+};
+
+class sf::Sprite;
+class sf::Texture;
 
 class Map_object {
 public:
@@ -31,7 +42,13 @@ public:
 	//int area();
 	//void flip_dead();
 
+	//sf::Texture get_texture();
+	//sf::Sprite get_sprite();
+
 protected:
+
+	sf::Texture* texture_ptr{};
+	sf::Sprite* sprite_ptr{};
 
 	Map_object(int, int, int, int);
 
