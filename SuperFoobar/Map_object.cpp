@@ -28,7 +28,7 @@ int Map_object::get_x_pos()
 
 int Map_object::get_y_pos()
 {
-	return cluster->get_x();
+	return cluster->get_y();
 }
 
 void Map_object::set_x(int x)
