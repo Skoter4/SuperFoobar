@@ -8,28 +8,28 @@ int main()
 {
 
 	//skapa foobar
-	std::shared_ptr<Foobar> Foobar_obj{new Foobar(450,35,43,56) };
+	std::shared_ptr<Foobar> Foobar_obj{new Foobar(450,35,50,50) };
 	
 	//Saker som tillhör utritning
 
 	sf::Texture Pictures;
-	Pictures.loadFromFile("Pictures/Fiender_Mario_Block.png");
-	sf::IntRect Foobar_R_pic(0, 46, 43, 56);
-	sf::IntRect Foobar_L_pic(43, 46, 43, 56);
-	sf::IntRect Foobar_HR_pic(86, 46, 60, 78);
-	sf::IntRect Foobar_HL_pic(146, 46, 60, 78);
-	sf::IntRect Foobar_DR_pic(0, 102, 43, 28);
-	sf::IntRect Foobar_DL_pic(43, 102, 43, 28);
-	sf::IntRect Enemy1_pic(88, 0, 44, 46);
-	sf::IntRect Enemy2_pic(0, 0, 44, 46);
-	sf::IntRect Enemy3_pic(44, 0, 44, 46);
-	sf::IntRect Proj_L_pic(35, 130, 35, 17);
-	sf::IntRect Proj_R_pic(0, 130, 35, 17);
-	sf::IntRect Floor_pic(0, 147, 200, 70);
-	sf::IntRect Breakable_pic(0, 217, 70, 70);
-	sf::IntRect Non_Breakable_pic(140, 217, 70, 70);
-	sf::IntRect Generator_pic(70, 217, 70, 70);
-	sf::IntRect Used_Generator_pic(210, 217, 70, 70);
+	Pictures.loadFromFile("Pictures/Fiender_Foobar_Blocks.png");
+	sf::IntRect Foobar_R_pic(150, 0, 50, 50);
+	sf::IntRect Foobar_L_pic(200, 0, 50, 50);
+	sf::IntRect Foobar_HR_pic(0, 190, 50, 100);
+	sf::IntRect Foobar_HL_pic(50, 190, 50, 100);
+	sf::IntRect Foobar_DR_pic(70, 120, 50, 25);
+	sf::IntRect Foobar_DL_pic(120, 120, 50, 25);
+	sf::IntRect Enemy1_pic(100, 0, 50, 50);
+	sf::IntRect Enemy2_pic(0, 0, 50, 50);
+	sf::IntRect Enemy3_pic(50, 0, 50, 50);
+	sf::IntRect Proj_L_pic(120, 145, 50, 25);
+	sf::IntRect Proj_R_pic(70, 145, 50, 25);
+	sf::IntRect Floor_pic(70, 50, 70, 70);
+	sf::IntRect Breakable_pic(0, 50, 70, 70);
+	sf::IntRect Non_Breakable_pic(210, 50, 70, 70);
+	sf::IntRect Generator_pic(140, 50, 70, 70);
+	sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 
 	//Skapa spelfönstret
 	sf::ContextSettings settings;
@@ -53,9 +53,10 @@ int main()
 	Foobar_obj->setSprite(x);
 	
 	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
-	std::shared_ptr<sf::Sprite> Floor{ new sf::Sprite(Pictures,Floor_pic) };
+
 	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 	{
+		std::shared_ptr<sf::Sprite> Floor{ new sf::Sprite(Pictures,Floor_pic) };
 		Floor->setPosition((*it)->get_x_pos(), (*it)->get_y_pos());
 		(*it)->setSprite(Floor);
 	}
@@ -193,11 +194,12 @@ int main()
 		GameWindow.clear();
 		GameWindow.draw(Background);
 		GameWindow.draw(*Foobar_obj->get_sprite());
-		/*
+		
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-		}*/
+			std::cout << (*it)->get_x_pos() << std::endl;
+		}
 		GameWindow.display();
 
 /*
