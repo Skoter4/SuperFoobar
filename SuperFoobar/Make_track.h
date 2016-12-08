@@ -12,10 +12,13 @@
 #include "Character filer\Enemy\Enemy_1.h"
 #include "Character filer\Enemy\Enemy_2.h"
 #include "Character filer\Enemy\Enemy_2.h"
+#include "Map_object.h"
+#include "Track.h"
 #include <list>
 #include <string>
 #include <memory>
-#include "SFML/Graphics/Sprite.hpp"
+#include <SFML/Graphics.hpp>
+
 
 
 
@@ -57,9 +60,11 @@ std::list<std::shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg
 
 std::list<std::shared_ptr<Block>> make_one_line_breakable_seg(int seg_length, int x, int y);
 
+std::list<std::shared_ptr<Interactable>> make_coin_rect_seg(int seg_height, int seg_width, int x, int y);
 
+std::list<std::shared_ptr<Interactable>> make_coin_row_seg(int seg_length, int x, int y);
 
-
-
-
-
+std::shared_ptr<Track> make_track(std::list<std::shared_ptr<Block>>,
+	std::list<std::shared_ptr<Character>>,
+	std::list<std::shared_ptr<Interactable>>,
+	int, int, int);

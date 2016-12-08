@@ -6,9 +6,9 @@ using namespace std;
 // GLOBAL VARIABLES FOR EASY ACCESS
 
 int GAME_SCALE = 10;
-int BLOCK_HEIGHT = GAME_SCALE * 5;
-int BLOCK_WIDTH = GAME_SCALE * 5;
-int FLOOR = GAME_SCALE * 5;
+int BLOCK_HEIGHT = GAME_SCALE * 7;
+int BLOCK_WIDTH = GAME_SCALE * 7;
+int FLOOR = GAME_SCALE * 42;
 int TRACK_LENGTH = GAME_SCALE * 400;
 int TRACK_HEIGHT = GAME_SCALE * 200;
 int FOOBAR_START_POINT = GAME_SCALE * 10;
@@ -39,9 +39,7 @@ int interp(int val)
 // HELP FUNCTIONS TO ADD LISTS TO LISTS OR ELEMENTS TO LISTS
 list<shared_ptr<Block>> add_to_block_list(list<shared_ptr<Block>> & block_list, shared_ptr<Block> block)
 {
-	list<shared_ptr<Block>>::iterator it;
-	it = block_list.begin();
-	block_list.insert(it, block);
+	block_list.push_front(block);
 	return block_list;
 }
 
@@ -53,9 +51,7 @@ list<shared_ptr<Block>> add_to_block_list(list<shared_ptr<Block>> & block_list, 
 
 list<shared_ptr<Character>> add_to_character_list(list<shared_ptr<Character>> & character_list, shared_ptr<Character> character)
 {
-	list<shared_ptr<Character>>::iterator it;
-	it = character_list.begin();
-	character_list.insert(it, character);
+	character_list.push_front(character);
 	return character_list;
 }
 
@@ -67,9 +63,7 @@ list<shared_ptr<Character>> add_to_character_list(list<shared_ptr<Character>> & 
 
 list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactable>> & interactable_list, shared_ptr<Interactable> interactable)
 {
-	list<shared_ptr<Interactable>>::iterator it;
-	it = interactable_list.begin();
-	interactable_list.insert(it, interactable);
+	interactable_list.push_front(interactable);
 	return interactable_list;
 }
 
@@ -83,8 +77,8 @@ list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactabl
 shared_ptr<Foobar> make_Foobar()
 {
 	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
-	std::shared_ptr<sf::Sprite> x{ new sf::Sprite };
-	temp_foobar_ptr->setSprite(x);
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
+	temp_foobar_ptr->setSprite(sprite_ptr);
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
 
 	temp_foobar_ptr = nullptr;
@@ -102,8 +96,8 @@ shared_ptr<Coin> make_coin(int x, int y)
 	y = interp(y);
 
 	Coin* temp_coin_ptr{ new Coin{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
-	std::shared_ptr<sf::Sprite> x1{ new sf::Sprite };
-	temp_coin_ptr->setSprite(x1);
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
+	temp_coin_ptr->setSprite(sprite_ptr);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
 
 	temp_coin_ptr = nullptr;
@@ -117,11 +111,12 @@ shared_ptr<Breakable> make_breakable(int x, int y)
 	y = interp(y);
 
 	Breakable* temp_breakable_ptr{ new Breakable{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
-	std::shared_ptr<sf::Sprite> x2{ new sf::Sprite };
-	temp_breakable_ptr->setSprite(x2);
 	shared_ptr<Breakable> breakable_ptr{ temp_breakable_ptr };
 
 	temp_breakable_ptr = nullptr;
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
+	breakable_ptr->setSprite(sprite_ptr);
+
 
 	return  move(breakable_ptr);
 
@@ -133,9 +128,10 @@ shared_ptr<Non_breakable> make_non_breakable(int x, int y)
 	y = interp(y);
 
 	Non_breakable* temp_non_breakable_ptr{ new Non_breakable{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
-	std::shared_ptr<sf::Sprite> x3{ new sf::Sprite };
-	temp_non_breakable_ptr->setSprite(x3);
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
 	shared_ptr<Non_breakable> non_breakable_ptr{ temp_non_breakable_ptr };
+	non_breakable_ptr->setSprite(sprite_ptr);
+
 
 	temp_non_breakable_ptr = nullptr;
 
@@ -150,9 +146,10 @@ shared_ptr<Generator> make_coin_generator(int x, int y)
 	y = interp(y);
 
 	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_coin(x, y + ::BLOCK_HEIGHT)} };
-	std::shared_ptr<sf::Sprite> x4{ new sf::Sprite };
-	temp_block_ptr->setSprite(x4);
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
 	shared_ptr<Generator> block_ptr{ temp_block_ptr };
+	block_ptr->setSprite(sprite_ptr);
+	
 
 	temp_block_ptr = nullptr;
 
@@ -170,6 +167,9 @@ shared_ptr<Generator> make_pup_generator(int x, int y)
 
 	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, pup_ptr } };
 	shared_ptr<Generator> block_ptr{ temp_block_ptr };
+
+	std::shared_ptr<sf::Sprite> sprite_ptr{ new sf::Sprite };
+	block_ptr->setSprite(sprite_ptr);
 
 	temp_block_ptr = nullptr;
 
@@ -205,17 +205,15 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 	x = interp(x);
 	y = interp(y);
 
-	it = block_list.begin();
-
 	int blocks_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
 	int blocks_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
 
-	for (int i{}; i >= blocks_to_generate_x; i++)
+	for (int i{}; i < blocks_to_generate_x; i++)
 	{
 		int k = 0;
-		for (k; k >= blocks_to_generate_y; k++)
+		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.insert(it, make_non_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			block_list.push_front(make_non_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
 		}
 	}
 
@@ -239,24 +237,21 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 {
 
 	list<shared_ptr<Block>> block_list{};
-	list<shared_ptr<Block>>::iterator it;
 
 	seg_width = interp(seg_width);
 	seg_height = interp(seg_height);
 	x = interp(x);
 	y = interp(y);
 
-	it = block_list.begin();
-
 	int blocks_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
 	int blocks_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
 
-	for (int i{}; i >= blocks_to_generate_x; i++)
+	for (int i{}; i < blocks_to_generate_x; i++)
 	{
 		int k = 0;
-		for (k; k >= blocks_to_generate_y; k++)
+		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.insert(it, make_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			block_list.push_front(make_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
 
 		}
 	}
@@ -268,4 +263,41 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 list<shared_ptr<Block>> make_one_line_breakable_seg(int seg_length, int x, int y)
 {
 	return make_rect_breakable_seg(seg_length, ::BLOCK_HEIGHT, x, y);
+}
+
+list<shared_ptr<Interactable>> make_coin_rect_seg(int seg_height, int seg_width, int x, int y)
+{
+
+	list<shared_ptr<Interactable>> coin_list{};
+
+	seg_width = interp(seg_width);
+	seg_height = interp(seg_height);
+	x = interp(x);
+	y = interp(y);
+
+	int coins_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
+	int coins_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
+
+	for (int i{}; i < coins_to_generate_x; i++)
+	{
+		int k = 0;
+		for (k; k < coins_to_generate_y; k++)
+		{
+			coin_list.push_front(make_coin(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+
+		}
+	}
+
+	return coin_list;
+}
+
+list<shared_ptr<Interactable>> make_coin_row_seg(int seg_length, int x, int y)
+{
+	return make_coin_rect_seg(seg_length, ::BLOCK_HEIGHT, x, y);
+}
+
+std::shared_ptr<Track> make_track(list<shared_ptr<Block>>, list<shared_ptr<Character>>, list<shared_ptr<Interactable>>, int, int, int ) 
+{
+
+return 0;
 }

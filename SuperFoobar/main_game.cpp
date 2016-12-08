@@ -1,14 +1,18 @@
-#include <SFML/Graphics.hpp>
+#pragma once
 #include <SFML/Audio.hpp>
 #include "Character filer\Foobar\Foobar.h"
 #include "Make_track.h"
+#include <SFML/Graphics.hpp>
 
-
+void update_sprite(std::shared_ptr<Map_object> MO)
+{
+	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
+}
 int main()
 {
 
 	//skapa foobar
-	std::shared_ptr<Foobar> Foobar_obj{new Foobar(450,35,43,56) };
+	std::shared_ptr<Foobar> Foobar_obj{ make_Foobar() };
 	
 	//Saker som tillhör utritning
 
@@ -25,7 +29,7 @@ int main()
 	sf::IntRect Enemy3_pic(44, 0, 44, 46);
 	sf::IntRect Proj_L_pic(35, 130, 35, 17);
 	sf::IntRect Proj_R_pic(0, 130, 35, 17);
-	sf::IntRect Floor_pic(0, 147, 200, 70);
+	sf::IntRect Floor_pic(0, 147, 70, 70);
 	sf::IntRect Breakable_pic(0, 217, 70, 70);
 	sf::IntRect Non_Breakable_pic(140, 217, 70, 70);
 	sf::IntRect Generator_pic(70, 217, 70, 70);
@@ -52,18 +56,43 @@ int main()
 	x->setPosition(Foobar_obj->get_x_pos(), Foobar_obj->get_y_pos());
 	Foobar_obj->setSprite(x);
 	
-	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
-	std::shared_ptr<sf::Sprite> Floor{ new sf::Sprite(Pictures,Floor_pic) };
-	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
-	{
-		Floor->setPosition((*it)->get_x_pos(), (*it)->get_y_pos());
-		(*it)->setSprite(Floor);
-	}
+	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(70 * 8, 0) };
+	std::list<std::shared_ptr<Block>> Rectangle_list{ make_rect_seg(70 * 3, 70 * 3, 70 * 9, 7 * 70) };
+	std::list<std::shared_ptr<Block>> Other_Rectangle_list{ make_one_line_breakable_seg(70 * 3, 1 * 70, 4 * 70) };
+	std::list<std::shared_ptr<Interactable>> Coins_list{make_coin_row_seg(70 * 3, 1 * 70, 3 * 70) };
 
 	
+	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
+	{
+		std::shared_ptr<sf::Sprite> Floor{ new sf::Sprite(Pictures,Floor_pic) };
+		(*it)->setSprite(Floor);
+		update_sprite((*it));
+	}
 
+	for (auto it = Rectangle_list.begin(); it != Rectangle_list.end(); ++it)
+	{
+		std::shared_ptr<sf::Sprite> Blocks{ new sf::Sprite(Pictures,Non_Breakable_pic) };
+		(*it)->setSprite(Blocks);
+		update_sprite((*it));
+	}
 
+	for (auto it = Other_Rectangle_list.begin(); it != Other_Rectangle_list.end(); ++it)
+	{
+		std::shared_ptr<sf::Sprite> Blocks{ new sf::Sprite(Pictures,Breakable_pic) };
+		(*it)->setSprite(Blocks);
+		update_sprite((*it));
+	}
 
+	for (auto it = Coins_list.begin(); it != Coins_list.end(); ++it)
+	{
+		std::shared_ptr<sf::Sprite> Coins{ new sf::Sprite(Pictures,Proj_L_pic) };
+		(*it)->setSprite(Coins);
+		update_sprite((*it));
+	}
+
+	add_to_block_list(Floor_list, Rectangle_list);
+
+	add_to_block_list(Floor_list, Other_Rectangle_list);
 
 
 	sf::Event event;
@@ -72,6 +101,7 @@ int main()
 
 	while (GameWindow.isOpen())
 	{
+		
 		while (GameWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::EventType::Closed)
@@ -96,7 +126,8 @@ int main()
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
-					Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
+					Foobar_obj->set_x(Foobar_obj->get_x_pos() + 8);
+
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
@@ -124,12 +155,12 @@ int main()
 
 				if (event.key.code == sf::Keyboard::Left)
 				{
-					Foobar_obj->set_x_velocity(0);
+					Foobar_obj->set_x_velocity(1);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
-					Foobar_obj->set_x_velocity(0);
+					Foobar_obj->set_x_velocity(1);
 				}
 
 				if (event.key.code == sf::Keyboard::Down)
@@ -193,11 +224,15 @@ int main()
 		GameWindow.clear();
 		GameWindow.draw(Background);
 		GameWindow.draw(*Foobar_obj->get_sprite());
-		/*
+		update_sprite(Foobar_obj);
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-		}*/
+		}
+		for (auto it = Coins_list.begin(); it != Coins_list.end(); ++it)
+		{
+			GameWindow.draw(*(*it)->get_sprite());
+		}
 		GameWindow.display();
 
 /*

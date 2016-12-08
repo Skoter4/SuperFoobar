@@ -203,6 +203,7 @@
     <ClInclude Include="Interactable-filer\Finish_line.h" />
     <ClInclude Include="Interactable-filer\Interactable.h" />
     <ClInclude Include="Interactable-filer\Power_up.h" />
+    <ClInclude Include="Make_track.h" />
     <ClInclude Include="Map_object.h" />
     <ClInclude Include="Position-filer\Position.h" />
     <ClInclude Include="Projectile.h" />
