@@ -65,6 +65,7 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_3") {
 		//TODO
 	}
+	return true;
 }
 
 void Foobar::interact()
