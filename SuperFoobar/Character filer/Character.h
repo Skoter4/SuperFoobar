@@ -23,6 +23,15 @@ public:
 	void set_lifes(int);
 	int get_lifes();
 
+	void set_velocity(int, int);
+	void set_x_velocity(int);
+	void set_y_velocity(int);
+	int get_x_velocity();
+	int get_y_velocity();	
+	int get_gravity();
+	void set_gravity(int);
+
+
 protected:
 	Character(int, int, int, int);
 
@@ -32,6 +41,7 @@ protected:
 	bool invulnerable{ false };
 	bool active{ true };
 	
+	int gravity{ 100 };
 
 	struct Velocity {
 		int x_velocity{};

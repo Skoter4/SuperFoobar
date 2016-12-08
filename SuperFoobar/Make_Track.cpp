@@ -1,20 +1,5 @@
 #pragma once
-#include "Block-filer\Block.h"
-#include "Block-filer\Non_breakable.h"
-#include "Block-filer\Breakable.h"
-#include "Block-filer\Generator.h"
-#include "Interactable-filer\Interactable.h"
-#include "Interactable-filer\Coin.h"
-#include "Interactable-filer\Power_up.h"
-#include "Interactable-filer\Finish_line.h"
-#include "Character filer\Character.h"
-#include "Character filer\Foobar\Foobar.h"
-#include "Character filer\Enemy\Enemy_1.h"
-#include "Character filer\Enemy\Enemy_2.h"
-#include "Character filer\Enemy\Enemy_2.h"
-#include <list>
-#include <string>
-#include <memory>
+#include "Make_track.h"
 
 using namespace std;
 
@@ -98,6 +83,8 @@ list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactabl
 shared_ptr<Foobar> make_Foobar()
 {
 	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	std::shared_ptr<sf::Sprite> x{ new sf::Sprite };
+	temp_foobar_ptr->setSprite(x);
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
 
 	temp_foobar_ptr = nullptr;
@@ -115,6 +102,8 @@ shared_ptr<Coin> make_coin(int x, int y)
 	y = interp(y);
 
 	Coin* temp_coin_ptr{ new Coin{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	std::shared_ptr<sf::Sprite> x1{ new sf::Sprite };
+	temp_coin_ptr->setSprite(x1);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
 
 	temp_coin_ptr = nullptr;
@@ -128,6 +117,8 @@ shared_ptr<Breakable> make_breakable(int x, int y)
 	y = interp(y);
 
 	Breakable* temp_breakable_ptr{ new Breakable{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	std::shared_ptr<sf::Sprite> x2{ new sf::Sprite };
+	temp_breakable_ptr->setSprite(x2);
 	shared_ptr<Breakable> breakable_ptr{ temp_breakable_ptr };
 
 	temp_breakable_ptr = nullptr;
@@ -142,6 +133,8 @@ shared_ptr<Non_breakable> make_non_breakable(int x, int y)
 	y = interp(y);
 
 	Non_breakable* temp_non_breakable_ptr{ new Non_breakable{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	std::shared_ptr<sf::Sprite> x3{ new sf::Sprite };
+	temp_non_breakable_ptr->setSprite(x3);
 	shared_ptr<Non_breakable> non_breakable_ptr{ temp_non_breakable_ptr };
 
 	temp_non_breakable_ptr = nullptr;
@@ -157,6 +150,8 @@ shared_ptr<Generator> make_coin_generator(int x, int y)
 	y = interp(y);
 
 	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_coin(x, y + ::BLOCK_HEIGHT)} };
+	std::shared_ptr<sf::Sprite> x4{ new sf::Sprite };
+	temp_block_ptr->setSprite(x4);
 	shared_ptr<Generator> block_ptr{ temp_block_ptr };
 
 	temp_block_ptr = nullptr;
