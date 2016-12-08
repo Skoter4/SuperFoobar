@@ -8,7 +8,7 @@ using namespace std;
 int GAME_SCALE = 10;
 int BLOCK_HEIGHT = GAME_SCALE * 5;
 int BLOCK_WIDTH = GAME_SCALE * 5;
-int FLOOR = GAME_SCALE * 5;
+int FLOOR = GAME_SCALE * 45;
 int TRACK_LENGTH = GAME_SCALE * 400;
 int TRACK_HEIGHT = GAME_SCALE * 200;
 int FOOBAR_START_POINT = GAME_SCALE * 10;
@@ -137,7 +137,7 @@ shared_ptr<Non_breakable> make_non_breakable(int x, int y)
 	temp_non_breakable_ptr->setSprite(x3);
 	shared_ptr<Non_breakable> non_breakable_ptr{ temp_non_breakable_ptr };
 
-	temp_non_breakable_ptr = nullptr;
+	//temp_non_breakable_ptr = nullptr;
 
 	return  move(non_breakable_ptr);
 
@@ -198,24 +198,24 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 {
 
 	list<shared_ptr<Block>> block_list{};
-	list<shared_ptr<Block>>::iterator it;
+	//list<shared_ptr<Block>>::iterator it;
 
 	seg_width = interp(seg_width);
 	seg_height = interp(seg_height);
 	x = interp(x);
 	y = interp(y);
 
-	it = block_list.begin();
+	//it = block_list.begin();
 
 	int blocks_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
 	int blocks_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
 
-	for (int i{}; i >= blocks_to_generate_x; i++)
+	for (int i{}; i < blocks_to_generate_x; i++)
 	{
 		int k = 0;
-		for (k; k >= blocks_to_generate_y; k++)
+		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.insert(it, make_non_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			block_list.push_front(make_non_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
 		}
 	}
 
