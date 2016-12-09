@@ -162,5 +162,8 @@
     <ClInclude Include="Map_object.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Make_track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
