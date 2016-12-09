@@ -1,19 +1,24 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-#include "Character filer\Foobar\Foobar.h"
+#include "Map_object.h"
 #include "Make_track.h"
+#include <memory>
 
+void update_sprite(std::shared_ptr<Map_object> MO)
+{
+	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
+}
 
 int main()
 {
 
 	//skapa foobar
-	std::shared_ptr<Foobar> Foobar_obj{new Foobar(450,35,50,50) };
+	std::shared_ptr<Foobar> Foobar_obj{ make_Foobar()};
 	
 	//Saker som tillhör utritning
 
 	sf::Texture Pictures;
-	Pictures.loadFromFile("Pictures/Fiender_Foobar_Blocks.png");
+	Pictures.loadFromFile("Pictures/SuperFoobarTransTextures.png");
 	sf::IntRect Foobar_R_pic(150, 0, 50, 50);
 	sf::IntRect Foobar_L_pic(200, 0, 50, 50);
 	sf::IntRect Foobar_HR_pic(0, 190, 50, 100);
@@ -30,6 +35,7 @@ int main()
 	sf::IntRect Non_Breakable_pic(210, 50, 70, 70);
 	sf::IntRect Generator_pic(140, 50, 70, 70);
 	sf::IntRect Used_Generator_pic(0, 120, 70, 70);
+	sf::IntRect Coin_pic(172, 122, 40, 48);
 
 	//Skapa spelfönstret
 	sf::ContextSettings settings;
@@ -47,24 +53,28 @@ int main()
 
 	//Skapa Bana
 	Pictures.setRepeated(true);
-	
-	std::shared_ptr<sf::Sprite> x{ new sf::Sprite(Pictures, Foobar_R_pic) };
-	x->setPosition(Foobar_obj->get_x_pos(), Foobar_obj->get_y_pos());
-	Foobar_obj->setSprite(x);
+
 	
 	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
+	std::list < std::shared_ptr<Interactable>> Interactable_list{ make_coin_row_seg(200, 200, 280) };
+
 
 	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 	{
-		std::shared_ptr<sf::Sprite> Floor{ new sf::Sprite(Pictures,Floor_pic) };
-		Floor->setPosition((*it)->get_x_pos(), (*it)->get_y_pos());
-		(*it)->setSprite(Floor);
+		(*it)->get_sprite()->setTexture(Pictures);
+		(*it)->get_sprite()->setTextureRect(Floor_pic);
+		update_sprite(*it);
 	}
 
-	
+	for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
+	{
+		(*it)->get_sprite()->setTexture(Pictures);
+		(*it)->get_sprite()->setTextureRect(Coin_pic);
+		update_sprite(*it);
+	}
 
-
-
+	Foobar_obj->get_sprite()->setTexture(Pictures);
+	Foobar_obj->get_sprite()->setTextureRect(Foobar_R_pic);
 
 
 	sf::Event event;
@@ -97,7 +107,8 @@ int main()
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
-					Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
+					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
+					Foobar_obj->set_x(Foobar_obj->get_x_pos() + 20);
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
@@ -194,8 +205,13 @@ int main()
 		GameWindow.clear();
 		GameWindow.draw(Background);
 		GameWindow.draw(*Foobar_obj->get_sprite());
-		
+		update_sprite(Foobar_obj);
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
+		{
+			GameWindow.draw(*(*it)->get_sprite());
+			std::cout << (*it)->get_x_pos() << std::endl;
+		}
+		for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
 			std::cout << (*it)->get_x_pos() << std::endl;

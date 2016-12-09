@@ -11,7 +11,8 @@
 #include "Character filer\Foobar\Foobar.h"
 #include "Character filer\Enemy\Enemy_1.h"
 #include "Character filer\Enemy\Enemy_2.h"
-#include "Character filer\Enemy\Enemy_2.h"
+#include "Character filer\Enemy\Enemy_3.h"
+#include "Track.h"
 #include <list>
 #include <string>
 #include <memory>
@@ -35,6 +36,8 @@ std::list<std::shared_ptr<Interactable>> add_to_character_list(std::list<std::sh
 
 std::shared_ptr<Foobar> make_Foobar();
 
+std::shared_ptr<Enemy_1> make_enemy_1(int x, int y);
+
 std::shared_ptr<Coin> make_coin(int x, int y);
 
 std::shared_ptr<Breakable> make_breakable(int x, int y);
@@ -57,8 +60,11 @@ std::list<std::shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg
 
 std::list<std::shared_ptr<Block>> make_one_line_breakable_seg(int seg_length, int x, int y);
 
+std::list<std::shared_ptr<Interactable>> make_coin_row_seg(int seg_length, int x, int y);
 
+std::list<std::shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height, int x, int y);
 
+std::shared_ptr<Track> make_track(std::list<std::shared_ptr<Block>> blocks, std::list<std::shared_ptr<Character>> characters, std::list<std::shared_ptr<Interactable>> interactables);
 
 
 
