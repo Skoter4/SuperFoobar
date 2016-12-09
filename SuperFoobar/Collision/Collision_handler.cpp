@@ -57,6 +57,7 @@ void Collision_handler::update_position(shared_ptr<Map_object> to_update) {
 	fill_cluster(to_update);
 }
 
+<<<<<<< HEAD
 void Collision_handler::create_list()
 {
 	vector<shared_ptr<Map_object>> object_list = vector<shared_ptr<Map_object>>(2);
@@ -87,6 +88,9 @@ bool Collision_handler::check_collision(shared_ptr<Map_object> to_check, shared_
 
 
 int main(){
+=======
+/*int main(){
+>>>>>>> refs/remotes/origin/master
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Map_object> break_ptr;
@@ -99,4 +103,9 @@ int main(){
   //auto ptr = col.move_event(my_ptr);
   //ptr->interact_with(my_ptr);
   return 0;
+<<<<<<< HEAD
 };
+=======
+};
+*/
+>>>>>>> refs/remotes/origin/master

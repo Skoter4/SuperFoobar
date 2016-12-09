@@ -54,3 +54,41 @@ int Character::get_lifes()
 {
 	return this->lifes;
 }
+
+
+
+void Character::set_velocity(int new_x_velocity, int new_y_velocity)
+{
+	this->set_x_velocity(new_x_velocity);
+	this->set_y_velocity(new_y_velocity);
+}
+
+void Character::set_x_velocity(int new_x_velocity)
+{
+	this->velocity.x_velocity = new_x_velocity;
+}
+
+void Character::set_y_velocity(int new_y_velocity)
+{
+	this->velocity.y_velocity = new_y_velocity;
+}
+
+int Character::get_x_velocity()
+{
+	return this->velocity.x_velocity;
+}
+
+int Character::get_y_velocity()
+{
+	return this->velocity.y_velocity;
+}
+
+int Character::get_gravity()
+{
+	return this->gravity;
+}
+
+void Character::set_gravity(int new_gravity)
+{
+	gravity = new_gravity;
+}

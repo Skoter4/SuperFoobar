@@ -2,6 +2,7 @@
 #include <memory>
 #include "../Collision/Cluster.h"
 #include <string>
+#include <iostream>
 //#include "SFML\Graphics\Texture.hpp"
 //#include "SFML\Graphics\Sprite.hpp"
 
@@ -42,11 +43,11 @@ public:
 	//int area();
 	//void flip_dead();
 
-	sf::Sprite* get_sprite();
-
+	std::shared_ptr<sf::Sprite> get_sprite();
+	void setSprite(std::shared_ptr<sf::Sprite>);
 protected:
 
-	sf::Sprite* object_sprite;
+	std::shared_ptr<sf::Sprite> object_sprite;
 
 	Map_object(int, int, int, int);
 

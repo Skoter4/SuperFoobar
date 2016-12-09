@@ -39,9 +39,29 @@ void Foobar::duck()
 	this->set_height( (get_height()) / 2);
 }
 
+void Foobar::flip_is_ducking()
+{
+	is_ducking = !is_ducking;
+}
+
+bool Foobar::get_is_ducking()
+{
+	return is_ducking;
+}
+
+void Foobar::stand_up()
+{
+	this->set_height((get_height()) * 2);
+}
+
 void Foobar::set_max_speed_x(int new_max_speed_x)
 {
 	this->max_speed_x = new_max_speed_x;
+}
+
+int Foobar::get_max_speed_x()
+{
+	return this->max_speed_x;
 }
 
 bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
@@ -65,7 +85,11 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_3") {
 		//TODO
 	}
+<<<<<<< HEAD
 	return true;
+=======
+	return 0;
+>>>>>>> refs/remotes/origin/master
 }
 
 void Foobar::interact()
