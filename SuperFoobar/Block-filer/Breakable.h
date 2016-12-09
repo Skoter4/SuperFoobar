@@ -1,3 +1,4 @@
+#pragma once
 #include "Block.h"
 
 class Breakable :public Block

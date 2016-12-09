@@ -19,11 +19,15 @@ public:
 
 	int area();
 	void flip_dead();
+	bool get_dead();
+	bool get_active();
+	void flip_active();
 
 protected:
 	Block(int, int, int, int); // Block-position and area is defined in its contructor.
 	std::string block_color{};
 	bool block_outline{};
 	bool dead{ false };
+	bool active{ true };
 };
 //#endif // !CLUSTER_H
