@@ -1,13 +1,8 @@
-#include <SFML/Graphics.hpp>
+
 #include <SFML/Audio.hpp>
 #include "Map_object.h"
 #include "Make_track.h"
 #include <memory>
-
-void update_sprite(std::shared_ptr<Map_object> MO)
-{
-	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
-}
 
 int main()
 {
@@ -36,6 +31,8 @@ int main()
 	sf::IntRect Generator_pic(140, 50, 70, 70);
 	sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 	sf::IntRect Coin_pic(172, 122, 40, 48);
+	sf::IntRect Pu1_pic(212, 122, 43, 42);
+	sf::IntRect Pu2_pic(102, 173, 43, 43);
 
 	//Skapa spelfönstret
 	sf::ContextSettings settings;
@@ -57,25 +54,31 @@ int main()
 	
 	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
 	std::list < std::shared_ptr<Interactable>> Interactable_list{ make_coin_row_seg(200, 200, 280) };
-
+	std::shared_ptr<Interactable> SHROOM{ make_pup(300, 300, "power_up_1") };
+	std::shared_ptr<Interactable> STAR{ make_pup(400, 300, "power_up_2") };
 
 	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 	{
-		(*it)->get_sprite()->setTexture(Pictures);
-		(*it)->get_sprite()->setTextureRect(Floor_pic);
-		update_sprite(*it);
+		update_sprite(*it, Pictures, Floor_pic);
 	}
 
 	for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 	{
-		(*it)->get_sprite()->setTexture(Pictures);
-		(*it)->get_sprite()->setTextureRect(Coin_pic);
-		update_sprite(*it);
+		update_sprite(*it, Pictures, Coin_pic);
 	}
 
-	Foobar_obj->get_sprite()->setTexture(Pictures);
-	Foobar_obj->get_sprite()->setTextureRect(Foobar_R_pic);
+	update_sprite_texture(Foobar_obj, Pictures, Foobar_R_pic);
 
+	update_sprite_texture(SHROOM, Pictures, Pu1_pic);
+
+	add_to_interactable_list(Interactable_list, SHROOM);
+	update_sprite_position(SHROOM);
+
+	STAR->get_sprite()->setTexture(Pictures);
+	STAR->get_sprite()->setTextureRect(Pu2_pic);
+
+	add_to_interactable_list(Interactable_list, STAR);
+	update_sprite_position(STAR);
 
 	sf::Event event;
 
@@ -99,15 +102,17 @@ int main()
 				}
 
 				if (event.key.code == sf::Keyboard::Left)
-				{
-					//Ska även ändra bild
-					Foobar_obj->set_x_velocity(-Foobar_obj->get_max_speed_x());
+				{	//ska även ändra bild
+					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
+					Foobar_obj->get_sprite()->setTextureRect(Foobar_L_pic);
+					Foobar_obj->set_x(Foobar_obj->get_x_pos() - 20);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
 					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
+					Foobar_obj->get_sprite()->setTextureRect(Foobar_R_pic);
 					Foobar_obj->set_x(Foobar_obj->get_x_pos() + 20);
 				}
 
@@ -205,24 +210,18 @@ int main()
 		GameWindow.clear();
 		GameWindow.draw(Background);
 		GameWindow.draw(*Foobar_obj->get_sprite());
-		update_sprite(Foobar_obj);
+		update_sprite_position(Foobar_obj);
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-			std::cout << (*it)->get_x_pos() << std::endl;
 		}
+		
 		for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-			std::cout << (*it)->get_x_pos() << std::endl;
 		}
+
 		GameWindow.display();
 
-/*
-	void run_game()
-	{
-
-	}
-	*/
 	}
 }
