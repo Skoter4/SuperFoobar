@@ -12,7 +12,7 @@ sf::IntRect Char_Rect, sf::IntRect Block_Rect*/
 //Bör vara två map_objects
 //Så kan gravity osv. sättas i respektive interact
 
-void block_collision(std::shared_ptr<Map_object> character_object, std::shared_ptr<Map_object> block_object)
+void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> block_object)
 {
 
 	sf::IntRect char_rect = character_object->get_sprite()->getTextureRect();
