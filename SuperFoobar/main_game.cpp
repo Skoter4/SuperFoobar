@@ -5,11 +5,6 @@
 #include <memory>
 #include "Collision_sfml.h"
 
-void update_sprite(std::shared_ptr<Map_object> MO)
-{
-	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
-}
-
 int main()
 {
 
@@ -56,6 +51,7 @@ int main()
 	sf::Music background_music;
 	background_music.openFromFile("Sounds/smb_theme.wav");
 	background_music.setLoop(true);
+	background_music.setVolume(10);
 	background_music.play();
 
 	// xxx_sound.play() för att spela ljuden
@@ -122,16 +118,12 @@ int main()
 
 	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 	{
-		(*it)->get_sprite()->setTexture(Pictures);
-		(*it)->get_sprite()->setTextureRect(Floor_pic);
-		update_sprite(*it);
+		update_sprite(*it, Pictures, Floor_pic);
 	}
 
 	for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 	{
-		(*it)->get_sprite()->setTexture(Pictures);
-		(*it)->get_sprite()->setTextureRect(Coin_pic);
-		update_sprite(*it);
+		update_sprite(*it, Pictures, Coin_pic);
 	}
 
 	Foobar_obj->get_sprite()->setTexture(Pictures);
@@ -290,10 +282,9 @@ int main()
 		for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-			//std::cout << (*it)->get_x_pos() << std::endl;
 		}
 		GameWindow.draw(*Foobar_obj->get_sprite());
-		update_sprite(Foobar_obj);
+		update_sprite_position(Foobar_obj);
 		GameWindow.display();
 
 /*

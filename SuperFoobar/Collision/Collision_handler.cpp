@@ -84,23 +84,3 @@ bool Collision_handler::check_collision(shared_ptr<Map_object> to_check, shared_
 
 	return false;
 }
-
-/*int main(){
->>>>>>> refs/remotes/origin/master
-  cout << "Started" << endl;
-  Collision_handler col = Collision_handler(10,10);
-  shared_ptr<Map_object> break_ptr;
-  break_ptr = shared_ptr<Map_object>{ new Breakable(1,1,4,4)};
-  col.fill_cluster(break_ptr);
-  shared_ptr<Map_object> my_ptr;
-  my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
-  col.create_list();
-  col.check_list(my_ptr);
-  //auto ptr = col.move_event(my_ptr);
-  //ptr->interact_with(my_ptr);
-  return 0;
-<<<<<<< HEAD
-};
-=======
-};
-*/
