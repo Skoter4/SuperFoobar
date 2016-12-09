@@ -41,7 +41,7 @@ protected:
 	bool invulnerable{ false };
 	bool active{ true };
 	
-	int gravity{ 100 };
+	int gravity{ 1 };
 
 	struct Velocity {
 		int x_velocity{};

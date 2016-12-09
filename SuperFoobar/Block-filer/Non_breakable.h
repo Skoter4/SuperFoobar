@@ -1,3 +1,4 @@
+#pragma once
 #include "../Block-filer/Block.h"
 class Non_breakable
 	: public Block
