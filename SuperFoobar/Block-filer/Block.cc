@@ -35,3 +35,18 @@ void Block::flip_dead()
 {
 	this->dead = !(this->dead);
 }
+
+bool Block::get_dead()
+{
+	return this->dead;
+}
+
+bool Block::get_active()
+{
+	return this->active;
+}
+
+void Block::flip_active()
+{
+	this->active = !active;
+}
