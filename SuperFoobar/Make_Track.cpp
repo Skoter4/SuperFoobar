@@ -61,13 +61,13 @@ list<shared_ptr<Character>> add_to_character_list(list<shared_ptr<Character>> & 
 	return character_list;
 }
 
-list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactable>> & interactable_list, shared_ptr<Interactable> interactable)
+list<shared_ptr<Interactable>> add_to_interactable_list(list<shared_ptr<Interactable>> & interactable_list, shared_ptr<Interactable> interactable)
 {
 	interactable_list.push_front(interactable);
 	return interactable_list;
 }
 
-list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactable>> & interactable_list, list<shared_ptr<Interactable>> other_interactable_list)
+list<shared_ptr<Interactable>> add_to_interactable_list(list<shared_ptr<Interactable>> & interactable_list, list<shared_ptr<Interactable>> other_interactable_list)
 {
 	interactable_list.splice(interactable_list.end(), other_interactable_list);
 	return interactable_list;
@@ -144,6 +144,23 @@ shared_ptr<Coin> make_coin(int x, int y)
 	return  move(coin_ptr);
 }
 
+shared_ptr<Power_up> make_pup(int x, int y, string type)
+{
+	x = interp(x);
+	y = interp(y);
+
+	Power_up* temp_pup_ptr{ new Power_up{ x, y + ::BLOCK_HEIGHT, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	shared_ptr<sf::Sprite> new_sprite{ new sf::Sprite };
+	temp_pup_ptr->setSprite(new_sprite);
+
+	shared_ptr<Power_up> pup_ptr{ temp_pup_ptr };
+	temp_pup_ptr = nullptr;
+
+	pup_ptr->set_type(type);
+
+	return  move(pup_ptr);
+}
+
 shared_ptr<Breakable> make_breakable(int x, int y)
 {
 	x = interp(x);
@@ -192,16 +209,12 @@ shared_ptr<Generator> make_coin_generator(int x, int y)
 	return  move(block_ptr);
 }
 
-shared_ptr<Generator> make_pup_generator(int x, int y)
+shared_ptr<Generator> make_pup_generator(int x, int y, string type)
 {
 	x = interp(x);
 	y = interp(y);
 
-	Interactable* temp_pup_ptr{ new Power_up{ x, y + ::BLOCK_HEIGHT, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
-
-	shared_ptr<Interactable> pup_ptr{ temp_pup_ptr };
-
-	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, pup_ptr } };
+	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_pup(x, y - ::BLOCK_HEIGHT, type) } };
 	shared_ptr<Generator> block_ptr{ temp_block_ptr };
 
 	temp_block_ptr = nullptr;
@@ -340,4 +353,21 @@ shared_ptr<Track> make_track(list<shared_ptr<Block>> blocks, list<shared_ptr<Cha
 	temp_ptr = nullptr;
 
 	return move(temp_track_ptr);
+}
+
+void update_sprite_position(shared_ptr<Map_object> MO)
+{
+	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
+}
+
+void update_sprite_texture(shared_ptr<Map_object> MO, sf::Texture &texture, sf::IntRect rect)
+{
+	MO->get_sprite()->setTexture(texture);
+	MO->get_sprite()->setTextureRect(rect);
+}
+
+void update_sprite(shared_ptr<Map_object> MO, sf::Texture &texture, sf::IntRect rect)
+{
+	update_sprite_position(MO);
+	update_sprite_texture(MO, texture, rect);
 }
