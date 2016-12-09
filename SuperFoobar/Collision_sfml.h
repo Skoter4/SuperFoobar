@@ -19,5 +19,5 @@
 #include "SFML/Graphics/Sprite.hpp"
 #include <SFML\Graphics\Rect.hpp>
 
-void block_collision(std::shared_ptr<Map_object> character_object, std::shared_ptr<Map_object> block_object);
+void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> block_object);
 bool point_in_rect(int x, int y, std::shared_ptr<Map_object> character_object);
