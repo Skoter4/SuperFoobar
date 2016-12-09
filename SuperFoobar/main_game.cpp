@@ -51,11 +51,70 @@ int main()
 	sf::Sprite Background(Background_pic);
 	Background.setTexture(Background_pic);
 	Background.setTextureRect(sf::IntRect(0, 0, 4096, 592));
+	
+	// Bakgrundsmusik och ljud
+	sf::Music background_music;
+	background_music.openFromFile("Sounds/smb_theme.wav");
+	background_music.setLoop(true);
+	background_music.play();
+
+	// xxx_sound.play() för att spela ljuden
+	sf::SoundBuffer coin_buffer;
+	sf::SoundBuffer pup_buffer;
+	sf::SoundBuffer pup_appear_buffer; 
+	sf::SoundBuffer bump_block_buffer;
+	sf::SoundBuffer break_block_buffer;
+	sf::SoundBuffer jump_small_buffer;
+	sf::SoundBuffer jump_big_buffer;
+	sf::SoundBuffer foobar_dies_buffer;
+	sf::SoundBuffer game_over_buffer;
+	sf::SoundBuffer kill_enemy_buffer;
+	sf::SoundBuffer time_warning_buffer;
+	sf::SoundBuffer finish_line_buffer;
+	
+	coin_buffer.loadFromFile("Sounds/smb_coin.wav");
+	pup_buffer.loadFromFile("Sounds/smb_powerup.wav");
+	pup_appear_buffer.loadFromFile("Sounds/smb_powerup_appears.wav");
+	bump_block_buffer.loadFromFile("Sounds/smb_bump.wav");
+	break_block_buffer.loadFromFile("Sounds/smb_breakblock.wav");
+	jump_small_buffer.loadFromFile("Sounds/smb_jump-small.wav");
+	jump_big_buffer.loadFromFile("Sounds/smb_jump-super.wav");
+	foobar_dies_buffer.loadFromFile("Sounds/smb_mariodie.wav");
+	game_over_buffer.loadFromFile("Sounds/smb_gameover.wav");
+	kill_enemy_buffer.loadFromFile("Sounds/smb_stomp.wav");
+	time_warning_buffer.loadFromFile("Sounds/smb_warning.wav");
+	finish_line_buffer.loadFromFile("Sounds/smb_stage_clear.wav");
+
+	sf::Sound coin_sound;
+	sf::Sound pup_sound;
+	sf::Sound pup_appear_sound; // Efter bump (bump = interaktion med generatorblock)
+	sf::Sound bump_block_sound;
+	sf::Sound break_block_sound;
+	sf::Sound jump_small_sound;
+	sf::Sound jump_big_sound;
+	sf::Sound foobar_dies_sound;
+	sf::Sound game_over_sound;
+	sf::Sound kill_enemy_sound;
+	sf::Sound time_warning_sound; // Lite tid kvar
+	sf::Sound finish_line_sound;
+
+	coin_sound.setBuffer(coin_buffer);
+	pup_sound.setBuffer(pup_buffer);
+	pup_appear_sound.setBuffer(pup_appear_buffer);
+	bump_block_sound.setBuffer(bump_block_buffer);
+	break_block_sound.setBuffer(break_block_buffer);
+	jump_small_sound.setBuffer(jump_small_buffer);
+	jump_big_sound.setBuffer(jump_big_buffer);
+	foobar_dies_sound.setBuffer(foobar_dies_buffer);
+	game_over_sound.setBuffer(game_over_buffer);
+	kill_enemy_sound.setBuffer(kill_enemy_buffer);
+	time_warning_sound.setBuffer(time_warning_buffer);
+	finish_line_sound.setBuffer(finish_line_buffer);
 
 	//Skapa Bana
 	Pictures.setRepeated(true);
 
-	
+
 	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(200, 0) };
 	add_to_block_list(Floor_list, make_non_breakable(150, 450));
 	std::list < std::shared_ptr<Interactable>> Interactable_list{ make_coin_row_seg(200, 200, 280) };
