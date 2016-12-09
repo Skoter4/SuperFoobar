@@ -234,6 +234,9 @@ int main()
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			block_collision(Foobar_obj, *it);
+			
+			std::cout << (*it)->get_x_pos() << std::endl;
+			//break;
 		}
 		
 
