@@ -3,6 +3,7 @@
 #include "Map_object.h"
 #include "Make_track.h"
 #include <memory>
+#include "Collision_sfml.h"
 
 void update_sprite(std::shared_ptr<Map_object> MO)
 {
@@ -55,7 +56,8 @@ int main()
 	Pictures.setRepeated(true);
 
 	
-	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
+	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(200, 0) };
+	add_to_block_list(Floor_list, make_non_breakable(150, 450));
 	std::list < std::shared_ptr<Interactable>> Interactable_list{ make_coin_row_seg(200, 200, 280) };
 
 
@@ -101,14 +103,14 @@ int main()
 				if (event.key.code == sf::Keyboard::Left)
 				{
 					//Ska även ändra bild
-					Foobar_obj->set_x_velocity(-Foobar_obj->get_max_speed_x());
+					Foobar_obj->set_x_velocity(-1);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
 					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
-					Foobar_obj->set_x(Foobar_obj->get_x_pos() + 20);
+					Foobar_obj->set_x_velocity(1);
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
@@ -161,7 +163,19 @@ int main()
 			}
 		}
 
+		Foobar_obj->set_y_velocity(Foobar_obj->get_gravity());
 
+		Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + Foobar_obj->get_x_velocity());
+		Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
+
+
+		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
+		{
+			block_collision(Foobar_obj, *it);
+		}
+
+
+		
 		//Så att kameran följer med Foobar men inte går till vänster om start-position
 
 		int camera_x = Foobar_obj->get_x_pos();
@@ -204,18 +218,19 @@ int main()
 		
 		GameWindow.clear();
 		GameWindow.draw(Background);
-		GameWindow.draw(*Foobar_obj->get_sprite());
-		update_sprite(Foobar_obj);
+		std::cout << Foobar_obj->get_y_pos()<<std::endl;
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-			std::cout << (*it)->get_x_pos() << std::endl;
+			//std::cout << (*it)->get_x_pos() << std::endl;
 		}
 		for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
-			std::cout << (*it)->get_x_pos() << std::endl;
+			//std::cout << (*it)->get_x_pos() << std::endl;
 		}
+		GameWindow.draw(*Foobar_obj->get_sprite());
+		update_sprite(Foobar_obj);
 		GameWindow.display();
 
 /*

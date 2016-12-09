@@ -11,7 +11,7 @@ int BLOCK_WIDTH = GAME_SCALE * 7;
 int FLOOR = GAME_SCALE * 42;
 int TRACK_WIDTH = GAME_SCALE * 400;
 int TRACK_HEIGHT = GAME_SCALE * 200;
-int FOOBAR_START_POINT = GAME_SCALE * 10;
+int FOOBAR_START_POINT = GAME_SCALE * 2;
 
 // END OF GLOBAL VARIABLE DEFINITION
 
@@ -76,7 +76,7 @@ list<shared_ptr<Interactable>> add_to_character_list(list<shared_ptr<Interactabl
 // FUNCTIONS TO CREATE SINGLE OBJECTS SUCH AS CHARACTERS, GENERATORS OR INTERACTABLES
 shared_ptr<Foobar> make_Foobar()
 {
-	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR,50,50} };
 	std::shared_ptr<sf::Sprite> x{ new sf::Sprite };
 	temp_foobar_ptr->setSprite(x);
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
