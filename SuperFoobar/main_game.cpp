@@ -94,7 +94,6 @@ int main()
 			
 			if (event.type == sf::Event::KeyPressed)
 			{
-
 				if (event.key.code == sf::Keyboard::LShift)
 				{
 					Foobar_obj->run();
@@ -103,29 +102,33 @@ int main()
 				if (event.key.code == sf::Keyboard::Left)
 				{
 					//Ska även ändra bild
-					Foobar_obj->set_x_velocity(-1);
+					//Foobar_obj->set_x_velocity(-1);
+					Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos()-2);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
 					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
-					Foobar_obj->set_x_velocity(1);
+					//	Foobar_obj->set_x_velocity(1);
+					Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + 2);
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
 				{
+					Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() - 2);
 					//Foobar hoppar
 				}
 
 				if (event.key.code == sf::Keyboard::Down)
 				{
-					if(!Foobar_obj->get_is_ducking())
+					/*if(!Foobar_obj->get_is_ducking())
 					{
 						Foobar_obj->duck();
 						Foobar_obj->flip_is_ducking();
-					}
+					}*/
 					//Ska även ändra bild
+					Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + 2);
 				}
 			}
 
@@ -162,17 +165,18 @@ int main()
 				}
 			}
 		}
-
+		/*
 		Foobar_obj->set_y_velocity(Foobar_obj->get_gravity());
 
 		Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + Foobar_obj->get_x_velocity());
 		Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
-
-
+		*/
+		
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			block_collision(Foobar_obj, *it);
 		}
+		
 
 
 		
@@ -218,7 +222,7 @@ int main()
 		
 		GameWindow.clear();
 		GameWindow.draw(Background);
-		std::cout << Foobar_obj->get_y_pos()<<std::endl;
+		//std::cout << Foobar_obj->get_y_pos()<<std::endl;
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());

@@ -85,11 +85,7 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_3") {
 		//TODO
 	}
-<<<<<<< HEAD
 	return true;
-=======
-	return 0;
->>>>>>> refs/remotes/origin/master
 }
 
 void Foobar::interact()
