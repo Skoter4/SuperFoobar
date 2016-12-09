@@ -56,6 +56,7 @@ int main()
 	sf::Music background_music;
 	background_music.openFromFile("Sounds/smb_theme.wav");
 	background_music.setLoop(true);
+	background_music.setVolume(10);
 	background_music.play();
 
 	// xxx_sound.play() för att spela ljuden
