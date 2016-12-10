@@ -21,6 +21,10 @@
 
 extern sf::Texture SUPER_FOOBAR_TEXTURES;
 
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
+
+
 int interp(int val);
 
 std::list<std::shared_ptr<Block>> add_to_block_list(std::list<std::shared_ptr<Block>> & , std::shared_ptr<Block> );

@@ -10,5 +10,5 @@ Interactable::Interactable(int x_pos, int y_pos, int height, int width)
 
 void Interactable::interact()
 {
-	dead = true;
+	this->flip_dead();
 }
