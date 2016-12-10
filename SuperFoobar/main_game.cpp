@@ -310,6 +310,11 @@ int main()
 				block_collision(track->get_foobar(), *it);
 			}
 
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
+
 
 			//Så att kameran följer med Foobar men inte går till vänster om start-position
 

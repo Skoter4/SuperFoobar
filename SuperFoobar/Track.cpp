@@ -147,6 +147,15 @@ void Track::handle_map_object_flags()
 			{
 				this->score.increase_score();
 			}
+			else if ((*it)->type_str() == "power_up_star")
+			{
+				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
+			}
+			else if ((*it)->type_str() == "power_up_shroom")
+			{
+				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
+				cout << foobar->get_width();
+			}
 			it = this->get_interactable_list().erase(it);
 			if (it == this->get_interactable_list().end())
 				break;
