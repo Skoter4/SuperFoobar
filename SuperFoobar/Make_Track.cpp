@@ -19,10 +19,10 @@ sf::Texture SUPER_FOOBAR_TEXTURES{};
 
 sf::IntRect Foobar_R_pic(150, 0, 50, 50);
 sf::IntRect Foobar_L_pic(200, 0, 50, 50);
-sf::IntRect Foobar_HR_pic(148, 170, 50, 100);
-sf::IntRect Foobar_HL_pic(198, 170, 50, 100);
-sf::IntRect Foobar_DR_pic(70, 120, 50, 25);
-sf::IntRect Foobar_DL_pic(120, 120, 50, 25);
+sf::IntRect Foobar_HR_pic(0, 191, 50, 100);
+sf::IntRect Foobar_HL_pic(50, 191, 50, 100);
+sf::IntRect Foobar_DR_pic(149, 171, 50, 50);
+sf::IntRect Foobar_DL_pic(199, 171, 50, 50);
 sf::IntRect Enemy1_pic(100, 0, 50, 50);
 sf::IntRect Enemy2_pic(0, 0, 50, 50);
 sf::IntRect Enemy3_pic(50, 0, 50, 50);
@@ -33,7 +33,7 @@ sf::IntRect Non_Breakable_pic(209, 50, 70, 70);
 sf::IntRect Generator_pic(140, 50, 70, 70);
 sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 sf::IntRect Coin_pic(172, 122, 40, 48);
-sf::IntRect Power_Up_1_pic(211, 121, 50, 50);
+sf::IntRect Power_Up_1_pic(211, 120, 50, 50);
 sf::IntRect Finish_Line_pic(107, 222, 63, 68);
 sf::IntRect Power_Up_2_pic(103, 173, 50, 50);
 
@@ -424,6 +424,7 @@ void update_sprite(shared_ptr<Map_object> MO)
 	else if (MO->type_str() == "finish_line")
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Finish_Line_pic);
+	}
 	else if (MO->type_str() == "power_up_star")
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_2_pic);

@@ -98,8 +98,8 @@ int main()
 			make_coin_generator(99, 7) + make_coin_generator(102, 7) + make_coin_generator(105, 7) +
 			make_coin_generator(123, 4) + make_coin_generator(124, 4) + make_coin_generator(161, 7);
 
-		block_list + make_pup_generator(15, 7, "power_up_1") + make_pup_generator(73, 7, "power_up_1") +
-			make_pup_generator(94, 7, "power_up_2") + make_pup_generator(102, 4, "power_up_1");
+		block_list + make_pup_generator(15, 7, "power_up_shroom") + make_pup_generator(73, 7, "power_up_shroom") +
+			make_pup_generator(94, 7, "power_up_star") + make_pup_generator(102, 4, "power_up_shroom");
 
 		block_list + make_breakable(14, 7) + make_breakable(16, 7) + make_breakable(18, 7) + make_breakable(72, 7) + make_breakable(74, 7) +
 			make_breakable(93, 7) + make_breakable(113, 7) + make_breakable(122, 4) + make_breakable(125, 4) + make_breakable(162, 7);
@@ -152,7 +152,7 @@ int main()
 		float timer{}; // Used to count down
 		sf::Text timerText;
 		timerText.setFont(font);
-		timerText.setPosition(16* 70 - 140, 5);
+		timerText.setPosition(16* 70 - 100, 5);
 		timerText.setCharacterSize(50);
 		//timerText.setColor(sf::Color::White);
 		sf::Clock clock; // Starts the clock
@@ -323,7 +323,7 @@ int main()
 			if (track->get_foobar()->get_x_pos() > 512)
 			{
 				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 16 * 70, 12 * 70));
-				timerText.setPosition((static_cast<float>(16 * 70 - 140 + (camera_x - 512))), timerText.getPosition().y);
+				timerText.setPosition((static_cast<float>(16 * 70 - 100 + (camera_x - 512))), timerText.getPosition().y);
 				scoreText.setPosition((static_cast<float>(15 + (camera_x - 512))), scoreText.getPosition().y);
 				GameWindow.setView(view);
 			}
