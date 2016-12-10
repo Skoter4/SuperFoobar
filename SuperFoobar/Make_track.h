@@ -13,6 +13,7 @@
 #include "Character filer\Enemy\Enemy_2.h"
 #include "Character filer\Enemy\Enemy_3.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Track.h"
 #include <list>
 #include <string>

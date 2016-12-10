@@ -47,6 +47,7 @@ bool Breakable::to_break(shared_ptr<Cluster> other_cluster) {
 void Breakable::interact()
 { 
   this->destruct();
+  this->flip_active();
 }
 
 void Breakable::poly()

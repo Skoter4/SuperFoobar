@@ -57,7 +57,36 @@ void Collision_handler::update_position(shared_ptr<Map_object> to_update) {
 	fill_cluster(to_update);
 }
 
+void Collision_handler::create_list()
+{
+	vector<shared_ptr<Map_object>> object_list = vector<shared_ptr<Map_object>>(2);
+	shared_ptr<Map_object> break_ptr;
+	break_ptr = shared_ptr<Map_object>{ new Breakable(1,1,4,4) };
+	shared_ptr<Map_object> my_ptr;
+	my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
+	object_list[0] = break_ptr;
+	object_list[1] = my_ptr;
+}
+
+void Collision_handler::check_list(shared_ptr<Map_object> to_check)
+{
+	cout << "Here" << endl;
+	for (size_t i = 0; i < object_list.size(); i++)
+	{
+		cout << "Iter" << endl;
+		check_collision(object_list[i], to_check);
+		cout << i << endl;
+	}
+}
+
+bool Collision_handler::check_collision(shared_ptr<Map_object> to_check, shared_ptr<Map_object> reference)
+{
+
+	return false;
+}
+
 /*int main(){
+>>>>>>> refs/remotes/origin/master
   cout << "Started" << endl;
   Collision_handler col = Collision_handler(10,10);
   shared_ptr<Map_object> break_ptr;
@@ -65,8 +94,13 @@ void Collision_handler::update_position(shared_ptr<Map_object> to_update) {
   col.fill_cluster(break_ptr);
   shared_ptr<Map_object> my_ptr;
   my_ptr = shared_ptr<Map_object>{ new Foobar(1,1,1,1) };
+  col.create_list();
+  col.check_list(my_ptr);
   //auto ptr = col.move_event(my_ptr);
   //ptr->interact_with(my_ptr);
   return 0;
+<<<<<<< HEAD
+};
+=======
 };
 */

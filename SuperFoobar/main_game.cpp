@@ -1,8 +1,14 @@
-
+#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Map_object.h"
 #include "Make_track.h"
 #include <memory>
+#include "Collision_sfml.h"
+
+void update_sprite(std::shared_ptr<Map_object> MO)
+{
+	MO->get_sprite()->setPosition(MO->get_x_pos(), MO->get_y_pos());
+}
 
 int main()
 {
@@ -31,8 +37,6 @@ int main()
 	sf::IntRect Generator_pic(140, 50, 70, 70);
 	sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 	sf::IntRect Coin_pic(172, 122, 40, 48);
-	sf::IntRect Pu1_pic(212, 122, 43, 42);
-	sf::IntRect Pu2_pic(102, 173, 43, 43);
 
 	//Skapa spelfönstret
 	sf::ContextSettings settings;
@@ -47,38 +51,92 @@ int main()
 	sf::Sprite Background(Background_pic);
 	Background.setTexture(Background_pic);
 	Background.setTextureRect(sf::IntRect(0, 0, 4096, 592));
+	
+	// Bakgrundsmusik och ljud
+	sf::Music background_music;
+	background_music.openFromFile("Sounds/smb_theme.wav");
+	background_music.setLoop(true);
+	background_music.play();
+
+	// xxx_sound.play() för att spela ljuden
+	sf::SoundBuffer coin_buffer;
+	sf::SoundBuffer pup_buffer;
+	sf::SoundBuffer pup_appear_buffer; 
+	sf::SoundBuffer bump_block_buffer;
+	sf::SoundBuffer break_block_buffer;
+	sf::SoundBuffer jump_small_buffer;
+	sf::SoundBuffer jump_big_buffer;
+	sf::SoundBuffer foobar_dies_buffer;
+	sf::SoundBuffer game_over_buffer;
+	sf::SoundBuffer kill_enemy_buffer;
+	sf::SoundBuffer time_warning_buffer;
+	sf::SoundBuffer finish_line_buffer;
+	
+	coin_buffer.loadFromFile("Sounds/smb_coin.wav");
+	pup_buffer.loadFromFile("Sounds/smb_powerup.wav");
+	pup_appear_buffer.loadFromFile("Sounds/smb_powerup_appears.wav");
+	bump_block_buffer.loadFromFile("Sounds/smb_bump.wav");
+	break_block_buffer.loadFromFile("Sounds/smb_breakblock.wav");
+	jump_small_buffer.loadFromFile("Sounds/smb_jump-small.wav");
+	jump_big_buffer.loadFromFile("Sounds/smb_jump-super.wav");
+	foobar_dies_buffer.loadFromFile("Sounds/smb_mariodie.wav");
+	game_over_buffer.loadFromFile("Sounds/smb_gameover.wav");
+	kill_enemy_buffer.loadFromFile("Sounds/smb_stomp.wav");
+	time_warning_buffer.loadFromFile("Sounds/smb_warning.wav");
+	finish_line_buffer.loadFromFile("Sounds/smb_stage_clear.wav");
+
+	sf::Sound coin_sound;
+	sf::Sound pup_sound;
+	sf::Sound pup_appear_sound; // Efter bump (bump = interaktion med generatorblock)
+	sf::Sound bump_block_sound;
+	sf::Sound break_block_sound;
+	sf::Sound jump_small_sound;
+	sf::Sound jump_big_sound;
+	sf::Sound foobar_dies_sound;
+	sf::Sound game_over_sound;
+	sf::Sound kill_enemy_sound;
+	sf::Sound time_warning_sound; // Lite tid kvar
+	sf::Sound finish_line_sound;
+
+	coin_sound.setBuffer(coin_buffer);
+	pup_sound.setBuffer(pup_buffer);
+	pup_appear_sound.setBuffer(pup_appear_buffer);
+	bump_block_sound.setBuffer(bump_block_buffer);
+	break_block_sound.setBuffer(break_block_buffer);
+	jump_small_sound.setBuffer(jump_small_buffer);
+	jump_big_sound.setBuffer(jump_big_buffer);
+	foobar_dies_sound.setBuffer(foobar_dies_buffer);
+	game_over_sound.setBuffer(game_over_buffer);
+	kill_enemy_sound.setBuffer(kill_enemy_buffer);
+	time_warning_sound.setBuffer(time_warning_buffer);
+	finish_line_sound.setBuffer(finish_line_buffer);
 
 	//Skapa Bana
 	Pictures.setRepeated(true);
 
-	
-	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(4000, 0) };
+
+	std::list<std::shared_ptr<Block>> Floor_list{ make_floor_seg(200, 0) };
+	add_to_block_list(Floor_list, make_non_breakable(150, 450));
 	std::list < std::shared_ptr<Interactable>> Interactable_list{ make_coin_row_seg(200, 200, 280) };
-	std::shared_ptr<Interactable> SHROOM{ make_pup(300, 300, "power_up_1") };
-	std::shared_ptr<Interactable> STAR{ make_pup(400, 300, "power_up_2") };
+
 
 	for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 	{
-		update_sprite(*it, Pictures, Floor_pic);
+		(*it)->get_sprite()->setTexture(Pictures);
+		(*it)->get_sprite()->setTextureRect(Floor_pic);
+		update_sprite(*it);
 	}
 
 	for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 	{
-		update_sprite(*it, Pictures, Coin_pic);
+		(*it)->get_sprite()->setTexture(Pictures);
+		(*it)->get_sprite()->setTextureRect(Coin_pic);
+		update_sprite(*it);
 	}
 
-	update_sprite_texture(Foobar_obj, Pictures, Foobar_R_pic);
+	Foobar_obj->get_sprite()->setTexture(Pictures);
+	Foobar_obj->get_sprite()->setTextureRect(Foobar_R_pic);
 
-	update_sprite_texture(SHROOM, Pictures, Pu1_pic);
-
-	add_to_interactable_list(Interactable_list, SHROOM);
-	update_sprite_position(SHROOM);
-
-	STAR->get_sprite()->setTexture(Pictures);
-	STAR->get_sprite()->setTextureRect(Pu2_pic);
-
-	add_to_interactable_list(Interactable_list, STAR);
-	update_sprite_position(STAR);
 
 	sf::Event event;
 
@@ -95,40 +153,41 @@ int main()
 			
 			if (event.type == sf::Event::KeyPressed)
 			{
-
 				if (event.key.code == sf::Keyboard::LShift)
 				{
 					Foobar_obj->run();
 				}
 
 				if (event.key.code == sf::Keyboard::Left)
-				{	//ska även ändra bild
-					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
-					Foobar_obj->get_sprite()->setTextureRect(Foobar_L_pic);
-					Foobar_obj->set_x(Foobar_obj->get_x_pos() - 20);
+				{
+					//Ska även ändra bild
+					//Foobar_obj->set_x_velocity(-1);
+					Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos()-2);
 				}
 
 				if (event.key.code == sf::Keyboard::Right)
 				{
 					//ska även ändra bild
 					//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
-					Foobar_obj->get_sprite()->setTextureRect(Foobar_R_pic);
-					Foobar_obj->set_x(Foobar_obj->get_x_pos() + 20);
+					//	Foobar_obj->set_x_velocity(1);
+					Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + 2);
 				}
 
 				if (event.key.code == sf::Keyboard::Up)
 				{
+					Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() - 2);
 					//Foobar hoppar
 				}
 
 				if (event.key.code == sf::Keyboard::Down)
 				{
-					if(!Foobar_obj->get_is_ducking())
+					/*if(!Foobar_obj->get_is_ducking())
 					{
 						Foobar_obj->duck();
 						Foobar_obj->flip_is_ducking();
-					}
+					}*/
 					//Ska även ändra bild
+					Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + 2);
 				}
 			}
 
@@ -165,8 +224,24 @@ int main()
 				}
 			}
 		}
+		/*
+		Foobar_obj->set_y_velocity(Foobar_obj->get_gravity());
+
+		Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + Foobar_obj->get_x_velocity());
+		Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
+		*/
+		
+		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
+		{
+			block_collision(Foobar_obj, *it);
+			
+			std::cout << (*it)->get_x_pos() << std::endl;
+			//break;
+		}
+		
 
 
+		
 		//Så att kameran följer med Foobar men inte går till vänster om start-position
 
 		int camera_x = Foobar_obj->get_x_pos();
@@ -209,19 +284,26 @@ int main()
 		
 		GameWindow.clear();
 		GameWindow.draw(Background);
-		GameWindow.draw(*Foobar_obj->get_sprite());
-		update_sprite_position(Foobar_obj);
+		//std::cout << Foobar_obj->get_y_pos()<<std::endl;
 		for (auto it = Floor_list.begin(); it != Floor_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
+			//std::cout << (*it)->get_x_pos() << std::endl;
 		}
-		
 		for (auto it = Interactable_list.begin(); it != Interactable_list.end(); ++it)
 		{
 			GameWindow.draw(*(*it)->get_sprite());
+			//std::cout << (*it)->get_x_pos() << std::endl;
 		}
-
+		GameWindow.draw(*Foobar_obj->get_sprite());
+		update_sprite(Foobar_obj);
 		GameWindow.display();
 
+/*
+	void run_game()
+	{
+
+	}
+	*/
 	}
 }
