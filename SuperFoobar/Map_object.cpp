@@ -87,3 +87,13 @@ void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
 		object_sprite = new_sprite;
 	}
 }
+
+void Map_object::flip_dead()
+{
+	this->dead = !(this->dead);
+}
+
+bool Map_object::is_dead()
+{
+	return this->dead;
+}
