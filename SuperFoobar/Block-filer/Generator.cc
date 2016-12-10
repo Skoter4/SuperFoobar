@@ -11,12 +11,12 @@ Generator::Generator(int x, int y, int height, int width,
 
 void Generator::flip_deactivated()
 {
-	deactivated = !deactivated;
+	this->deactivated = !deactivated;
 }
 
 void Generator::flip_generating()
 {
-	generating = !generating;
+	this->generating = !generating;
 }
 
 std::string Generator::type_str()

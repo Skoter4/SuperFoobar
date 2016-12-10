@@ -25,7 +25,7 @@ void Character::flip_dead()
 
 void Character::die()
 {
-	if (invulnerable = false && this->get_lifes() == 1)
+	if (invulnerable == false && this->get_lifes() == 1)
 	{
 		this->flip_dead();
 	}

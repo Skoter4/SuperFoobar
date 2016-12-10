@@ -171,6 +171,7 @@
     <ClCompile Include="Collision\Cluster.cpp" />
     <ClCompile Include="Collision\Collision_handler.cpp" />
     <ClCompile Include="Collision\Collision_matrix.cpp" />
+    <ClCompile Include="Collision_sfml.cpp" />
     <ClCompile Include="Interactable-filer\Coin.cpp" />
     <ClCompile Include="Interactable-filer\Finish_line.cpp" />
     <ClCompile Include="Interactable-filer\Interactable.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Collision\Cluster.h" />
     <ClInclude Include="Collision\Collision_handler.h" />
     <ClInclude Include="Collision\Collision_matrix.h" />
+    <ClInclude Include="Collision_sfml.h" />
     <ClInclude Include="Interactable-filer\Coin.h" />
     <ClInclude Include="Interactable-filer\Finish_line.h" />
     <ClInclude Include="Interactable-filer\Interactable.h" />

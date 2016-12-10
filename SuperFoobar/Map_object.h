@@ -9,11 +9,9 @@
 namespace sf
 {
 	class Sprite;
-	class Texture;
 };
 
 class sf::Sprite;
-class sf::Texture;
 
 class Map_object {
 public:
