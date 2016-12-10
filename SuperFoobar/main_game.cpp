@@ -12,19 +12,6 @@ int main()
 		// initiering av texturerna
 		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/SuperFoobarTransTextures.png");
 
-		//Skapa spelfönstret
-		sf::ContextSettings settings;
-		settings.antialiasingLevel = 8;
-
-		sf::RenderWindow GameWindow(sf::VideoMode(1024, 592), "TEST");
-
-		sf::Texture Background_pic;
-		Background_pic.setRepeated(true);
-		Background_pic.loadFromFile("Pictures/Background.png");
-
-		sf::Sprite Background(Background_pic);
-		Background.setTexture(Background_pic);
-		Background.setTextureRect(sf::IntRect(0, 0, 4096, 592));
 
 		// Bakgrundsmusik och ljud
 		sf::Music background_music;
@@ -93,13 +80,28 @@ int main()
 		std::list<std::shared_ptr<Block>> block_list{};
 		std::list<std::shared_ptr<Interactable>> interactable_list{};
 
-		block_list + make_floor_seg(8, 0) + make_one_line_breakable_seg(4, 4, 5);
+		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5);
 		character_list + make_foobar() + make_enemy_1(5, 6);
 		interactable_list + make_coin_row_seg(4, 4, 4);
 
 
 		std::shared_ptr<Track> track{ make_track(block_list, character_list, interactable_list) };
 		init_sprite(track);
+
+		//Skapa spelfönstret
+		sf::ContextSettings settings;
+		settings.antialiasingLevel = 8;
+
+		sf::RenderWindow GameWindow(sf::VideoMode(16 * 70, 12 * 70) , "TEST");
+
+		sf::Texture Background_pic;
+		Background_pic.setRepeated(true);
+		Background_pic.loadFromFile("Pictures/Background.png");
+
+		sf::Sprite Background(Background_pic);
+		Background.setTexture(Background_pic);
+		Background.setTextureRect(sf::IntRect(0, 0, track->get_width(), track->get_height()));
+
 
 		sf::Event event;
 
@@ -225,12 +227,12 @@ int main()
 
 			if (track->get_foobar()->get_x_pos() > 512)
 			{
-				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 1024, 592));
+				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 16 * 70, 12 * 70));
 				GameWindow.setView(view);
 			}
 			else
 			{
-				sf::View view(sf::FloatRect(0, 0, 1024, 592));
+				sf::View view(sf::FloatRect(0, 0, 16 * 70, 12 * 70));
 				GameWindow.setView(view);
 			}
 
