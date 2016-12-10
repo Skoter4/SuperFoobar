@@ -10,13 +10,18 @@ Coin::Coin(int x_pos, int y_pos, int height, int width)
 	: Interactable(x_pos, y_pos, height, width)
 {}
 
-bool Coin::interact_with(std::shared_ptr<Map_object> my_char)
+bool Coin::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	return false;
+		if (map_object->type_str() == "foobar")
+		{
+			interact();
+		}
+		return false;
 }
 
 void Coin::interact()
 {
+	this->flip_dead();
 }
 
 std::string Coin::type_str()

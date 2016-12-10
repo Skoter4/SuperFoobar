@@ -15,7 +15,8 @@ public:
 		: Character(x_pos, y_pos, width, height) {}
 	void poly() override;
 	std::string type_str() override;
-	void power_up(Power_up);
+
+	void power_up(std::shared_ptr<Power_up>);
 	void increase_size(int, int);
 	void pick_up_coin();
 	void jump();

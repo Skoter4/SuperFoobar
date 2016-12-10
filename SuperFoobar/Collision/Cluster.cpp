@@ -8,6 +8,8 @@ Cluster::Cluster(int x_s, int y_s, int height_s, int width_s) {
 	y = y_s;
 	height = height_s;
 	width = width_s;
+	desired_x = x_s;
+	desired_y = y_s;
 }
 
 void Cluster::move_x()
