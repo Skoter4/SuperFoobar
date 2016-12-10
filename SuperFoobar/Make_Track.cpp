@@ -35,6 +35,7 @@ sf::IntRect Generator_pic(140, 50, 70, 70);
 sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 sf::IntRect Coin_pic(172, 122, 40, 48);
 sf::IntRect Power_Up_1_pic(211, 121, 50, 50);
+sf::IntRect Power_Up_2_pic(103, 173, 50, 50);
 
 // END OF GLOBAL VARIABLE DEFINITION
 
@@ -226,7 +227,7 @@ shared_ptr<Generator> make_pup_generator(int x, int y, string type)
 	x = interp(x);
 	y = interp(y);
 
-	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_pup(x, y - ::BLOCK_HEIGHT, type) } };
+	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_pup(x/::BLOCK_HEIGHT, (y - ::BLOCK_HEIGHT)/::BLOCK_HEIGHT, type) } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_block_ptr->setSprite(new_sprite_ptr);
 
@@ -376,7 +377,10 @@ void update_sprite(shared_ptr<Map_object> MO)
 {
 	if (MO->type_str() == "foobar")
 	{
-		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+		if (MO->get_height() > 50)
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+		else
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
 	}
 	else if (MO->type_str() == "enemy_1")
 	{
@@ -413,9 +417,13 @@ void update_sprite(shared_ptr<Map_object> MO)
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Coin_pic);
 	}
-	else if (MO->type_str() == "power_up_1")
+	else if (MO->type_str() == "power_up_shroom")
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_1_pic);
+	}
+	else if (MO->type_str() == "power_up_star")
+	{
+		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_2_pic);
 	}
 	update_sprite_position(MO);
 }

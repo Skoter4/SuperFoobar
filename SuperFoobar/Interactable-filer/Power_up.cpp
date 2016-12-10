@@ -15,8 +15,13 @@ void Power_up::set_type(string new_type)
 	this->type = new_type;
 }
 
-bool Power_up::interact_with(std::shared_ptr<Map_object> my_char)
+bool Power_up::interact_with(std::shared_ptr<Map_object> map_object)
 {
+	if (map_object->type_str() == "foobar" && (this->type_str() == "power_up_star"))
+		this->flip_dead();
+	else if (map_object->type_str() == "foobar" && (this->type_str() == "power_up_shroom"))
+		this->flip_dead();
+		
 	return false;
 }
 

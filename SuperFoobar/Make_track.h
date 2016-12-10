@@ -43,6 +43,10 @@ std::shared_ptr<Foobar> make_foobar();
 
 std::shared_ptr<Enemy_1> make_enemy_1(int , int );
 
+std::shared_ptr<Enemy_2> make_enemy_2(int, int);
+
+std::shared_ptr<Enemy_3> make_enemy_3(int, int);
+
 std::shared_ptr<Coin> make_coin(int , int );
 
 std::shared_ptr<Power_up> make_pup(int , int , std::string );

@@ -89,7 +89,7 @@ int main()
 		std::list<std::shared_ptr<Block>> block_list{};
 		std::list<std::shared_ptr<Interactable>> interactable_list{};
 
-		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5) + make_coin_generator(12, 5);
+		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5) + make_coin_generator(12, 5) + make_pup_generator(13, 5, "power_up_star") + make_pup_generator(14, 5, "power_up_shroom");
 		character_list + make_foobar() + make_enemy_1(5, 6);
 		interactable_list + make_coin_row_seg(4, 4, 4);
 
@@ -278,6 +278,11 @@ int main()
 			}
 
 			for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
+
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 			{
 				block_collision(track->get_foobar(), *it);
 			}

@@ -38,7 +38,6 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 		&& (character_object->get_desy_pos() + character_object->get_height() <= block_object->get_y_pos())
 		&& character_object->get_desx_pos() + character_object->get_width() <= block_object->get_x_pos())
 	{
-		std::cout << "Krock" << std::endl;
 		if (character_object->type_str() == "foobar")
 		{
 			character_object->set_x_velocity(0);
