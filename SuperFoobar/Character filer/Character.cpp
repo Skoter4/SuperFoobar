@@ -18,10 +18,6 @@ void Character::move_y(int y_speed)
 	set_desy_pos(y_speed + cluster->get_x());
 }
 
-void Character::flip_dead()
-{
-	dead = !dead;
-}
 
 void Character::die()
 {

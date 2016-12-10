@@ -9,8 +9,6 @@ int main()
 {
 	try
 	{
-
-		//Saker som tillhör utritning
 		// initiering av texturerna
 		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/SuperFoobarTransTextures.png");
 
@@ -90,22 +88,18 @@ int main()
 
 		//Skapa Bana
 		SUPER_FOOBAR_TEXTURES.setRepeated(true);
-		std::shared_ptr<Foobar> Foobar_obj{ make_foobar() };
-
-
 
 		std::list<std::shared_ptr<Character>> character_list{};
-		character_list + Foobar_obj;
+		std::list<std::shared_ptr<Block>> block_list{};
+		std::list<std::shared_ptr<Interactable>> interactable_list{};
+
+		block_list + make_floor_seg(8, 0) + make_one_line_breakable_seg(4, 4, 5);
+		character_list + make_foobar() + make_enemy_1(5, 6);
+		interactable_list + make_coin_row_seg(4, 4, 4);
 
 
-
-		std::shared_ptr<Track> track{ make_track(make_floor_seg(200, 0), character_list, make_coin_row_seg(200, 200, 280)) };
-
-		*track + (make_non_breakable(150, 450));
-
-		track->get_interactable_list() + make_pup(140, 140, "power_up_1") + make_coin(350, 140);
-
-
+		std::shared_ptr<Track> track{ make_track(block_list, character_list, interactable_list) };
+		init_sprite(track);
 
 		sf::Event event;
 
@@ -122,31 +116,33 @@ int main()
 				{
 					if (event.key.code == sf::Keyboard::LShift)
 					{
-						Foobar_obj->run();
+						track->get_foobar()->run();
 					}
 
-					if (event.key.code == sf::Keyboard::Left)
+
+
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) )
 					{
 						//Ska även ändra bild
 						//Foobar_obj->set_x_velocity(-1);
-						Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() - 20);
+						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
 					}
 
-					if (event.key.code == sf::Keyboard::Right)
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 					{
 						//ska även ändra bild
 						//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
 						//	Foobar_obj->set_x_velocity(1);
-						Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + 20);
+						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
 					}
 
-					if (event.key.code == sf::Keyboard::Up)
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 					{
-						Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() - 20);
+						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 						//Foobar hoppar
 					}
 
-					if (event.key.code == sf::Keyboard::Down)
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 					{
 						/*if(!Foobar_obj->get_is_ducking())
 						{
@@ -154,8 +150,26 @@ int main()
 							Foobar_obj->flip_is_ducking();
 						}*/
 						//Ska även ändra bild
-						Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + 20);
+						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() + 20);
 					}
+				}
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				{
+					//Ska även ändra bild
+					//Foobar_obj->set_x_velocity(-1);
+					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
+
+					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
+				}
+
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+				{
+					//Ska även ändra bild
+					//Foobar_obj->set_x_velocity(-1);
+					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
+
+					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 				}
 
 				if (event.type == sf::Event::KeyReleased)
@@ -167,27 +181,27 @@ int main()
 
 					if (event.key.code == sf::Keyboard::Left)
 					{
-						Foobar_obj->set_x_velocity(0);
+						track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Right)
 					{
-						Foobar_obj->set_x_velocity(0);
+						track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Down)
 					{
-						if (Foobar_obj->get_is_ducking())
+						if (track->get_foobar()->get_is_ducking())
 						{
-							Foobar_obj->stand_up();
-							Foobar_obj->flip_is_ducking();
+							track->get_foobar()->stand_up();
+							track->get_foobar()->flip_is_ducking();
 						}
 						//Ska även ändra tillbaka bilden
 					}
 
 					if (event.key.code == sf::Keyboard::LShift)
 					{
-						Foobar_obj->set_max_speed_x(50);
+						track->get_foobar()->set_max_speed_x(50);
 					}
 				}
 			}
@@ -201,17 +215,15 @@ int main()
 
 			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
 			{
-				block_collision(Foobar_obj, *it);
+				block_collision(track->get_foobar(), *it);
 			}
-			
-
 
 
 			//Så att kameran följer med Foobar men inte går till vänster om start-position
 
-			int camera_x = Foobar_obj->get_x_pos();
+			int camera_x = track->get_foobar()->get_x_pos();
 
-			if (Foobar_obj->get_x_pos() > 512)
+			if (track->get_foobar()->get_x_pos() > 512)
 			{
 				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 1024, 592));
 				GameWindow.setView(view);
@@ -224,9 +236,9 @@ int main()
 
 
 			//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
-			if (Foobar_obj->get_x_pos() == 0 && Foobar_obj->get_x_velocity() < 0)
+			if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
 			{
-				Foobar_obj->set_x_velocity(0);
+				track->get_foobar()->set_x_velocity(0);
 			}
 
 			
@@ -252,15 +264,10 @@ int main()
 
 
 			draw_track(track, GameWindow);
-			update_sprite(track);
+			update_sprite_position(track);
+			track->handle_map_object_flags();
 			GameWindow.display();
 
-			/*
-				void run_game()
-				{
-
-				}
-				*/
 		}
 
 	}

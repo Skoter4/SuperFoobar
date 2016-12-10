@@ -38,19 +38,7 @@ sf::IntRect Power_Up_1_pic(211, 121, 50, 50);
 // FUNCTION FITTING COORDINATES INTO GAME WORLD DICTATED BY BLOCK SIZES.
 int interp(int val)
 {
-	int block_size{ ::BLOCK_HEIGHT };
-	int half_block{ block_size / 2 };
-
-	if (val % block_size >= half_block)
-	{
-		val += block_size - val % block_size;
-	}
-	else if (0 < val % block_size < half_block)
-	{
-		val -= val % block_size;
-	}
-
-	return val;
+	return val * ::BLOCK_HEIGHT;
 }
 
 // HELP FUNCTIONS TO EASILY CREATE TRACKS
@@ -273,22 +261,16 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 {
 
 	list<shared_ptr<Block>> block_list{};
-	//list<shared_ptr<Block>>::iterator it;
 
-	seg_width = interp(seg_width);
-	seg_height = interp(seg_height);
-	x = interp(x);
-	y = interp(y);
-
-	int blocks_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
-	int blocks_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
+	int blocks_to_generate_x{ seg_width };
+	int blocks_to_generate_y{ seg_height };
 
 	for (int i{}; i < blocks_to_generate_x; i++)
 	{
 		int k = 0;
 		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_non_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			block_list.push_front(make_non_breakable(x + i, y - k));
 		}
 	}
 
@@ -298,13 +280,13 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 // FUNCTION THAT CREATES A LIST OF A FLOOR SEGMENT OF SET LENGTH OUT OF INVURNABLE BLOCKS.
 list<shared_ptr<Block>> make_floor_seg(int seg_length, int x_start)
 {
-	return make_rect_seg(seg_length, ::BLOCK_HEIGHT, x_start, ::FLOOR);
+	return make_rect_seg(seg_length, 1, x_start, ::FLOOR /::BLOCK_HEIGHT);
 }
 
 // FUNCTION THAT CREATES A LIST OF A ONE-LINE SEGMENT OF SET LENGTH OUT OF INVURNABLE BLOCKS.
 list<shared_ptr<Block>> make_one_line_seg(int seg_length, int x, int y)
 {
-	return make_rect_seg(seg_length, ::BLOCK_HEIGHT, x, y);
+	return make_rect_seg(seg_length, 1, x, y);
 }
 
 // FUNCTION THAT CREATES A LIST OF A RECTANGULAR SEGMENT OF SET WIDTH AND HEIGHT OUT OF DESTROYABLE BLOCKS.
@@ -312,22 +294,17 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 {
 
 	list<shared_ptr<Block>> block_list{};
-	list<shared_ptr<Block>>::iterator it;
 
-	seg_width = interp(seg_width);
-	seg_height = interp(seg_height);
-	x = interp(x);
-	y = interp(y);
 
-	int blocks_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
-	int blocks_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
+	int blocks_to_generate_x{ seg_width };
+	int blocks_to_generate_y{ seg_height  };
 
 	for (int i{}; i < blocks_to_generate_x; i++)
 	{
 		int k = 0;
-		for (k; k >= blocks_to_generate_y; k++)
+		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_breakable(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			block_list.push_front(make_breakable(x + i, y - k ));
 
 		}
 	}
@@ -338,7 +315,7 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 // FUNCTION THAT CREATES A LIST OF A ONE-LINE SEGMENT OF SET LENGTH OUT OF BREAKABLE BLOCKS.
 list<shared_ptr<Block>> make_one_line_breakable_seg(int seg_length, int x, int y)
 {
-	return make_rect_breakable_seg(seg_length, ::BLOCK_HEIGHT, x, y);
+	return make_rect_breakable_seg(seg_length, 1, x, y);
 }
 
 // FUNCTION THAT CREATES A LIST OF A ONE-LINE SEGMENT OF SET LENGTH OUT OF COINS.
@@ -347,20 +324,15 @@ list<shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height,
 
 	list<shared_ptr<Interactable>> coin_list{};
 
-	seg_width = interp(seg_width);
-	seg_height = interp(seg_height);
-	x = interp(x);
-	y = interp(y);
-
-	int coins_to_generate_x{ (seg_width / ::BLOCK_WIDTH) };
-	int coins_to_generate_y{ (seg_height / ::BLOCK_HEIGHT) };
+	int coins_to_generate_x{ seg_width};
+	int coins_to_generate_y{ seg_height};
 
 	for (int i{}; i < coins_to_generate_x; i++)
 	{
 		int k = 0;
 		for (k; k < coins_to_generate_y; k++)
 		{
-			coin_list.push_front(make_coin(x + i * ::BLOCK_WIDTH, y - k * ::BLOCK_HEIGHT));
+			coin_list.push_front(make_coin(x + i, y - k));
 
 		}
 	}
@@ -370,7 +342,7 @@ list<shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height,
 
 list<shared_ptr<Interactable>> make_coin_row_seg(int seg_length, int x, int y)
 {
-	return make_coin_rect_seg(seg_length, ::BLOCK_HEIGHT, x, y);
+	return make_coin_rect_seg(seg_length, 1, x, y);
 }
 
 
@@ -424,7 +396,7 @@ void update_sprite(shared_ptr<Map_object> MO)
 	{
 		if (MO->get_y_pos() == ::FLOOR)
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Floor_pic);
-		else
+		else 
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Non_Breakable_pic);
 	}
 	else if (MO->type_str() == "generator")
@@ -442,25 +414,25 @@ void update_sprite(shared_ptr<Map_object> MO)
 	update_sprite_position(MO);
 }
 
-void update_sprite(list<shared_ptr<Interactable>> map_object_list)
+void update_sprite(list<shared_ptr<Interactable>> interactable_list)
 {
-	for (auto it = map_object_list.begin(); it != map_object_list.end(); ++it)
+	for (auto it = interactable_list.begin(); it != interactable_list.end(); ++it)
 	{
 		update_sprite(*it);
 	}
 }
 
-void update_sprite(list<shared_ptr<Block>> map_object_list)
+void update_sprite(list<shared_ptr<Block>> block_list)
 {
-	for (auto it = map_object_list.begin(); it != map_object_list.end(); ++it)
+	for (auto it = block_list.begin(); it != block_list.end(); ++it)
 	{
 		update_sprite(*it);
 	}
 }
 
-void update_sprite(list<shared_ptr<Character>> map_object_list)
+void update_sprite(list<shared_ptr<Character>> character_list)
 {
-	for (auto it = map_object_list.begin(); it != map_object_list.end(); ++it)
+	for (auto it = character_list.begin(); it != character_list.end(); ++it)
 	{
 		update_sprite(*it);
 	}
@@ -473,6 +445,42 @@ void update_sprite(shared_ptr<Track> track)
 	update_sprite(track->get_interactable_list());
 }
 
+void init_sprite(shared_ptr<Track> track)
+{
+	update_sprite(track);
+}
+
+void update_sprite_position(list<shared_ptr<Block>> block_list)
+{
+	for (auto it = block_list.begin(); it != block_list.end(); ++it)
+	{
+		update_sprite_position(*it);
+	}
+}
+
+void update_sprite_position(list<shared_ptr<Character>> character_list)
+{
+	for (auto it = character_list.begin(); it != character_list.end(); ++it)
+	{
+		update_sprite_position(*it);
+	}
+}
+
+
+void update_sprite_position(list<shared_ptr<Interactable>> interactable_list)
+{
+	for (auto it = interactable_list.begin(); it != interactable_list.end(); ++it)
+	{
+		update_sprite_position(*it);
+	}
+}
+
+void update_sprite_position(shared_ptr<Track> track)
+{
+	update_sprite_position(track->get_block_list());
+	update_sprite_position(track->get_character_list());
+	update_sprite_position(track->get_interactable_list());
+}
 
 void draw_list(list<shared_ptr<Character>> & character_list, sf::RenderWindow & game_window)
 {
@@ -523,3 +531,20 @@ list<shared_ptr<Interactable>> & operator+(list<shared_ptr<Interactable>> & inte
 	return interactables;
 }
 
+list<shared_ptr<Block>> & operator+(list<shared_ptr<Block>> & blocks, list<shared_ptr<Block>> other_blocks)
+{
+	add_to_block_list(blocks, other_blocks);
+	return blocks;
+}
+
+list<shared_ptr<Character>> & operator+(list<shared_ptr<Character>> & characters, list<shared_ptr<Character>> other_characters)
+{
+	add_to_character_list(characters, other_characters);
+	return characters;
+}
+
+list<shared_ptr<Interactable>> & operator+(list<shared_ptr<Interactable>> & interactables, list<shared_ptr<Interactable>> other_interactables)
+{
+	add_to_interactable_list(interactables, other_interactables);
+	return interactables;
+}

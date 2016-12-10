@@ -31,15 +31,6 @@ int Block::area()
 	return this->cluster->get_height()*cluster->get_width();
 }
 
-void Block::flip_dead()
-{
-	this->dead = !(this->dead);
-}
-
-bool Block::get_dead()
-{
-	return this->dead;
-}
 
 bool Block::get_active()
 {

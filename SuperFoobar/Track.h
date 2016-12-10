@@ -10,6 +10,7 @@
 
 class Foobar;
 class Block;
+class Breakable;
 class Interactable;
 
 class Track
@@ -35,6 +36,8 @@ public:
 	Track add_map_object(std::shared_ptr<Map_object>);
 
 	Track operator+(std::shared_ptr<Map_object>);
+
+	void handle_map_object_flags();
 
 	void set_width(int);
 	void set_height(int);

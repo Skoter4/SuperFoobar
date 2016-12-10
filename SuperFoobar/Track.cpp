@@ -86,6 +86,39 @@ Track Track::operator+(shared_ptr<Map_object> new_map_object)
 	return this->add_map_object(new_map_object);
 }
 
+void Track::handle_map_object_flags()
+{
+	for (auto it = this->get_block_list().begin(); it != this->get_block_list().end(); ++it)
+	{
+		if ((*it)->is_dead())
+		{
+			it = this->get_block_list().erase(it);
+			if (it == this->get_block_list().end())
+				break;
+		}
+	}
+
+	for (auto it = this->get_character_list().begin(); it != this->get_character_list().end(); ++it)
+	{
+		if ((*it)->is_dead())
+		{
+			it = this->get_character_list().erase(it);
+			if (it == this->get_character_list().end())
+				break;
+		}
+	}
+
+	for (auto it = this->get_interactable_list().begin(); it != this->get_interactable_list().end(); ++it)
+	{
+		if ((*it)->is_dead())
+		{
+			it = this->get_interactable_list().erase(it);
+			if (it == this->get_interactable_list().end())
+				break;
+		}
+	}
+}
+
 shared_ptr<Foobar> Track::get_foobar()
 {
 	return this->foobar;

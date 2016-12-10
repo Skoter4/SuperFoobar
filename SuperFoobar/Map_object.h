@@ -30,6 +30,9 @@ public:
 	void set_height(int);
 	void set_width(int);
 
+	bool is_dead();
+	void flip_dead();
+
 	int get_x_pos();
 	int get_y_pos();
 	void set_x(int);
@@ -44,7 +47,7 @@ public:
 	std::shared_ptr<sf::Sprite> get_sprite();
 	void setSprite(std::shared_ptr<sf::Sprite>);
 protected:
-
+	bool dead{ false };
 	std::shared_ptr<sf::Sprite> object_sprite;
 
 	Map_object(int, int, int, int);

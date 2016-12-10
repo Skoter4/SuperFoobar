@@ -71,6 +71,14 @@ std::shared_ptr<Track> make_track(std::list<std::shared_ptr<Block>> & , std::lis
 
 void update_sprite_position(std::shared_ptr<Map_object>);
 
+void update_sprite_position(std::list<std::shared_ptr<Block>> );
+
+void update_sprite_position(std::list<std::shared_ptr<Character>> );
+
+void update_sprite_position(std::list<std::shared_ptr<Interactable>> );
+
+void update_sprite_position(std::shared_ptr<Track> track);
+
 void update_sprite_texture(std::shared_ptr<Map_object>, sf::Texture &, sf::IntRect);
 
 void update_sprite(std::shared_ptr<Map_object>);
@@ -96,3 +104,11 @@ std::list<std::shared_ptr<Block>> & operator+(std::list<std::shared_ptr<Block>> 
 std::list<std::shared_ptr<Character>> & operator+(std::list<std::shared_ptr<Character>> &, std::shared_ptr<Character>);
 
 std::list<std::shared_ptr<Interactable>> & operator+(std::list<std::shared_ptr<Interactable>> &, std::shared_ptr<Interactable>);
+
+std::list<std::shared_ptr<Block>> & operator+(std::list<std::shared_ptr<Block>> &, std::list<std::shared_ptr<Block>>);
+
+std::list<std::shared_ptr<Character>> & operator+(std::list<std::shared_ptr<Character>> &, std::list<std::shared_ptr<Character>>);
+
+std::list<std::shared_ptr<Interactable>> & operator+(std::list<std::shared_ptr<Interactable>> &, std::list<std::shared_ptr<Interactable>>);
+
+void init_sprite(std::shared_ptr<Track>);
