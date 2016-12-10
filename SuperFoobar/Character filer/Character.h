@@ -16,7 +16,6 @@ public:
 	void move_x(int);
 	void move_y(int);
 
-	void flip_dead();
 	void die();
 	void flip_invulnerable();
 	void flip_active();
@@ -37,7 +36,6 @@ protected:
 
 	int lifes{ 1 };
 	
-	bool dead{ false };
 	bool invulnerable{ false };
 	bool active{ true };
 	

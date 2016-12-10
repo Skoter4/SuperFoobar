@@ -31,8 +31,8 @@ bool Enemy_1::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "coin") {
 		my_char->interact();
 	}
-	else if (my_char->type_str() == "enemy_1") {
-		//TODO
+	else if (my_char->type_str() == "foobar") {
+		this->flip_dead();
 	}
 	else if (my_char->type_str() == "enemy_2") {
 		//TODO

@@ -12,10 +12,16 @@ std::string Foobar::type_str()
 	return "foobar";
 }
 
-void Foobar::power_up(Power_up huuuge)
+void Foobar::power_up(shared_ptr<Power_up> power_up)
 {
-	this->set_lifes(2);
-	this->increase_size(10, 10);
+	if (power_up->type_str() == "power_up_star")
+		this->flip_invulnerable();
+	else if (power_up->type_str() == "power_up_shroom")
+	{
+		this->set_lifes(2);
+		this->increase_size(50, 100);
+		this->set_desy_pos(this->get_y_pos() - 40);
+	}
 }
 
 void Foobar::increase_size(int new_width, int new_height)
