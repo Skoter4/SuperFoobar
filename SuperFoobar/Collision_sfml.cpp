@@ -12,11 +12,11 @@ sf::IntRect Char_Rect, sf::IntRect Block_Rect*/
 //Bör vara två map_objects
 //Så kan gravity osv. sättas i respektive interact
 
-void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> block_object)
+void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> map_object)
 {
 
 	sf::IntRect char_rect = character_object->get_sprite()->getTextureRect();
-	sf::IntRect block_rect = block_object->get_sprite()->getTextureRect();
+	sf::IntRect block_rect = map_object->get_sprite()->getTextureRect();
 	
 	int desx = character_object->get_desx_pos();
 	int desy = character_object->get_desy_pos();
@@ -26,11 +26,10 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 //	std::cout << "Char " << desx << " " << desy<< " " << width << " " << height << " " << std::endl;
 //s	std::cout << block_object->get_x_pos()<< " " << block_object->get_x_pos()<< " " << block_object->get_width()<< " " << block_object->get_height() << std::endl;
 
-	if (point_in_rect(desx, desy, block_object ) || point_in_rect(desx + width, desy, block_object) ||
-		point_in_rect(desx, desy + height, block_object) || point_in_rect(desx + width, desy + height, block_object))
+	if (point_in_rect(desx, desy, map_object ) || point_in_rect(desx + width, desy, map_object) ||
+		point_in_rect(desx, desy + height, map_object) || point_in_rect(desx + width, desy + height, map_object))
 	{
-			std::cout << "Collision" << std::endl;
-			block_object->flip_dead();
+			map_object->interact_with(character_object);
 	}
 	character_object->set_x(character_object->get_desx_pos());
 	character_object->set_y(character_object->get_desy_pos());
@@ -96,6 +95,8 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 
 	}*/
 }
+
+
 
 bool point_in_rect(int x, int y, std::shared_ptr<Map_object> obj)
 {

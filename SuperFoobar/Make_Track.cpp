@@ -12,6 +12,9 @@ int FLOOR = BLOCK_HEIGHT * 11;
 int TRACK_WIDTH = GAME_SCALE * ::BLOCK_WIDTH * 100;
 int TRACK_HEIGHT = GAME_SCALE *  ::BLOCK_HEIGHT *  12;
 int FOOBAR_START_POINT = GAME_SCALE * 2;
+int WINDOW_WIDTH = ::BLOCK_WIDTH * 16;
+int WINDOW_HEIGHT = ::BLOCK_HEIGHT * 12;
+
 sf::Texture SUPER_FOOBAR_TEXTURES{};
 
 sf::IntRect Foobar_R_pic(150, 0, 50, 50);
@@ -149,7 +152,6 @@ shared_ptr<Coin> make_coin(int x, int y)
 	temp_coin_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
 
-	temp_coin_ptr = nullptr;
 
 	return  move(coin_ptr);
 }
@@ -209,7 +211,7 @@ shared_ptr<Generator> make_coin_generator(int x, int y)
 	x = interp(x);
 	y = interp(y);
 
-	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_coin(x, y - ::BLOCK_HEIGHT)} };
+	Generator* temp_block_ptr{ new Generator{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH, make_coin(x /::BLOCK_HEIGHT, (y - ::BLOCK_HEIGHT)/::BLOCK_HEIGHT)} };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_block_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Generator> block_ptr{ temp_block_ptr };
@@ -270,7 +272,7 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 		int k = 0;
 		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_non_breakable(x + i, y - k));
+			block_list.push_front(make_non_breakable(x + i, y + k));
 		}
 	}
 
@@ -304,7 +306,7 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 		int k = 0;
 		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_breakable(x + i, y - k ));
+			block_list.push_front(make_breakable(x + i, y + k ));
 
 		}
 	}
@@ -332,7 +334,7 @@ list<shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height,
 		int k = 0;
 		for (k; k < coins_to_generate_y; k++)
 		{
-			coin_list.push_front(make_coin(x + i, y - k));
+			coin_list.push_front(make_coin(x + i, y + k));
 
 		}
 	}
@@ -401,7 +403,11 @@ void update_sprite(shared_ptr<Map_object> MO)
 	}
 	else if (MO->type_str() == "generator")
 	{
-		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Generator_pic);
+		shared_ptr<Generator> generator_ptr{ dynamic_pointer_cast<Generator>(MO) };
+		if (generator_ptr->is_deactivated())
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Used_Generator_pic);
+		else
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Generator_pic);
 	}
 	else if (MO->type_str() == "coin")
 	{

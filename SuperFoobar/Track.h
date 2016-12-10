@@ -2,6 +2,9 @@
 #include "Collision\Collision_handler.h"
 #include "Character filer\Foobar\Foobar.h"
 #include "Character filer\Character.h"
+#include "Block-filer\Generator.h"
+#include "Timer.h"
+#include "Score.h"
 #include <list>
 #include <memory>
 #include <utility>
@@ -33,6 +36,12 @@ public:
 	std::list<std::shared_ptr<Character>> & get_character_list();
 	std::list<std::shared_ptr<Interactable>> & get_interactable_list();
 
+	void set_score(Score&);
+	void set_timer(Timer&);
+
+	Score& get_score();
+	Timer& get_timer();
+
 	Track add_map_object(std::shared_ptr<Map_object>);
 
 	Track operator+(std::shared_ptr<Map_object>);
@@ -51,8 +60,8 @@ private:
 	int width;
 	int height;
 	std::shared_ptr<Foobar> foobar{};
-	//Score score;
-	//Timer timer;
+	Score score{};
+	Timer timer{};
 
 	std::list<std::shared_ptr<Block>> block_list{};
 	std::list<std::shared_ptr<Character>> character_list{};

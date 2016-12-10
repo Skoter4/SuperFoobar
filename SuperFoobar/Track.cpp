@@ -1,5 +1,5 @@
 #include "Track.h"
-
+#include <iostream>
 using namespace std;
 
 Track::Track(list<shared_ptr<Block>> blocks, list<shared_ptr<Character>> characters, list<shared_ptr<Interactable>> interactables,
@@ -67,6 +67,26 @@ list<shared_ptr<Interactable>> & Track::get_interactable_list()
 	return this->interactable_list;
 }
 
+void Track::set_score(Score & new_score)
+{
+	this->score = new_score;
+}
+
+void Track::set_timer(Timer & new_timer)
+{
+	this->timer = new_timer;
+}
+
+Score & Track::get_score()
+{
+	return this->score;
+}
+
+Timer & Track::get_timer()
+{
+	return this->timer;
+}
+
 Track Track::add_map_object(shared_ptr<Map_object> new_map_object)
 {
 	if (dynamic_pointer_cast<Character>(new_map_object).get() != nullptr)
@@ -90,11 +110,22 @@ void Track::handle_map_object_flags()
 {
 	for (auto it = this->get_block_list().begin(); it != this->get_block_list().end(); ++it)
 	{
+
 		if ((*it)->is_dead())
 		{
 			it = this->get_block_list().erase(it);
 			if (it == this->get_block_list().end())
 				break;
+		}
+		if ((*it)->type_str() == "generator")
+		{
+			shared_ptr<Generator> generator_ptr{ dynamic_pointer_cast<Generator>(*it) };
+			if (generator_ptr->is_generating())
+			{
+				shared_ptr<Interactable> reward{ generator_ptr->generate() };
+				this->interactable_list.push_front(reward);
+				
+			}
 		}
 	}
 
@@ -112,6 +143,10 @@ void Track::handle_map_object_flags()
 	{
 		if ((*it)->is_dead())
 		{
+			if ((*it)->type_str() == "coin")
+			{
+				this->score.increase_score();
+			}
 			it = this->get_interactable_list().erase(it);
 			if (it == this->get_interactable_list().end())
 				break;

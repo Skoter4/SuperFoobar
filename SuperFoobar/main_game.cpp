@@ -2,6 +2,8 @@
 #include <SFML/Audio.hpp>
 #include "Map_object.h"
 #include "Make_track.h"
+#include "Timer.h"
+#include "Score.h"
 #include <memory>
 #include "Collision_sfml.h"
 
@@ -73,6 +75,13 @@ int main()
 		time_warning_sound.setBuffer(time_warning_buffer);
 		finish_line_sound.setBuffer(finish_line_buffer);
 
+		//Font kek
+		sf::Font font;
+		if (!font.loadFromFile("arial.ttf")) 
+		{
+			std::cout << "Error loading from file" << std::endl;
+		}
+
 		//Skapa Bana
 		SUPER_FOOBAR_TEXTURES.setRepeated(true);
 
@@ -80,7 +89,7 @@ int main()
 		std::list<std::shared_ptr<Block>> block_list{};
 		std::list<std::shared_ptr<Interactable>> interactable_list{};
 
-		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5);
+		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5) + make_coin_generator(12, 5);
 		character_list + make_foobar() + make_enemy_1(5, 6);
 		interactable_list + make_coin_row_seg(4, 4, 4);
 
@@ -103,10 +112,58 @@ int main()
 		Background.setTextureRect(sf::IntRect(0, 0, track->get_width(), track->get_height()));
 
 
+		// Score, top-left corner
+		Score score{};
+		sf::Text scoreText;
+		scoreText.setFont(font);
+		scoreText.setString(std::to_string(static_cast<int>(score.get_score()))); // Conversion to int to get rid of decimals
+		scoreText.setPosition(15, 5);
+		scoreText.setCharacterSize(50); // Default = 30
+		
+											  // Timer, top-right corner
+		float timer{}; // Used to count down
+		sf::Text timerText;
+		timerText.setFont(font);
+		timerText.setPosition(16* 70 - 140, 5);
+		timerText.setCharacterSize(50);
+		//timerText.setColor(sf::Color::White);
+		sf::Clock clock; // Starts the clock
+
 		sf::Event event;
+		Timer new_timer{};
+
+		track->set_timer(new_timer);
+
+		bool gameover{ false }; // Hur ska game-over hanteras? Gjorde detta som en temporär lösning
+		bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
+
+
+		track->set_score( score );
 
 		while (GameWindow.isOpen())
 		{
+			//Timer countdown
+			if ((track->get_timer()).get_time_remaining() > 0.0f) 
+			{
+				timer = clock.getElapsedTime().asSeconds();
+				(track->get_timer()).set_time_remaining((track->get_timer()).get_time_remaining() - timer);
+				timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
+				clock.restart();
+			}
+
+			if (!gameover) 
+			{
+
+				// Timer countdown
+				if (new_timer.get_time_remaining() > 0.0f) {
+					new_timer.countdown();
+					timerText.setString(std::to_string(static_cast<int>(new_timer.get_time_remaining())));
+				}
+				else {
+					gameover = true; // Timer hits 0 => game-over
+				}
+
+			}
 			while (GameWindow.pollEvent(event))
 			{
 				if (event.type == sf::Event::EventType::Closed)
@@ -220,6 +277,11 @@ int main()
 				block_collision(track->get_foobar(), *it);
 			}
 
+			for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
+
 
 			//Så att kameran följer med Foobar men inte går till vänster om start-position
 
@@ -228,6 +290,8 @@ int main()
 			if (track->get_foobar()->get_x_pos() > 512)
 			{
 				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 16 * 70, 12 * 70));
+				timerText.setPosition((static_cast<float>(16 * 70 - 140 + (camera_x - 512))), timerText.getPosition().y);
+				scoreText.setPosition((static_cast<float>(15 + (camera_x - 512))), scoreText.getPosition().y);
 				GameWindow.setView(view);
 			}
 			else
@@ -266,7 +330,10 @@ int main()
 
 
 			draw_track(track, GameWindow);
-			update_sprite_position(track);
+			GameWindow.draw(timerText);
+			GameWindow.draw(scoreText);
+			update_sprite(track);
+			scoreText.setString(std::to_string(static_cast<int>(track->get_score().get_score())));
 			track->handle_map_object_flags();
 			GameWindow.display();
 
