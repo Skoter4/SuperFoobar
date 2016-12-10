@@ -10,7 +10,7 @@ int main()
 	try
 	{
 		// initiering av texturerna
-		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/SuperFoobarTransTextures.png");
+		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/AllTextures.png");
 
 
 		// Bakgrundsmusik och ljud
@@ -80,9 +80,38 @@ int main()
 		std::list<std::shared_ptr<Block>> block_list{};
 		std::list<std::shared_ptr<Interactable>> interactable_list{};
 
-		block_list + make_floor_seg(16, 0) + make_one_line_breakable_seg(4, 4, 5);
-		character_list + make_foobar() + make_enemy_1(5, 6);
-		interactable_list + make_coin_row_seg(4, 4, 4);
+		block_list + make_floor_seg(66, 0) + make_floor_seg(14, 68) + make_floor_seg(62, 84) + make_floor_seg(45, 148); // golv
+
+		block_list + make_rect_seg(2, 1, 22, 10) + make_rect_seg(2, 2, 31, 9) + make_rect_seg(2, 3, 43, 8) + make_rect_seg(2, 3, 56, 8) + // Hinder
+			make_rect_seg(2, 3, 155, 8) + make_rect_seg(2, 2, 165, 9);
+
+		block_list + make_coin_generator(10, 7) + make_coin_generator(17, 7) + make_coin_generator(62, 6) + make_coin_generator(88, 7) +
+			make_coin_generator(99, 7) + make_coin_generator(102, 7) + make_coin_generator(105, 7) +
+			make_coin_generator(123, 4) + make_coin_generator(124, 4) + make_coin_generator(161, 7);
+
+		block_list + make_pup_generator(15, 7, "power_up_1") + make_pup_generator(73, 7, "power_up_1") +
+			make_pup_generator(94, 7, "power_up_2") + make_pup_generator(102, 4, "power_up_1");
+
+		block_list + make_breakable(14, 7) + make_breakable(16, 7) + make_breakable(18, 7) + make_breakable(72, 7) + make_breakable(74, 7) +
+			make_breakable(93, 7) + make_breakable(113, 7) + make_breakable(122, 4) + make_breakable(125, 4) + make_breakable(162, 7);
+
+		block_list + make_one_line_breakable_seg(8, 75, 4) + make_one_line_breakable_seg(4, 116, 4) +
+			make_one_line_breakable_seg(2, 123, 7) + make_one_line_breakable_seg(2, 159, 7);
+
+		// Trappor
+		block_list + make_one_line_breakable_seg(3, 130, 10) + make_one_line_breakable_seg(2, 131, 9) + make_one_line_breakable_seg(1, 132, 8) +
+			make_one_line_breakable_seg(3, 135, 10) + make_one_line_breakable_seg(2, 135, 9) + make_one_line_breakable_seg(1, 135, 8) +
+			make_one_line_breakable_seg(4, 142, 10) + make_one_line_breakable_seg(3, 143, 9) + make_one_line_breakable_seg(2, 144, 8) +
+			make_one_line_breakable_seg(3, 148, 10) + make_one_line_breakable_seg(2, 148, 9) + make_one_line_breakable_seg(1, 148, 8) +
+			make_one_line_breakable_seg(9, 167, 10) + make_one_line_breakable_seg(8, 168, 9) + make_one_line_breakable_seg(7, 169, 8) +
+			make_one_line_breakable_seg(6, 170, 7) + make_one_line_breakable_seg(5, 171, 6) + make_one_line_breakable_seg(4, 172, 5) +
+			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
+
+		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
+			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10) 
+			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
+
+		interactable_list + make_Finish_Line(185, 10);
 
 
 		std::shared_ptr<Track> track{ make_track(block_list, character_list, interactable_list) };
@@ -92,7 +121,7 @@ int main()
 		sf::ContextSettings settings;
 		settings.antialiasingLevel = 8;
 
-		sf::RenderWindow GameWindow(sf::VideoMode(16 * 70, 12 * 70) , "TEST");
+		sf::RenderWindow GameWindow(sf::VideoMode(16 * 70, 12 * 70), "TEST");
 
 		sf::Texture Background_pic;
 		Background_pic.setRepeated(true);
@@ -123,7 +152,7 @@ int main()
 
 
 
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) )
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 					{
 						//Ska även ändra bild
 						//Foobar_obj->set_x_velocity(-1);
@@ -212,7 +241,7 @@ int main()
 
 			Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + Foobar_obj->get_x_velocity());
 			Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
-			
+
 			*/
 
 			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
@@ -243,7 +272,7 @@ int main()
 				track->get_foobar()->set_x_velocity(0);
 			}
 
-			
+
 
 			//if (/*Foobar y-pos*/ < /*markens nivå*/)
 			//{
@@ -275,6 +304,6 @@ int main()
 	}
 	catch (std::exception& e)
 	{
-		std::cout << e.what() <<  "Måste göra en foobar!";
+		std::cout << e.what() << "Måste göra en foobar!";
 	}
 }

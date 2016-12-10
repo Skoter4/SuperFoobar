@@ -16,22 +16,22 @@ sf::Texture SUPER_FOOBAR_TEXTURES{};
 
 sf::IntRect Foobar_R_pic(150, 0, 50, 50);
 sf::IntRect Foobar_L_pic(200, 0, 50, 50);
-sf::IntRect Foobar_HR_pic(0, 190, 50, 100);
-sf::IntRect Foobar_HL_pic(50, 190, 50, 100);
+sf::IntRect Foobar_HR_pic(148, 170, 50, 100);
+sf::IntRect Foobar_HL_pic(198, 170, 50, 100);
 sf::IntRect Foobar_DR_pic(70, 120, 50, 25);
 sf::IntRect Foobar_DL_pic(120, 120, 50, 25);
 sf::IntRect Enemy1_pic(100, 0, 50, 50);
 sf::IntRect Enemy2_pic(0, 0, 50, 50);
 sf::IntRect Enemy3_pic(50, 0, 50, 50);
 sf::IntRect Proj_L_pic(120, 145, 50, 25);
-sf::IntRect Proj_R_pic(70, 145, 50, 25);
 sf::IntRect Floor_pic(70, 50, 70, 70);
 sf::IntRect Breakable_pic(0, 50, 70, 70);
-sf::IntRect Non_Breakable_pic(210, 50, 70, 70);
+sf::IntRect Non_Breakable_pic(209, 50, 70, 70);
 sf::IntRect Generator_pic(140, 50, 70, 70);
 sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 sf::IntRect Coin_pic(172, 122, 40, 48);
 sf::IntRect Power_Up_1_pic(211, 121, 50, 50);
+sf::IntRect Finish_Line_pic(107, 222, 63, 68);
 
 // END OF GLOBAL VARIABLE DEFINITION
 
@@ -270,7 +270,7 @@ list<shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int 
 		int k = 0;
 		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_non_breakable(x + i, y - k));
+			block_list.push_front(make_non_breakable(x + i, y + k));
 		}
 	}
 
@@ -304,7 +304,7 @@ list<shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, i
 		int k = 0;
 		for (k; k < blocks_to_generate_y; k++)
 		{
-			block_list.push_front(make_breakable(x + i, y - k ));
+			block_list.push_front(make_breakable(x + i, y + k ));
 
 		}
 	}
@@ -332,7 +332,7 @@ list<shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height,
 		int k = 0;
 		for (k; k < coins_to_generate_y; k++)
 		{
-			coin_list.push_front(make_coin(x + i, y - k));
+			coin_list.push_front(make_coin(x + i, y + k));
 
 		}
 	}
@@ -410,6 +410,10 @@ void update_sprite(shared_ptr<Map_object> MO)
 	else if (MO->type_str() == "power_up_1")
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_1_pic);
+	}
+	else if (MO->type_str() == "finish_line")
+	{
+		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Finish_Line_pic);
 	}
 	update_sprite_position(MO);
 }
