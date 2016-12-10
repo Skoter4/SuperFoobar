@@ -19,58 +19,104 @@
 #include <string>
 #include <memory>
 
+extern sf::Texture SUPER_FOOBAR_TEXTURES;
+
+extern int WINDOW_HEIGHT;
+extern int WINDOW_WIDTH;
 
 
 int interp(int val);
 
-std::list<std::shared_ptr<Block>> add_to_block_list(std::list<std::shared_ptr<Block>> & block_list, std::shared_ptr<Block> block);
+std::list<std::shared_ptr<Block>> add_to_block_list(std::list<std::shared_ptr<Block>> & , std::shared_ptr<Block> );
 
-std::list<std::shared_ptr<Block>> add_to_block_list(std::list<std::shared_ptr<Block>> & block_list, std::list<std::shared_ptr<Block>> other_block_list);
+std::list<std::shared_ptr<Block>> add_to_block_list(std::list<std::shared_ptr<Block>> & , std::list<std::shared_ptr<Block>> );
 
-std::list<std::shared_ptr<Character>> add_to_character_list(std::list<std::shared_ptr<Character>> & character_list, std::shared_ptr<Character> character);
+std::list<std::shared_ptr<Character>> add_to_character_list(std::list<std::shared_ptr<Character>> & , std::shared_ptr<Character> );
 
-std::list<std::shared_ptr<Character>> add_to_character_list(std::list<std::shared_ptr<Character>> & character_list, std::list<std::shared_ptr<Character>> other_character_list);
+std::list<std::shared_ptr<Character>> add_to_character_list(std::list<std::shared_ptr<Character>> & , std::list<std::shared_ptr<Character>> );
 
-std::list<std::shared_ptr<Interactable>> add_to_interactable_list(std::list<std::shared_ptr<Interactable>> & interactable_list, std::shared_ptr<Interactable> interactable);
+std::list<std::shared_ptr<Interactable>> add_to_interactable_list(std::list<std::shared_ptr<Interactable>> & , std::shared_ptr<Interactable> );
 
-std::list<std::shared_ptr<Interactable>> add_to_interactable_list(std::list<std::shared_ptr<Interactable>> & interactable_list, std::list<std::shared_ptr<Interactable>> other_interactable_list);
+std::list<std::shared_ptr<Interactable>> add_to_interactable_list(std::list<std::shared_ptr<Interactable>> & , std::list<std::shared_ptr<Interactable>> );
 
-std::shared_ptr<Foobar> make_Foobar();
+std::shared_ptr<Foobar> make_foobar();
 
-std::shared_ptr<Enemy_1> make_enemy_1(int x, int y);
+std::shared_ptr<Enemy_1> make_enemy_1(int , int );
 
-std::shared_ptr<Coin> make_coin(int x, int y);
+std::shared_ptr<Enemy_2> make_enemy_2(int, int);
 
-std::shared_ptr<Power_up> make_pup(int x, int y, std::string type);
+std::shared_ptr<Enemy_3> make_enemy_3(int, int);
 
-std::shared_ptr<Breakable> make_breakable(int x, int y);
+std::shared_ptr<Coin> make_coin(int , int );
 
-std::shared_ptr<Non_breakable> make_non_breakable(int x, int y);
+std::shared_ptr<Power_up> make_pup(int , int , std::string );
 
-std::shared_ptr<Generator> make_coin_generator(int x, int y);
+std::shared_ptr<Breakable> make_breakable(int , int );
 
-std::shared_ptr<Generator> make_pup_generator(int x, int y, std::string type);
+std::shared_ptr<Non_breakable> make_non_breakable(int , int );
 
-std::shared_ptr<Finish_line> make_Finish_Line(int x, int y);
+std::shared_ptr<Generator> make_coin_generator(int , int );
 
-std::list<std::shared_ptr<Block>> make_rect_seg(int seg_width, int seg_height, int x, int y);
+std::shared_ptr<Generator> make_pup_generator(int , int , std::string );
 
-std::list<std::shared_ptr<Block>> make_floor_seg(int seg_length, int x_start);
+std::shared_ptr<Finish_line> make_Finish_Line(int , int );
 
-std::list<std::shared_ptr<Block>> make_one_line_seg(int seg_length, int x, int y);
+std::list<std::shared_ptr<Block>> make_rect_seg(int , int , int , int );
 
-std::list<std::shared_ptr<Block>> make_rect_breakable_seg(int seg_width, int seg_height, int x, int y);
+std::list<std::shared_ptr<Block>> make_floor_seg(int , int );
 
-std::list<std::shared_ptr<Block>> make_one_line_breakable_seg(int seg_length, int x, int y);
+std::list<std::shared_ptr<Block>> make_one_line_seg(int , int , int);
 
-std::list<std::shared_ptr<Interactable>> make_coin_row_seg(int seg_length, int x, int y);
+std::list<std::shared_ptr<Block>> make_rect_breakable_seg(int , int , int , int );
 
-std::list<std::shared_ptr<Interactable>> make_coin_rect_seg(int seg_width, int seg_height, int x, int y);
+std::list<std::shared_ptr<Block>> make_one_line_breakable_seg(int , int , int);
 
-std::shared_ptr<Track> make_track(std::list<std::shared_ptr<Block>> blocks, std::list<std::shared_ptr<Character>> characters, std::list<std::shared_ptr<Interactable>> interactables);
+std::list<std::shared_ptr<Interactable>> make_coin_row_seg(int , int , int );
 
-void update_sprite_position(std::shared_ptr<Map_object> MO);
+std::list<std::shared_ptr<Interactable>> make_coin_rect_seg(int , int , int , int );
 
-void update_sprite_texture(std::shared_ptr<Map_object> MO, sf::Texture &texture, sf::IntRect rect);
+std::shared_ptr<Track> make_track(std::list<std::shared_ptr<Block>> & , std::list<std::shared_ptr<Character>> & , std::list<std::shared_ptr<Interactable>> & );
 
-void update_sprite(std::shared_ptr<Map_object> MO, sf::Texture &texture, sf::IntRect rect);
+void update_sprite_position(std::shared_ptr<Map_object>);
+
+void update_sprite_position(std::list<std::shared_ptr<Block>> );
+
+void update_sprite_position(std::list<std::shared_ptr<Character>> );
+
+void update_sprite_position(std::list<std::shared_ptr<Interactable>> );
+
+void update_sprite_position(std::shared_ptr<Track> track);
+
+void update_sprite_texture(std::shared_ptr<Map_object>, sf::Texture &, sf::IntRect);
+
+void update_sprite(std::shared_ptr<Map_object>);
+
+void update_sprite(std::list<std::shared_ptr<Character>>);
+
+void update_sprite(std::list<std::shared_ptr<Block>>);
+
+void update_sprite(std::list<std::shared_ptr<Interactable>>);
+
+void update_sprite(std::shared_ptr<Track> track);
+
+void draw_list(std::list<std::shared_ptr<Interactable>> &, sf::RenderWindow &);
+
+void draw_list(std::list<std::shared_ptr<Character>> &, sf::RenderWindow &);
+
+void draw_list(std::list<std::shared_ptr<Block>> &, sf::RenderWindow &);
+
+void draw_track(std::shared_ptr<Track>, sf::RenderWindow &);
+
+std::list<std::shared_ptr<Block>> & operator+(std::list<std::shared_ptr<Block>> &, std::shared_ptr<Block>);
+
+std::list<std::shared_ptr<Character>> & operator+(std::list<std::shared_ptr<Character>> &, std::shared_ptr<Character>);
+
+std::list<std::shared_ptr<Interactable>> & operator+(std::list<std::shared_ptr<Interactable>> &, std::shared_ptr<Interactable>);
+
+std::list<std::shared_ptr<Block>> & operator+(std::list<std::shared_ptr<Block>> &, std::list<std::shared_ptr<Block>>);
+
+std::list<std::shared_ptr<Character>> & operator+(std::list<std::shared_ptr<Character>> &, std::list<std::shared_ptr<Character>>);
+
+std::list<std::shared_ptr<Interactable>> & operator+(std::list<std::shared_ptr<Interactable>> &, std::list<std::shared_ptr<Interactable>>);
+
+void init_sprite(std::shared_ptr<Track>);
