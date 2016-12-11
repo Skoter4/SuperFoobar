@@ -212,6 +212,7 @@ int main()
 					{
 						//Ska även ändra bild
 						//Foobar_obj->set_x_velocity(-1);
+						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
 						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
 					}
 
@@ -220,11 +221,13 @@ int main()
 						//ska även ändra bild
 						//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
 						//	Foobar_obj->set_x_velocity(1);
+						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
 						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
 					}
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 					{
+						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 						//Foobar hoppar
 					}
@@ -237,6 +240,7 @@ int main()
 							Foobar_obj->flip_is_ducking();
 						}*/
 						//Ska även ändra bild
+						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() + 20);
 					}
 				}
@@ -245,6 +249,9 @@ int main()
 				{
 					//Ska även ändra bild
 					//Foobar_obj->set_x_velocity(-1);
+
+					track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
+					track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
 
 					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
@@ -254,6 +261,8 @@ int main()
 				{
 					//Ska även ändra bild
 					//Foobar_obj->set_x_velocity(-1);
+					track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
+					track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
 
 					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
