@@ -16,8 +16,9 @@ std::string Enemy_2::type_str()
 
 bool Enemy_2::interact_with(std::shared_ptr<Map_object> my_char)
 {
-	if (my_char->type_str() == "projectile") {
-		//Is kill
+	if (my_char->type_str() == "foobar")
+	{
+		this->flip_dead();
 	}
 	else if (my_char->type_str() == "power_up") {
 		//TODO
