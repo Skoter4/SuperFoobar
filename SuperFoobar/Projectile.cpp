@@ -7,16 +7,20 @@ Projectile::Projectile(int x_pos, int y_pos, int height, int width)
 bool Projectile::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	if (my_char->type_str() == "foobar"){
-		//Is kill
+		my_char->flip_dead();
+		this->flip_dead();
 	}
 	else if (my_char->type_str() == "enemy_1") {
-		//TODO
+		my_char->flip_dead();
+		this->flip_dead();
 	}
 	else if (my_char->type_str() == "enemy_2") {
-		//TODO
+		my_char->flip_dead();
+		this->flip_dead();
 	}
 	else if (my_char->type_str() == "enemy_3") {
-		//TODO
+		my_char->flip_dead();
+		this->flip_dead();
 	}
 	return false;
 }
