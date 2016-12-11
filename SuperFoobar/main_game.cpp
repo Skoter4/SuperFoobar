@@ -268,12 +268,12 @@ int main()
 
 					if (event.key.code == sf::Keyboard::Left)
 					{
-						track->get_foobar()->set_x_velocity(0);
+						//track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Right)
 					{
-						track->get_foobar()->set_x_velocity(0);
+						//track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Down)
@@ -337,7 +337,7 @@ int main()
 			//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
 			if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
 			{
-				track->get_foobar()->set_x_velocity(0);
+				//track->get_foobar()->set_x_velocity(0);
 			}
 
 
@@ -357,7 +357,7 @@ int main()
 			// Vid interaktion med mållinjen ska spelet avslutas och poängen räknas ihop
 
 			// Rita ut det som är aktivt
-
+			std::cout << track->get_foobar()->get_x_pos() << "Heloo" << std::endl;
 			GameWindow.clear();
 			GameWindow.draw(Background);
 
