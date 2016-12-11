@@ -357,7 +357,6 @@ int main()
 			// Vid interaktion med mållinjen ska spelet avslutas och poängen räknas ihop
 
 			// Rita ut det som är aktivt
-			std::cout << track->get_foobar()->get_x_pos() << "Heloo" << std::endl;
 			GameWindow.clear();
 			GameWindow.draw(Background);
 
