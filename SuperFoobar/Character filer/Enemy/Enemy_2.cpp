@@ -17,13 +17,14 @@ std::string Enemy_2::type_str()
 bool Enemy_2::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	if (my_char->type_str() == "projectile") {
-		//Is kill
+		this->interact();
+		my_char->interact();
 	}
 	else if (my_char->type_str() == "power_up") {
-		//TODO
+		return true;
 	}
 	else if (my_char->type_str() == "coin") {
-		my_char->interact();
+		return true;
 	}
 	else if (my_char->type_str() == "foobar") {
 		//TODO
@@ -34,7 +35,7 @@ bool Enemy_2::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_3") {
 		//TODO
 	}
-	return 0;
+	return false;
 }
 
 void Enemy_2::interact()

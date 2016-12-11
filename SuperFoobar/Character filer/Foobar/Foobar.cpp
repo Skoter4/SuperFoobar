@@ -80,7 +80,6 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 		//TODO
 	}
 	else if (my_char->type_str() == "coin") {
-		pick_up_coin();
 		my_char->interact();
 	}
 	else if (my_char->type_str() == "enemy_1") {
@@ -89,10 +88,14 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
 		}
 	}
 	else if (my_char->type_str() == "enemy_2") {
-		//TODO
+		if (this->to_break(my_char->get_cluster())) {
+			my_char->flip_dead();
+		}
 	}
 	else if (my_char->type_str() == "enemy_3") {
-		//TODO
+		if (this->to_break(my_char->get_cluster())) {
+			my_char->flip_dead();
+		}
 	}
 	return true;
 }

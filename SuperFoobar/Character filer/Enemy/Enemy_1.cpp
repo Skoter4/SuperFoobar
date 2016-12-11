@@ -23,14 +23,14 @@ std::string Enemy_1::type_str()
 bool Enemy_1::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	if (my_char->type_str() == "projectile") {
-		this->interact();
-		my_char->interact();
+		this->flip_dead();
+		my_char->flip_dead();
 	}
 	else if (my_char->type_str() == "power_up") {
-		//TODO
+		return true;
 	}
 	else if (my_char->type_str() == "coin") {
-		my_char->interact();
+		return true;
 	}
 	else if (my_char->type_str() == "foobar") {
 		if (to_break(my_char->get_cluster())) {
