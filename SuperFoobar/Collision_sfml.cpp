@@ -23,37 +23,69 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 	int desy = character_object->get_desy_pos();
 	int width = character_object->get_width();
 	int height = character_object->get_height();
+	int oldx = character_object->get_old_x();
+	int oldy = character_object->get_old_y();
+
 
 	//	std::cout << "Char " << desx << " " << desy<< " " << width << " " << height << " " << std::endl;
 	//s	std::cout << block_object->get_x_pos()<< " " << block_object->get_x_pos()<< " " << block_object->get_width()<< " " << block_object->get_height() << std::endl;
 
 	if (point_in_rect(desx, desy, map_object) || point_in_rect(desx + width, desy, map_object) ||
-		point_in_rect(desx, desy + height, map_object) || point_in_rect(desx + width, desy + height, map_object))
+		point_in_rect(desx, desy + height, map_object) || point_in_rect(desx + width, desy + height, map_object)
+		|| point_in_rect(desx + width, desy + (height / 2), map_object) || point_in_rect(desx, desy + (height / 2), map_object))
 	{
 		map_object->interact_with(character_object);
-		/*
-			//std::cout << "Collision" << std::endl;
-			//character_object->interact_with(block_object);
 
-			//std::cout << map_object->get_x_pos() << std::endl;
-			while (desx + width > map_object->get_x_pos())
+		if (point_in_rect(desx + width, desy, map_object) || point_in_rect(desx + width, desy +  height, map_object) || point_in_rect(desx + width, desy + (height/2), map_object))
+		{
+			if ((desy + height) >= map_object->get_y_pos() && desy <= (map_object->get_y_pos() + map_object->get_height())
+				&& (oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height())
 			{
-				character_object->set_x(map_object->get_x_pos() - character_object->get_width());
-				break;
+				character_object->set_desx_pos(map_object->get_x_pos() - width);
 			}
-			while (desy + height < map_object->get_y_pos())
+
+			else
+				if((oldy + height) <= map_object->get_y_pos())
+				{
+					character_object->set_desy_pos(map_object->get_y_pos() - height);
+				}
+				else
+				{
+					character_object->set_desy_pos(map_object->get_y_pos() + map_object->get_height());
+				}
+
+		}
+
+		if (point_in_rect(desx, desy, map_object) || point_in_rect(desx, desy + height, map_object) || point_in_rect(desx, desy + (height / 2), map_object))
+		{
+			if ((desy + height) >= map_object->get_y_pos() && desy <= (map_object->get_y_pos() + map_object->get_height()) &&
+				(oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height())
 			{
-				character_object->set_y(map_object->get_y_pos() - character_object->get_height());
-				break;
+				character_object->set_desx_pos(map_object->get_x_pos() + map_object->get_width());
+
 			}
-			*/
+			else
+				if ((oldy + height) <= map_object->get_y_pos())
+				{
+					character_object->set_desy_pos(map_object->get_y_pos() - height);
+				}
+				else
+				{
+					character_object->set_desy_pos(map_object->get_y_pos() + map_object->get_height());
+				}
+
+		}
 
 	}
-	else
-	{
-		character_object->set_x(character_object->get_desx_pos());
-		character_object->set_y(character_object->get_desy_pos());
-	}
+
+	//std::cout << desy << "          " << character_object->get_y_pos() << std::endl;
+
+	character_object->set_x(desx);
+	character_object->set_y(desy);
+	
+
+
+
 	/*
 	if (character_object->get_desy_pos() >= (block_object->get_y_pos() + block_object->get_height())
 		&& (character_object->get_desy_pos() + character_object->get_height() <= block_object->get_y_pos())
