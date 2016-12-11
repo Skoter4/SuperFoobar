@@ -6,6 +6,7 @@ public:
 	Timer() = default;
 	~Timer() = default;
 	float get_time_remaining();
+	void set_time_remaining(float);
 	void countdown();
 
 protected:

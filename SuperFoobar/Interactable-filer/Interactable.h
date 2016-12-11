@@ -11,13 +11,10 @@
 class Interactable : public Map_object
 {
 public:
-	bool is_dead(); // Returns the bool dead
 	void interact(); // Sets dead = true (works as a flag)
-	void flip_dead(); // Flips the bool dead
 	~Interactable() = default;
 protected:
 	Interactable(int, int, int, int); // x_pos, y_pos, height, width
 	std::unique_ptr<Cluster> position;
-	bool dead{ false };
 };
 //#endif

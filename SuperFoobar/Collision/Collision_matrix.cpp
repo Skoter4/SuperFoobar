@@ -22,14 +22,3 @@ void Collision_matrix::true_element(int row, int col, shared_ptr<Map_object> to_
 void Collision_matrix::false_element(int row, int col) {
 	matrix.at(row).at(col) = nullptr;
 }
-/*
-int main(){
-  bool cool2 = false;
-  Collision_matrix my_matrx = Collision_matrix(2,2);
-  my_matrx.true_element(1,1);
-  bool cool = my_matrx.get_element(1, 1);
-  cout << cool << endl;
-  cout << "Hmmm" << endl;
-  return 0;
-};
-*/

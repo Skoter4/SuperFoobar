@@ -8,7 +8,7 @@ int Map_object::get_height()
 
 int Map_object::get_width()
 {
-	return cluster->get_height();
+	return cluster->get_width();
 }
 
 void Map_object::set_height(int height)
@@ -18,7 +18,7 @@ void Map_object::set_height(int height)
 
 void Map_object::set_width(int width)
 {
-	cluster->set_height(width);
+	cluster->set_width(width);
 }
 
 int Map_object::get_x_pos()
@@ -86,4 +86,14 @@ void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
 	else {
 		object_sprite = new_sprite;
 	}
+}
+
+void Map_object::flip_dead()
+{
+	this->dead = !(this->dead);
+}
+
+bool Map_object::is_dead()
+{
+	return this->dead;
 }

@@ -16,7 +16,6 @@ public:
 	void move_x(int);
 	void move_y(int);
 
-	void flip_dead();
 	void die();
 	void flip_invulnerable();
 	void flip_active();
@@ -30,18 +29,23 @@ public:
 	int get_y_velocity();	
 	int get_gravity();
 	void set_gravity(int);
-
+	int get_old_y();
+	int get_old_x();
+	void set_old_x(int);
+	void set_old_y(int);
 
 protected:
 	Character(int, int, int, int);
 
 	int lifes{ 1 };
 	
-	bool dead{ false };
 	bool invulnerable{ false };
 	bool active{ true };
 	
 	int gravity{ 1 };
+	
+	int old_x{};
+	int old_y{};
 
 	struct Velocity {
 		int x_velocity{};

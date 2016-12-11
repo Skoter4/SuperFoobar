@@ -18,14 +18,10 @@ void Character::move_y(int y_speed)
 	set_desy_pos(y_speed + cluster->get_x());
 }
 
-void Character::flip_dead()
-{
-	dead = !dead;
-}
 
 void Character::die()
 {
-	if (invulnerable = false && this->get_lifes() == 1)
+	if (invulnerable == false && this->get_lifes() == 1)
 	{
 		this->flip_dead();
 	}
@@ -91,4 +87,24 @@ int Character::get_gravity()
 void Character::set_gravity(int new_gravity)
 {
 	gravity = new_gravity;
+}
+
+int Character::get_old_x()
+{
+	return this->old_x;
+}
+
+int Character::get_old_y()
+{
+	return this->old_y;
+}
+
+void Character::set_old_x(int new_old_x)
+{
+	this->old_x = new_old_x;
+}
+
+void Character::set_old_y(int new_old_y)
+{
+	this->old_y = new_old_y;
 }
