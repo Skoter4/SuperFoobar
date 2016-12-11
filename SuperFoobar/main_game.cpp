@@ -212,6 +212,7 @@ int main()
 					{
 						//Ska även ändra bild
 						//Foobar_obj->set_x_velocity(-1);
+						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
 						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
 					}
 
@@ -220,11 +221,13 @@ int main()
 						//ska även ändra bild
 						//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
 						//	Foobar_obj->set_x_velocity(1);
+						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
 						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
 					}
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 					{
+						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 						//Foobar hoppar
 					}
@@ -237,6 +240,7 @@ int main()
 							Foobar_obj->flip_is_ducking();
 						}*/
 						//Ska även ändra bild
+						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() + 20);
 					}
 				}
@@ -245,6 +249,9 @@ int main()
 				{
 					//Ska även ändra bild
 					//Foobar_obj->set_x_velocity(-1);
+
+					track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
+					track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
 
 					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
@@ -254,6 +261,8 @@ int main()
 				{
 					//Ska även ändra bild
 					//Foobar_obj->set_x_velocity(-1);
+					track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
+					track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
 					track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
 
 					track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
@@ -268,12 +277,12 @@ int main()
 
 					if (event.key.code == sf::Keyboard::Left)
 					{
-						track->get_foobar()->set_x_velocity(0);
+						//track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Right)
 					{
-						track->get_foobar()->set_x_velocity(0);
+						//track->get_foobar()->set_x_velocity(0);
 					}
 
 					if (event.key.code == sf::Keyboard::Down)
@@ -337,7 +346,7 @@ int main()
 			//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
 			if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
 			{
-				track->get_foobar()->set_x_velocity(0);
+				//track->get_foobar()->set_x_velocity(0);
 			}
 
 
@@ -357,7 +366,6 @@ int main()
 			// Vid interaktion med mållinjen ska spelet avslutas och poängen räknas ihop
 
 			// Rita ut det som är aktivt
-
 			GameWindow.clear();
 			GameWindow.draw(Background);
 

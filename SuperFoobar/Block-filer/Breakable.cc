@@ -30,7 +30,7 @@ bool Breakable::interact_with(shared_ptr<Map_object> my_char) {
 }
 
 bool Breakable::to_break(shared_ptr<Cluster> other_cluster) {
-	int block_y = get_y_pos();
+	int block_y = this->get_y_pos();
 	int other_y = other_cluster->get_y();
 	if (other_y < block_y) {
 		return true;
