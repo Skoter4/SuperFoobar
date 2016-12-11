@@ -1,7 +1,5 @@
 #include "Breakable.h"
 #include "../Character filer/Foobar/Foobar.h"
-//#include "../Map_object.h"
-#include <iostream>
 
 using namespace std;
 

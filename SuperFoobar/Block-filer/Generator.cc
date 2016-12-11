@@ -1,5 +1,4 @@
 #include "Generator.h"
-#include "../Interactable-filer/Interactable.h"
 #include <utility>
 
 using namespace std;
@@ -11,12 +10,22 @@ Generator::Generator(int x, int y, int height, int width,
 
 void Generator::flip_deactivated()
 {
-	deactivated = !deactivated;
+	this->deactivated = !deactivated;
 }
 
 void Generator::flip_generating()
 {
-	generating = !generating;
+	this->generating = !generating;
+}
+
+bool Generator::is_generating()
+{
+	return this->generating;
+}
+
+bool Generator::is_deactivated()
+{
+	return this->deactivated;
 }
 
 std::string Generator::type_str()
@@ -24,7 +33,7 @@ std::string Generator::type_str()
 	return "generator";
 }
 
-auto Generator::generate()
+std::shared_ptr<Interactable> & Generator::generate()
 {
 	this->flip_generating();
 	this->flip_deactivated();
@@ -32,13 +41,12 @@ auto Generator::generate()
 	return move(this->reward);
 }
 
-bool Generator::interact_with(std::shared_ptr<Map_object> my_char)
+bool Generator::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if (my_char->type_str() == "foobar") {
-		if (to_break(my_char->get_cluster())) {
+	if (map_object->type_str() == "foobar" && !(this->is_deactivated()))
+		{
 			interact();
 		}
-	}
 	return false;
 }
 
@@ -57,7 +65,7 @@ bool Generator::to_break(shared_ptr<Cluster> other_cluster) {
 
 void Generator::interact()
 {
-	this->generate();
+	this->flip_generating();
 }
 
 void Generator::poly()

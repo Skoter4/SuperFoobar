@@ -18,14 +18,10 @@ void Character::move_y(int y_speed)
 	set_desy_pos(y_speed + cluster->get_x());
 }
 
-void Character::flip_dead()
-{
-	dead = !dead;
-}
 
 void Character::die()
 {
-	if (invulnerable = false && this->get_lifes() == 1)
+	if (invulnerable == false && this->get_lifes() == 1)
 	{
 		this->flip_dead();
 	}
