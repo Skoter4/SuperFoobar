@@ -30,7 +30,7 @@ bool Enemy_3::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_2") {
 		//TODO
 	}
-	else if (my_char->type_str() == "enemy_3") {
+	else if (my_char->type_str() == "foobar") {
 		//TODO
 	}
 	return 0;

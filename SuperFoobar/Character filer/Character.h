@@ -30,6 +30,7 @@ public:
 	int get_gravity();
 	void set_gravity(int);
 
+	bool to_break(std::shared_ptr<Cluster> other_cluster);
 
 protected:
 	Character(int, int, int, int);
