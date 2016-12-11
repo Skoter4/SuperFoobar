@@ -43,7 +43,8 @@ std::shared_ptr<Interactable> & Generator::generate()
 
 bool Generator::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if (map_object->type_str() == "foobar" && !(this->is_deactivated()))
+	if ((map_object->type_str() == "foobar") && !(this->is_deactivated()) && 
+		((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
 		{
 			interact();
 		}

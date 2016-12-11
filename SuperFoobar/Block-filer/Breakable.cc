@@ -17,15 +17,11 @@ std::string Breakable::type_str()
 	return "breakable";
 }
 
-bool Breakable::interact_with(shared_ptr<Map_object> my_char) {
-	cout << "In here" << endl;
-	if (my_char->type_str() == "foobar") {
-		cout << "Break" << endl;
-		if (to_break(my_char->get_cluster()))
-			interact();
-			get_cluster()->set_remove(true);
-			cout << "Removed" << endl;
-		}
+bool Breakable::interact_with(shared_ptr<Map_object> map_object) 
+{
+	if (map_object->type_str() == "foobar" && ((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
+		this->destruct();
+
 	return false;
 }
 
