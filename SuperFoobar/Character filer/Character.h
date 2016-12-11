@@ -29,6 +29,8 @@ public:
 	int get_y_velocity();	
 	int get_gravity();
 	void set_gravity(int);
+
+	bool to_break(std::shared_ptr<Cluster> other_cluster);
 	int get_old_y();
 	int get_old_x();
 	void set_old_x(int);

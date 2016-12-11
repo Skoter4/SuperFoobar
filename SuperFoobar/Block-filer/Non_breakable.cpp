@@ -14,6 +14,9 @@ void Non_breakable::interact()
 
 bool Non_breakable::interact_with(std::shared_ptr<Map_object> my_char)
 {
+	if (my_char->type_str() == "projectile") {
+		my_char->flip_dead();
+	}
 	return false;
 }
 

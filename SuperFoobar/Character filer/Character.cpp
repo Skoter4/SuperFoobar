@@ -89,6 +89,19 @@ void Character::set_gravity(int new_gravity)
 	gravity = new_gravity;
 }
 
+bool Character::to_break(std::shared_ptr<Cluster> other_cluster)
+{
+	int this_y = this->get_y_pos();
+	int other_y = other_cluster->get_y();
+	if (other_y < this_y) {
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
 int Character::get_old_x()
 {
 	return this->old_x;
