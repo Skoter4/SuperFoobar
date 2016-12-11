@@ -39,6 +39,7 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 			{
 				character_object->set_y(character_object->get_desy_pos());
 				character_object->set_desx_pos(map_object->get_x_pos() - width);
+<<<<<<< HEAD
 
 				update_sprite_position(character_object);
 			}
@@ -47,6 +48,8 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 			{
 				character_object->set_x(character_object->get_desx_pos());
 				character_object->set_desy_pos(map_object->get_y_pos() - height);
+=======
+>>>>>>> 26ea4d79bbd5c96048f93dd242ed469f9dd0d91a
 
 				update_sprite_position(character_object);
 			}
