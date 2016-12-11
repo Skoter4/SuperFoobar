@@ -108,3 +108,8 @@ void Character::set_old_y(int new_old_y)
 {
 	this->old_y = new_old_y;
 }
+
+void Character::flip_dir()
+{
+	this->set_x_velocity(- this->get_x_velocity());
+}

@@ -14,6 +14,15 @@ void Non_breakable::interact()
 
 bool Non_breakable::interact_with(std::shared_ptr<Map_object> my_char)
 {
+	if (my_char->type_str() == "projectile") {
+		my_char->flip_dead();
+	}
+	else if (my_char->type_str() == "enemy_3")
+	{
+		std::shared_ptr<Enemy_3> enemy;
+		enemy = std::dynamic_pointer_cast<Enemy_3>(my_char);
+		enemy->flip_dir();
+	}
 	return false;
 }
 

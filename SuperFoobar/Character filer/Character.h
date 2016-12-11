@@ -33,6 +33,7 @@ public:
 	int get_old_x();
 	void set_old_x(int);
 	void set_old_y(int);
+	void flip_dir();
 
 protected:
 	Character(int, int, int, int);
@@ -48,8 +49,8 @@ protected:
 	int old_y{};
 
 	struct Velocity {
-		int x_velocity{};
-		int y_velocity{};
+		int x_velocity{2};
+		int y_velocity{2};
 	};
 
 	Velocity velocity{};

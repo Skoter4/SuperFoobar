@@ -53,7 +53,7 @@ private:
 	int y;
 	int height;
 	int width;
-	int desired_x = 0;
-	int desired_y = 0;
+	int desired_x = x;
+	int desired_y = y;
 	bool to_remove{ false };
 };
