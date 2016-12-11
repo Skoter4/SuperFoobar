@@ -38,7 +38,7 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 			{
 				std::cout << "kekkekkekkekkekkekkekkekkekkekkekkekkekkekkekkekkekkekkek" << std::endl;
 				character_object->set_y(character_object->get_desy_pos());
-				character_object->set_x(map_object->get_x_pos() - width);
+				character_object->set_desx_pos(map_object->get_x_pos() - width);
 
 				update_sprite_position(character_object);
 				std::cout << character_object->get_x_pos() << std::endl;
