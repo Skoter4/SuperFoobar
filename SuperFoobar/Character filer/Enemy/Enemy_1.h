@@ -9,7 +9,7 @@ class Enemy_1 :
 {
 public:
 
-	Enemy_1(int x, int y, int width, int height, std::shared_ptr<Projectile>);
+	Enemy_1(int x, int y, int width, int height);
 	~Enemy_1();
 	void poly() override;
 	std::string type_str() override;

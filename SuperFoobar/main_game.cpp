@@ -249,7 +249,7 @@ int main()
 					/*
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 					{
-						
+
 						if(!track->get_foobar()->get_is_ducking())
 						{
 							track->get_foobar()->duck();
@@ -315,10 +315,10 @@ int main()
 			track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
 
 
-			*/
+
 			float f_time = track->get_timer().get_time_remaining();
 			int i_time = round(f_time);
-			if (i_time % 100 == 0)
+			if (i_time % 7 == 0)
 				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 				{
 					if ((*it)->type_str() == "enemy_1") {
@@ -335,12 +335,24 @@ int main()
 			{
 				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
 				{
-					(*it)->move_x((*it)->get_x_velocity());
-					(*it)->move_y((*it)->get_y_velocity());
-					block_collision(track->get_foobar(), *it);
-					for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
-					{
-						block_collision(*it, *it2);
+					if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+						(*it)->move_x((*it)->get_x_velocity());
+						block_collision(track->get_foobar(), *it);
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+						{
+							block_collision(*it, *it2);
+						}
+					}
+					else {
+						(*it)->move_x((*it)->get_x_velocity());
+						(*it)->move_y((*it)->get_y_velocity());
+						block_collision(track->get_foobar(), *it);
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+						{
+							block_collision(*it, *it2);
+						}
 					}
 				}
 			}

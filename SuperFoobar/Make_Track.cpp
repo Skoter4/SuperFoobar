@@ -104,7 +104,7 @@ shared_ptr<Enemy_1> make_enemy_1(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20, make_projectile(x ,y) } };
+	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_1_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_1> enemy_1_ptr{ temp_enemy_1_ptr };
@@ -260,7 +260,7 @@ shared_ptr<Projectile> make_projectile(int x, int y) {
 	// = interp(x);
 	//y = interp(y);
 
-	Projectile* temp_projectile_ptr{ new Projectile {x - 10, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
+	Projectile* temp_projectile_ptr{ new Projectile {x - 100, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
 	
 	std::shared_ptr<sf::Sprite> new_sprite_ptr { new sf::Sprite };
 	temp_projectile_ptr->setSprite(new_sprite_ptr);

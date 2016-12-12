@@ -1,10 +1,11 @@
 #pragma once
 #include "Enemy_1.h"
 #include "../Projectile.h"
+#include "../Make_track.h"
 
-Enemy_1::Enemy_1(int x, int y, int width, int height, std::shared_ptr<Projectile> projectile_ptr)
-	: Character(x, y, width, height), 
-	my_projectile{ std::shared_ptr <Character>{projectile_ptr} }
+Enemy_1::Enemy_1(int x, int y, int width, int height)
+	: Character(x, y, width, height) 
+	//my_projectile{ std::shared_ptr <Character>{projectile_ptr} }
 {
 }
 
@@ -15,7 +16,7 @@ Enemy_1::~Enemy_1()
 std::shared_ptr<Character> Enemy_1::fire_projectile()
 
 {
-	return my_projectile;
+	return  make_projectile(get_x_pos(), get_y_pos());
 }
 
 void Enemy_1::poly()

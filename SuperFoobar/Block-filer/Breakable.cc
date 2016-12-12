@@ -48,6 +48,9 @@ bool Breakable::interact_with(shared_ptr<Map_object> map_object)
 		dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
 
 	}
+	else if (map_object->type_str() == "projectile") {
+		map_object->flip_dead();
+	}
 	return false;
 }
 

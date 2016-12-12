@@ -154,9 +154,8 @@ void Track::handle_map_object_flags()
 			if (enemy_ptr->ready_to_fire())
 			{
 				shared_ptr<Character> proj{ enemy_ptr->fire_projectile() };
-				this->character_list.push_front(proj);
+				character_list.push_front(proj);
 				enemy_ptr->flip_ready();
-				cout << "Bob" << endl;
 			}
 		}
 	}
