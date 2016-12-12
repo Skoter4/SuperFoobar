@@ -1,5 +1,7 @@
 #include "Enemy_3.h"
 
+Enemy_3::Enemy_3(int x, int y, int width, int height)
+	: Character(x, y, width, height) {}
 
 Enemy_3::~Enemy_3()
 {

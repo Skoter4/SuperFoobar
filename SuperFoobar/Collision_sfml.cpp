@@ -26,9 +26,6 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 		int oldy = character_object->get_old_y();
 
 
-		//	std::cout << "Char " << desx << " " << desy<< " " << width << " " << height << " " << std::endl;
-		//s	std::cout << block_object->get_x_pos()<< " " << block_object->get_x_pos()<< " " << block_object->get_width()<< " " << block_object->get_height() << std::endl;
-
 		if (point_in_rect(desx, desy, map_object) || point_in_rect(desx + width, desy, map_object) ||
 			point_in_rect(desx, desy + height, map_object) || point_in_rect(desx + width, desy + height, map_object)
 			|| point_in_rect(desx + width, desy + (height / 2), map_object) || point_in_rect(desx, desy + (height / 2), map_object))
@@ -77,13 +74,9 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 
 		}
 	}
-	//std::cout << desy << "          " << character_object->get_y_pos() << std::endl;
 
 	character_object->set_x(desx);
 	character_object->set_y(desy);
-	
-
-
 }
 
 

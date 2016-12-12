@@ -47,6 +47,18 @@ bool Generator::interact_with(std::shared_ptr<Map_object> map_object)
 		{
 			interact();
 		}
+	else if (map_object->type_str() == "foobar")
+	{
+		if (this->get_y_pos() > map_object->get_old_y())
+		{
+			if (!dynamic_pointer_cast<Foobar> (map_object)->get_on_ground())
+			{
+				dynamic_pointer_cast<Foobar> (map_object)->flip_on_ground();
+			}
+		}
+		dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
+
+	}
 	return false;
 }
 

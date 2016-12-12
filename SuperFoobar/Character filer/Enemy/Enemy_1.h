@@ -5,8 +5,7 @@ class Enemy_1 :
 	public Character
 {
 public:
-	Enemy_1(int x, int y, int width, int height)
-		: Character(x, y, width, height) {}
+	Enemy_1(int x, int y, int width, int height);
 	~Enemy_1();
 	void poly() override;
 	std::string type_str() override;
