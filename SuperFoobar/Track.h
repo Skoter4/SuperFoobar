@@ -16,6 +16,7 @@ class Foobar;
 class Block;
 class Breakable;
 class Interactable;
+class Scoreboard;
 
 class Track
 {
@@ -55,6 +56,9 @@ public:
 	void set_height(int);
 	void set_floor(int);
 
+	void flip_end_of_game();
+	bool is_end_of_game();
+
 	~Track() = default;
 
 private:
@@ -66,6 +70,7 @@ private:
 	Score score{};
 	Timer timer{};
 	Scoreboard scoreboard{};
+	bool end_of_game{ false };
 
 	std::list<std::shared_ptr<Block>> block_list{};
 	std::list<std::shared_ptr<Character>> character_list{};

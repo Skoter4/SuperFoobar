@@ -24,7 +24,8 @@ sf::IntRect Foobar_HL_pic(50, 191, 50, 100);
 sf::IntRect Foobar_DR_pic(149, 171, 50, 50);
 sf::IntRect Foobar_DL_pic(199, 171, 50, 50);
 sf::IntRect Enemy1_pic(100, 0, 50, 50);
-sf::IntRect Enemy2_pic(0, 0, 50, 50);
+sf::IntRect Enemy2_L_pic(0, 0, 50, 50);
+sf::IntRect Enemy2_R_pic(175, 223, 50, 50);
 sf::IntRect Enemy3_pic(50, 0, 50, 50);
 sf::IntRect Proj_L_pic(120, 145, 50, 25);
 sf::IntRect Floor_pic(70, 50, 70, 70);
@@ -388,7 +389,7 @@ void update_sprite(shared_ptr<Map_object> MO)
 	}
 	else if (MO->type_str() == "enemy_2")
 	{
-		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
+		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_L_pic);
 	}
 	else if (MO->type_str() == "enemy_3")
 	{

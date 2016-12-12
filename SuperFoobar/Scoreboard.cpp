@@ -33,6 +33,18 @@ string Scoreboard::read()
 	return sorted_str + " ";
 }
 
+std::string Scoreboard::read_top5()
+{
+	string top_5_str{};
+	stringstream ss{ read() };
+	for (int i{1}; i <= 5; i++) {
+		string temp_str{};
+		getline(ss, temp_str, ' ');
+		top_5_str = top_5_str + to_string(i) + ". " +  temp_str + " ";
+	}
+	return top_5_str;
+}
+
 // Appends new_score to end of txt file
 void Scoreboard::write(string new_score)
 {

@@ -10,4 +10,6 @@ public:
 	bool interact_with(std::shared_ptr<Map_object> my_char) override;
 	void interact() override;
 	std::string type_str() override;
+private:
+	std::string type{ "finish_line" };
 };

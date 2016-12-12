@@ -42,6 +42,16 @@ void Track::set_floor(int new_floor)
 	this->floor = new_floor;
 }
 
+void Track::flip_end_of_game()
+{
+	this->end_of_game = !(this->end_of_game);
+}
+
+bool Track::is_end_of_game()
+{
+	return this->end_of_game;
+}
+
 void Track::set_height(int new_height)
 {
 	this->height = new_height;
@@ -164,7 +174,9 @@ void Track::handle_map_object_flags()
 			else if ((*it)->type_str() == "power_up_shroom")
 			{
 				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
-				cout << foobar->get_width();
+			}
+			else if ((*it)->type_str() == "finish_line") {
+				flip_end_of_game();
 			}
 			it = this->get_interactable_list().erase(it);
 			if (it == this->get_interactable_list().end())
