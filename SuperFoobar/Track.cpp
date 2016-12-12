@@ -164,7 +164,6 @@ void Track::handle_map_object_flags()
 			else if ((*it)->type_str() == "power_up_shroom")
 			{
 				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
-				cout << foobar->get_width();
 			}
 			it = this->get_interactable_list().erase(it);
 			if (it == this->get_interactable_list().end())

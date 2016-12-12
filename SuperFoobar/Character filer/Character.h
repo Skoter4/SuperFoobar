@@ -29,8 +29,6 @@ public:
 	int get_y_velocity();	
 	int get_gravity();
 	void set_gravity(int);
-
-	bool to_break(std::shared_ptr<Cluster> other_cluster);
 	
 	void flip_x_velocity();
 
@@ -40,7 +38,6 @@ public:
 	int get_max_speed_y();
 	bool get_on_ground();
 	void flip_on_ground();
-
 
 protected:
 	Character(int, int, int, int);

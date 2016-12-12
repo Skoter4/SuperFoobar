@@ -33,6 +33,7 @@ public:
 	bool is_dead();
 	void flip_dead();
 
+
 	int get_x_pos();
 	int get_y_pos();
 	void set_x(int);
@@ -43,8 +44,6 @@ public:
 	void set_desy_pos(int);
 
 
-	int old_x{};
-	int old_y{};
 	int get_old_y();
 	int get_old_x();
 	void set_old_x(int);
@@ -57,6 +56,9 @@ public:
 protected:
 	bool dead{ false };
 	std::shared_ptr<sf::Sprite> object_sprite;
+
+	int old_x{};
+	int old_y{};
 
 	Map_object(int, int, int, int);
 

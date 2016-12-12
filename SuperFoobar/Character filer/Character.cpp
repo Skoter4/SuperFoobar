@@ -2,9 +2,12 @@
 //#include "../Collision/Cluster.h"
 
 
-Character::Character(int x_pos, int y_pos,int height, int width) 
+Character::Character(int x_pos, int y_pos, int height, int width)
 	: Map_object(x_pos, y_pos, height, width)
-{}
+{
+	set_old_x(x_pos);
+	set_old_y(y_pos);
+}
 
 
 void Character::move_x(int x_speed) 
@@ -137,19 +140,7 @@ void Character::set_gravity(int new_gravity)
 	gravity = new_gravity;
 }
 
-bool Character::to_break(std::shared_ptr<Cluster> other_cluster)
-{
-	int this_y = this->get_y_pos();
-	int other_y = other_cluster->get_y();
-	if (other_y < this_y) {
-		return true;
-	}
-	else
-	{
-		return false;
-	}
 
-}
 
 void Character::flip_x_velocity()
 {

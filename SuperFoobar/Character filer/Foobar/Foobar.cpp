@@ -73,31 +73,28 @@ void Foobar::stand_up()
 }
 
 
-bool Foobar::interact_with(std::shared_ptr<Map_object> my_char)
+bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if (my_char->type_str() == "projectile") {
+	if (map_object->type_str() == "projectile") {
 		this->die();
-		my_char->interact();
+		map_object->interact();
 	}
-	else if (my_char->type_str() == "power_up"){
+	else if (map_object->type_str() == "power_up"){
 		//TODO
 	}
-	else if (my_char->type_str() == "coin") {
-		my_char->interact();
+	else if (map_object->type_str() == "coin") 
+	{
+		map_object->interact();
 	}
-	else if (my_char->type_str() == "enemy_1") {
-		if (this->to_break(my_char->get_cluster())) {
-			my_char->flip_dead();
+	else if ((map_object->type_str() == "enemy_1 ") || (map_object->type_str() == "enemy_2") || (map_object->type_str() == "enemy_3"))
+	{
+		if ((this->get_old_y() < map_object->get_y_pos()))
+		{
+			map_object->flip_dead();
 		}
-	}
-	else if (my_char->type_str() == "enemy_2") {
-		if (this->to_break(my_char->get_cluster())) {
-			my_char->flip_dead();
-		}
-	}
-	else if (my_char->type_str() == "enemy_3") {
-		if (this->to_break(my_char->get_cluster())) {
-			my_char->flip_dead();
+		else
+		{
+			this->flip_dead();
 		}
 	}
 	return true;

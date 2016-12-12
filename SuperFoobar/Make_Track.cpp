@@ -88,7 +88,7 @@ list<shared_ptr<Interactable>> add_to_interactable_list(list<shared_ptr<Interact
 // FUNCTIONS TO CREATE SINGLE OBJECTS SUCH AS CHARACTERS, GENERATORS OR INTERACTABLES
 shared_ptr<Foobar> make_foobar()
 {
-	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - ::BLOCK_HEIGHT,50,50} };
+	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - 50, 50, 50} };
 	
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
 
@@ -104,6 +104,7 @@ shared_ptr<Enemy_1> make_enemy_1(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
+
 	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_1_ptr->setSprite(new_sprite_ptr);
@@ -148,7 +149,7 @@ shared_ptr<Coin> make_coin(int x, int y)
 	x = interp(x);
 	y = interp(y);
 
-	Coin* temp_coin_ptr{ new Coin{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Coin* temp_coin_ptr{ new Coin{ x + 15, y + 20, 50, 50 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_coin_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
