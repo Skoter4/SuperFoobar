@@ -407,13 +407,10 @@ void update_sprite(shared_ptr<Map_object> MO)
 		if (dynamic_pointer_cast<Enemy_2>(MO)->get_x_velocity() >= 0)
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->scale(-1.f, 1.f);
-			MO->get_sprite()->setPosition(sf::Vector2f(static_cast<float>(MO->get_x_pos() + MO->get_width()), static_cast<float>(MO->get_y_pos())));
 		}
-		else 
+		else
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->scale(1.f, 1.f);
 		}
 	}
 	else if (MO->type_str() == "enemy_3")

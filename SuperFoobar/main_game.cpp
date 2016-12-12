@@ -320,6 +320,7 @@ int main()
 				{
 					(*it)->move_x((*it)->get_x_velocity());
 					(*it)->move_y((*it)->get_y_velocity());
+					block_collision(track->get_foobar(), *it);
 					for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
 					{
 						block_collision(*it, *it2);
@@ -342,6 +343,9 @@ int main()
 			{
 				block_collision(track->get_foobar(), *it);
 			}
+
+
+
 
 
 			//Så att kameran följer med Foobar men inte går till vänster om start-position

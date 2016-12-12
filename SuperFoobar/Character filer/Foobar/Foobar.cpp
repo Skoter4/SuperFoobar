@@ -88,7 +88,18 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 	}
 	else if ((map_object->type_str() == "enemy_1 ") || (map_object->type_str() == "enemy_2") || (map_object->type_str() == "enemy_3"))
 	{
-		if ((this->get_old_y() < map_object->get_y_pos()))
+		if (this->get_height() == 100)
+		{
+			if ((this->get_old_y() - 50 < map_object->get_y_pos()))
+			{
+				map_object->flip_dead();
+			}
+			else
+			{
+				this->flip_dead();
+			}
+		}
+		else if ((this->get_old_y() < map_object->get_y_pos()))
 		{
 			map_object->flip_dead();
 		}
