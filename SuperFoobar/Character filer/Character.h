@@ -29,10 +29,15 @@ public:
 	int get_y_velocity();	
 	int get_gravity();
 	void set_gravity(int);
-
-	bool to_break(std::shared_ptr<Cluster> other_cluster);
 	
 	void flip_x_velocity();
+
+	void set_max_speed_x(int);
+	int get_max_speed_x();
+	void set_max_speed_y(int);
+	int get_max_speed_y();
+	bool get_on_ground();
+	void flip_on_ground();
 
 protected:
 	Character(int, int, int, int);
@@ -44,10 +49,14 @@ protected:
 	
 	int gravity{ 1 };
 
+	int max_speed_x{ 5 };
+	int max_speed_y{ 5 };
+
+	bool on_ground{ false };
 
 	struct Velocity {
-		int x_velocity{0};
-		int y_velocity{0};
+		int x_velocity{3};
+		int y_velocity{3};
 	};
 
 	Velocity velocity{};

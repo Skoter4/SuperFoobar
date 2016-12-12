@@ -11,8 +11,7 @@ class Foobar :
 public:
 	//Foobar();
 	~Foobar() = default;
-	Foobar(int x_pos, int y_pos, int width, int height)
-		: Character(x_pos, y_pos, width, height) {}
+	Foobar(int x_pos, int y_pos, int width, int height);
 	void poly() override;
 	std::string type_str() override;
 
@@ -23,8 +22,6 @@ public:
 	void duck();
 	void stand_up();
 	void run();
-	void set_max_speed_x(int);
-	int get_max_speed_x();
 
 	bool interact_with(std::shared_ptr<Map_object> my_char) override;
 
@@ -32,9 +29,10 @@ public:
 	void flip_is_ducking();
 	bool get_is_ducking();
 
+
 private:
-	int max_speed_x{1};
 	bool is_ducking{ false };
+
 };
 
 
