@@ -3,6 +3,14 @@
 
 using namespace std;
 
+
+Foobar::Foobar(int x_pos, int y_pos, int width, int height)
+	: Character(x_pos, y_pos, width, height)
+{
+	this->set_x_velocity(0);
+	this->set_y_velocity(0);
+}
+
 void Foobar::poly()
 {
 }
@@ -37,7 +45,11 @@ void Foobar::pick_up_coin()
 
 void Foobar::jump()
 {
-
+	if (this->get_on_ground() && this->get_y_velocity() == 0)
+	{
+		this->set_y_velocity(-25);
+		this->flip_on_ground();
+	}
 }
 
 void Foobar::duck()
@@ -60,15 +72,6 @@ void Foobar::stand_up()
 	this->set_height((get_height()) * 2);
 }
 
-void Foobar::set_max_speed_x(int new_max_speed_x)
-{
-	this->max_speed_x = new_max_speed_x;
-}
-
-int Foobar::get_max_speed_x()
-{
-	return this->max_speed_x;
-}
 
 bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 {
@@ -85,7 +88,18 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 	}
 	else if ((map_object->type_str() == "enemy_1 ") || (map_object->type_str() == "enemy_2") || (map_object->type_str() == "enemy_3"))
 	{
-		if ((this->get_old_y() < map_object->get_y_pos()))
+		if (this->get_height() == 100)
+		{
+			if ((this->get_old_y() - 50 < map_object->get_y_pos()))
+			{
+				map_object->flip_dead();
+			}
+			else
+			{
+				this->flip_dead();
+			}
+		}
+		else if ((this->get_old_y() < map_object->get_y_pos()))
 		{
 			map_object->flip_dead();
 		}
@@ -103,5 +117,6 @@ void Foobar::interact()
 
 void Foobar::run()
 {
-	this->set_max_speed_x(2 * this->max_speed_x);
+	this->set_max_speed_x(10);
 }
+

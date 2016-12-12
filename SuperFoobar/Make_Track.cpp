@@ -378,10 +378,25 @@ void update_sprite(shared_ptr<Map_object> MO)
 {
 	if (MO->type_str() == "foobar")
 	{
-		if (MO->get_height() > 50)
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+		if (dynamic_pointer_cast<Foobar> (MO)->get_x_velocity() >= 0)
+		{
+			if (MO->get_height() > 50)
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+			}
+			else
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+			}
+		}
+		else if (MO->get_height() > 50)
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HL_pic);
+		}
 		else
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_L_pic);
+		}
 	}
 	else if (MO->type_str() == "enemy_1")
 	{
@@ -392,12 +407,10 @@ void update_sprite(shared_ptr<Map_object> MO)
 		if (dynamic_pointer_cast<Enemy_2>(MO)->get_x_velocity() >= 0)
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->setScale(-1.f, 1.f);
 		}
-		else 
+		else
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->setScale(1.f, 1.f);
 		}
 	}
 	else if (MO->type_str() == "enemy_3")

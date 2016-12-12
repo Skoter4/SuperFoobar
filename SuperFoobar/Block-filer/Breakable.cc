@@ -24,11 +24,29 @@ bool Breakable::interact_with(shared_ptr<Map_object> map_object)
 		this->destruct();
 	else if (map_object->type_str() == "enemy_2")
 	{
-		dynamic_pointer_cast<Enemy_2> (map_object)->flip_x_velocity();
+		if (map_object->get_old_y() > this->get_y_pos())
+		{
+			dynamic_pointer_cast<Enemy_2> (map_object)->flip_x_velocity();
+		}
 	}
 	else if (map_object->type_str() == "enemy_3")
 	{
+		if (map_object->get_old_y() > this->get_y_pos())
+		{
 		dynamic_pointer_cast<Enemy_3> (map_object)->flip_x_velocity();
+		}
+	}
+	else if (map_object->type_str() == "foobar")
+	{
+		if (this->get_y_pos() > map_object->get_old_y())
+		{
+			if (!dynamic_pointer_cast<Foobar> (map_object)->get_on_ground())
+			{
+				dynamic_pointer_cast<Foobar> (map_object)->flip_on_ground();
+			}
+		}
+		dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
+
 	}
 	return false;
 }

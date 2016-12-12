@@ -110,7 +110,10 @@ void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
 
 void Map_object::flip_dead()
 {
-	this->dead = !(this->dead);
+	if (!dead)
+	{
+		this->dead = !(this->dead);
+	}
 }
 
 bool Map_object::is_dead()

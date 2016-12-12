@@ -1,6 +1,7 @@
 #pragma once
 #include "../Block-filer/Block.h"
 #include "../Interactable-filer/Interactable.h"
+#include "../Character filer/Foobar/Foobar.h"
 
 class Generator
 	: public Block

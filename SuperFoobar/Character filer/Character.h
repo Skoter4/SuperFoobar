@@ -31,6 +31,14 @@ public:
 	void set_gravity(int);
 	
 	void flip_x_velocity();
+
+	void set_max_speed_x(int);
+	int get_max_speed_x();
+	void set_max_speed_y(int);
+	int get_max_speed_y();
+	bool get_on_ground();
+	void flip_on_ground();
+
 protected:
 	Character(int, int, int, int);
 
@@ -40,6 +48,11 @@ protected:
 	bool active{ true };
 	
 	int gravity{ 1 };
+
+	int max_speed_x{ 5 };
+	int max_speed_y{ 5 };
+
+	bool on_ground{ false };
 
 	struct Velocity {
 		int x_velocity{3};

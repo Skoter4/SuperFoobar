@@ -71,6 +71,7 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 			}
 		}
 	}
+
 	character_object->set_x(desx);
 	character_object->set_y(desy);
 

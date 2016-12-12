@@ -5,6 +5,10 @@ Enemy_2::~Enemy_2()
 {
 }
 
+Enemy_2::Enemy_2(int x, int y, int width, int height)
+	: Character(x, y, width, height) 
+{}
+
 void Enemy_2::poly()
 {
 }

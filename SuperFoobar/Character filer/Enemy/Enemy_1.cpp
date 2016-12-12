@@ -6,6 +6,10 @@ Enemy_1::~Enemy_1()
 {
 }
 
+Enemy_1::Enemy_1(int x, int y, int width, int height)
+	: Character(x, y, width, height) {}
+
+
 void Enemy_1::fire_projectile()
 {
 	Projectile::Projectile(this->get_x_pos(), this->get_y_pos(), 10, 5);
