@@ -61,6 +61,26 @@ void Map_object::set_desy_pos(int y)
 	cluster->set_des_y(y);
 }
 
+int Map_object::get_old_x()
+{
+	return this->old_x;
+}
+
+int Map_object::get_old_y()
+{
+	return this->old_y;
+}
+
+
+void Map_object::set_old_x(int new_old_x)
+{
+	this->old_x = new_old_x;
+}
+
+void Map_object::set_old_y(int new_old_y)
+{
+	this->old_y = new_old_y;
+}
 
 Map_object::Map_object(int x, int y, int length, int width)
 	:cluster{ new Cluster(x, y, length, width) }
@@ -90,7 +110,10 @@ void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
 
 void Map_object::flip_dead()
 {
-	this->dead = !(this->dead);
+	if (!dead)
+	{
+		this->dead = !(this->dead);
+	}
 }
 
 bool Map_object::is_dead()
@@ -98,22 +121,3 @@ bool Map_object::is_dead()
 	return this->dead;
 }
 
-int Map_object::get_old_x()
-{
-	return this->old_x;
-}
-
-int Map_object::get_old_y()
-{
-	return this->old_y;
-}
-
-void Map_object::set_old_x(int new_old_x)
-{
-	this->old_x = new_old_x;
-}
-
-void Map_object::set_old_y(int new_old_y)
-{
-	this->old_y = new_old_y;
-}

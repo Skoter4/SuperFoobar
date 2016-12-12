@@ -8,6 +8,7 @@ class Enemy_1 :
 	public Character
 {
 public:
+
 	Enemy_1(int x, int y, int width, int height, std::shared_ptr<Projectile>);
 	~Enemy_1();
 	void poly() override;

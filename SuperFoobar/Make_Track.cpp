@@ -88,7 +88,7 @@ list<shared_ptr<Interactable>> add_to_interactable_list(list<shared_ptr<Interact
 // FUNCTIONS TO CREATE SINGLE OBJECTS SUCH AS CHARACTERS, GENERATORS OR INTERACTABLES
 shared_ptr<Foobar> make_foobar()
 {
-	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - ::BLOCK_HEIGHT,50,50} };
+	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - 50, 50, 50} };
 	
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
 
@@ -148,7 +148,7 @@ shared_ptr<Coin> make_coin(int x, int y)
 	x = interp(x);
 	y = interp(y);
 
-	Coin* temp_coin_ptr{ new Coin{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Coin* temp_coin_ptr{ new Coin{ x + 15, y + 20, 50, 50 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_coin_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
@@ -393,10 +393,25 @@ void update_sprite(shared_ptr<Map_object> MO)
 {
 	if (MO->type_str() == "foobar")
 	{
-		if (MO->get_height() > 50)
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+		if (dynamic_pointer_cast<Foobar> (MO)->get_x_velocity() >= 0)
+		{
+			if (MO->get_height() > 50)
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+			}
+			else
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+			}
+		}
+		else if (MO->get_height() > 50)
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HL_pic);
+		}
 		else
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_L_pic);
+		}
 	}
 	else if (MO->type_str() == "enemy_1")
 	{
@@ -407,12 +422,10 @@ void update_sprite(shared_ptr<Map_object> MO)
 		if (dynamic_pointer_cast<Enemy_2>(MO)->get_x_velocity() >= 0)
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->setScale(-1.f, 1.f);
 		}
-		else 
+		else
 		{
 			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
-			MO->get_sprite()->setScale(1.f, 1.f);
 		}
 	}
 	else if (MO->type_str() == "enemy_3")

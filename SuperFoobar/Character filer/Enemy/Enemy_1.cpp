@@ -13,6 +13,7 @@ Enemy_1::~Enemy_1()
 }
 
 std::shared_ptr<Character> Enemy_1::fire_projectile()
+
 {
 	return my_projectile;
 }
@@ -26,27 +27,37 @@ std::string Enemy_1::type_str()
 	return "enemy_1";
 }
 
-bool Enemy_1::interact_with(std::shared_ptr<Map_object> my_char)
+bool Enemy_1::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if (my_char->type_str() == "projectile") {
-		this->flip_dead();
-		my_char->flip_dead();
-	}
-	else if (my_char->type_str() == "power_up") {
-		return true;
-	}
-	else if (my_char->type_str() == "coin") {
-		return true;
-	}
-	else if (my_char->type_str() == "foobar") {
-		if (to_break(my_char->get_cluster())) {
-			my_char->interact();
+	if (map_object->type_str() == "foobar")
+	{
+		if ((map_object->get_old_y()) < this->get_y_pos())
+		{
+			this->flip_dead();
+		}
+		else
+		{
+			map_object->flip_dead();
 		}
 	}
-	else if (my_char->type_str() == "enemy_2") {
+	else if (map_object->type_str() == "projectile") {
+		this->flip_dead();
+		map_object->flip_dead();
+	}
+	else if (map_object->type_str() == "power_up") {
+		return true;
+	}
+	else if (map_object->type_str() == "coin") {
+		return true;
+	}
+	else if (map_object->type_str() == "foobar") 
+	{
+			map_object->interact();
+	}
+	else if (map_object->type_str() == "enemy_2") {
 		//TODO
 	}
-	else if (my_char->type_str() == "enemy_3") {
+	else if (map_object->type_str() == "enemy_3") {
 		//TODO
 	}
 	return false;
