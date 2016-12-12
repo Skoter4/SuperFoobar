@@ -23,16 +23,19 @@ std::string Enemy_1::type_str()
 bool Enemy_1::interact_with(std::shared_ptr<Map_object> my_char)
 {
 	if (my_char->type_str() == "projectile") {
-		//Is kill
+		this->flip_dead();
+		my_char->flip_dead();
 	}
 	else if (my_char->type_str() == "power_up") {
-		//TODO
+		return true;
 	}
 	else if (my_char->type_str() == "coin") {
-		my_char->interact();
+		return true;
 	}
 	else if (my_char->type_str() == "foobar") {
-		this->flip_dead();
+		if (to_break(my_char->get_cluster())) {
+			my_char->interact();
+		}
 	}
 	else if (my_char->type_str() == "enemy_2") {
 		//TODO
@@ -40,7 +43,7 @@ bool Enemy_1::interact_with(std::shared_ptr<Map_object> my_char)
 	else if (my_char->type_str() == "enemy_3") {
 		//TODO
 	}
-	return 0;
+	return false;
 }
 
 void Enemy_1::interact()

@@ -77,7 +77,7 @@ int main()
 
 		//Font kek
 		sf::Font font;
-		if (!font.loadFromFile("arial.ttf")) 
+		if (!font.loadFromFile("smb.ttf"))
 		{
 			std::cout << "Error loading from file" << std::endl;
 		}
@@ -117,7 +117,7 @@ int main()
 			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
 
 		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
-			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10) 
+			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10)
 			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
 
 		interactable_list + make_Finish_Line(185, 10);
@@ -133,65 +133,84 @@ int main()
 
 		sf::Texture Background_pic;
 		Background_pic.setRepeated(true);
-		Background_pic.loadFromFile("Pictures/Background.png");
+		Background_pic.loadFromFile("Pictures/New_Background.png");
 
 		sf::Sprite Background(Background_pic);
 		Background.setTexture(Background_pic);
 		Background.setTextureRect(sf::IntRect(0, 0, track->get_width(), track->get_height()));
-
 
 		// Score, top-left corner
 		Score score{};
 		sf::Text scoreText;
 		scoreText.setFont(font);
 		scoreText.setString(std::to_string(static_cast<int>(score.get_score()))); // Conversion to int to get rid of decimals
-		scoreText.setPosition(15, 5);
-		scoreText.setCharacterSize(50); // Default = 30
-		
-											  // Timer, top-right corner
-		float timer{}; // Used to count down
+		scoreText.setPosition(15, 70);
+		scoreText.setCharacterSize(50); // Default = 30		
+
+		sf::Text scoreInfo;
+		scoreInfo.setFont(font);
+		scoreInfo.setString("Foobar");
+		scoreInfo.setPosition(15, 15);
+		scoreInfo.setCharacterSize(50);
+
+		// Timer, top-right corner
 		sf::Text timerText;
 		timerText.setFont(font);
-		timerText.setPosition(16* 70 - 100, 5);
+		timerText.setPosition(16 * 70 - 100, 70);
 		timerText.setCharacterSize(50);
 		//timerText.setColor(sf::Color::White);
-		sf::Clock clock; // Starts the clock
 
-		sf::Event event;
+		sf::Text timerInfo;
+		timerInfo.setFont(font);
+		timerInfo.setPosition(16 * 70 - 100, 15);
+		timerInfo.setCharacterSize(50);
+		timerInfo.setString("Time");
+
+		sf::Text gameover_or_gg_text;
+		gameover_or_gg_text.setFont(font);
+		gameover_or_gg_text.setPosition(500, 350);
+		gameover_or_gg_text.setCharacterSize(50);
+		gameover_or_gg_text.setString("");
+
 		Timer new_timer{};
+		Scoreboard scoreboard{};
 
 		track->set_timer(new_timer);
+		track->set_score(score);
+		track->set_scoreboard(scoreboard);
 
 		bool gameover{ false }; // Hur ska game-over hanteras? Gjorde detta som en temporär lösning
 		bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
 
-
-		track->set_score( score );
+		sf::Event event;
 
 		while (GameWindow.isOpen())
 		{
-			//Timer countdown
-			if ((track->get_timer()).get_time_remaining() > 0.0f) 
+			if (!gameover)
 			{
-				timer = clock.getElapsedTime().asSeconds();
-				(track->get_timer()).set_time_remaining((track->get_timer()).get_time_remaining() - timer);
-				timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
-				clock.restart();
-			}
-
-			if (!gameover) 
-			{
-
-				// Timer countdown
-				if (new_timer.get_time_remaining() > 0.0f) {
-					new_timer.countdown();
-					timerText.setString(std::to_string(static_cast<int>(new_timer.get_time_remaining())));
+				//Timer countdown
+				if ((track->get_timer()).get_time_remaining() > 0.0f)
+				{
+					timerText.setString(std::to_string((track->get_timer()).get_time_remaining()));
+					(track->get_timer()).countdown();
+					timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
 				}
 				else {
 					gameover = true; // Timer hits 0 => game-over
 				}
-
 			}
+			else { // Game-over
+				if (first_time) {
+					gameover_or_gg_text.setString("Game Over");
+					(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_score()).get_score())));
+					first_time = !first_time;
+					// Vid interaktion med finish_line:
+					// gameover_or_gg_text.setString("GG");
+					// (track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
+					// first_time = !first_time;
+				}
+			}
+
 			while (GameWindow.pollEvent(event))
 			{
 				if (event.type == sf::Event::EventType::Closed)
@@ -205,8 +224,6 @@ int main()
 					{
 						track->get_foobar()->run();
 					}
-
-
 
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 					{
@@ -301,6 +318,8 @@ int main()
 					}
 				}
 			}
+
+
 			/*
 			Foobar_obj->set_y_velocity(Foobar_obj->get_gravity());
 
@@ -308,6 +327,22 @@ int main()
 			Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
 
 			*/
+
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+			{
+				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
+				{
+					(*it)->set_old_x((*it)->get_x_pos());
+					(*it)->set_old_y((*it)->get_y_pos());
+					(*it)->move_x((*it)->get_x_velocity());
+					//(*it)->move_y((*it)->get_y_velocity());
+					for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+					{
+						block_collision(*it, *it2);
+					}
+				}
+			}
+
 
 			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
 			{
@@ -333,7 +368,10 @@ int main()
 			{
 				sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 16 * 70, 12 * 70));
 				timerText.setPosition((static_cast<float>(16 * 70 - 100 + (camera_x - 512))), timerText.getPosition().y);
+				timerInfo.setPosition((static_cast<float>(16 * 70 - 100 + (camera_x - 512))), timerInfo.getPosition().y);
 				scoreText.setPosition((static_cast<float>(15 + (camera_x - 512))), scoreText.getPosition().y);
+				scoreInfo.setPosition((static_cast<float>(15 + (camera_x - 512))), scoreInfo.getPosition().y);
+				gameover_or_gg_text.setPosition((static_cast<float>(500 + (camera_x - 512))), gameover_or_gg_text.getPosition().y);
 				GameWindow.setView(view);
 			}
 			else
@@ -369,10 +407,12 @@ int main()
 			GameWindow.clear();
 			GameWindow.draw(Background);
 
-
 			draw_track(track, GameWindow);
 			GameWindow.draw(timerText);
+			GameWindow.draw(timerInfo);
 			GameWindow.draw(scoreText);
+			GameWindow.draw(scoreInfo);
+			GameWindow.draw(gameover_or_gg_text);
 			update_sprite(track);
 			scoreText.setString(std::to_string(static_cast<int>(track->get_score().get_score())));
 			track->handle_map_object_flags();

@@ -21,14 +21,21 @@ bool Breakable::interact_with(shared_ptr<Map_object> map_object)
 {
 	if (map_object->type_str() == "foobar" && ((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
 		this->destruct();
-
+	else if (my_char->type_str() == "enemy_2")
+	{
+		dynamic_pointer_cast<Enemy_2> (my_char)->flip_x_velocity();
+	}
+	else if (my_char->type_str() == "enemy_3")
+	{
+		dynamic_pointer_cast<Enemy_3> (my_char)->flip_x_velocity();
+	}
 	return false;
 }
 
 bool Breakable::to_break(shared_ptr<Cluster> other_cluster) {
 	int block_y = this->get_y_pos();
 	int other_y = other_cluster->get_y();
-	if (other_y < block_y) {
+	if (other_y > block_y) {
 		return true;
 	}
 	else

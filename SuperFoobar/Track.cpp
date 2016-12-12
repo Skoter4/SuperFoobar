@@ -77,6 +77,11 @@ void Track::set_timer(Timer & new_timer)
 	this->timer = new_timer;
 }
 
+void Track::set_scoreboard(Scoreboard & new_scoreboard)
+{
+	this->scoreboard = new_scoreboard;
+}
+
 Score & Track::get_score()
 {
 	return this->score;
@@ -85,6 +90,11 @@ Score & Track::get_score()
 Timer & Track::get_timer()
 {
 	return this->timer;
+}
+
+Scoreboard & Track::get_scoreboard()
+{
+	return this->scoreboard;
 }
 
 Track Track::add_map_object(shared_ptr<Map_object> new_map_object)

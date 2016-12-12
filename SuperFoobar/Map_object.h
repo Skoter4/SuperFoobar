@@ -46,6 +46,14 @@ public:
 	int get_desy_pos();
 	void set_desx_pos(int);
 	void set_desy_pos(int);
+
+
+	int old_x{};
+	int old_y{};
+	int get_old_y();
+	int get_old_x();
+	void set_old_x(int);
+	void set_old_y(int);
 	//int area();
 	//void flip_dead();
 

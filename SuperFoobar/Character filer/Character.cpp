@@ -90,3 +90,8 @@ void Character::set_gravity(int new_gravity)
 }
 
 
+
+void Character::flip_x_velocity()
+{
+	this->set_x_velocity(-this->get_x_velocity());
+}
