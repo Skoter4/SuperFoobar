@@ -2,19 +2,23 @@
 #include "Collision\Collision_handler.h"
 #include "Character filer\Foobar\Foobar.h"
 #include "Character filer\Character.h"
+#include "Character filer\Enemy\Enemy_1.h"
 #include "Block-filer\Generator.h"
 #include "Timer.h"
 #include "Score.h"
+#include "Scoreboard.h"
 #include <list>
 #include <memory>
 #include <utility>
 #include <vector>
 #include <stdexcept>
 
+class Character;
 class Foobar;
 class Block;
 class Breakable;
 class Interactable;
+class Scoreboard;
 
 class Track
 {
@@ -38,9 +42,11 @@ public:
 
 	void set_score(Score&);
 	void set_timer(Timer&);
+	void set_scoreboard(Scoreboard&);
 
 	Score& get_score();
 	Timer& get_timer();
+	Scoreboard& get_scoreboard();
 
 	Track add_map_object(std::shared_ptr<Map_object>);
 
@@ -52,6 +58,9 @@ public:
 	void set_height(int);
 	void set_floor(int);
 
+	void flip_end_of_game();
+	bool is_end_of_game();
+
 	~Track() = default;
 
 private:
@@ -62,6 +71,8 @@ private:
 	std::shared_ptr<Foobar> foobar{};
 	Score score{};
 	Timer timer{};
+	Scoreboard scoreboard{};
+	bool end_of_game{ false };
 
 	std::list<std::shared_ptr<Block>> block_list{};
 	std::list<std::shared_ptr<Character>> character_list{};

@@ -22,6 +22,7 @@ Track::Track(list<shared_ptr<Block>> blocks, list<shared_ptr<Character>> charact
 		throw std::invalid_argument("'Characters' list lacks Foobar object!");
 }
 
+
 int Track::get_floor()
 {
 	return this->floor;
@@ -40,6 +41,16 @@ int Track::get_width()
 void Track::set_floor(int new_floor)
 {
 	this->floor = new_floor;
+}
+
+void Track::flip_end_of_game()
+{
+	this->end_of_game = !(this->end_of_game);
+}
+
+bool Track::is_end_of_game()
+{
+	return this->end_of_game;
 }
 
 void Track::set_height(int new_height)
@@ -77,6 +88,11 @@ void Track::set_timer(Timer & new_timer)
 	this->timer = new_timer;
 }
 
+void Track::set_scoreboard(Scoreboard & new_scoreboard)
+{
+	this->scoreboard = new_scoreboard;
+}
+
 Score & Track::get_score()
 {
 	return this->score;
@@ -85,6 +101,11 @@ Score & Track::get_score()
 Timer & Track::get_timer()
 {
 	return this->timer;
+}
+
+Scoreboard & Track::get_scoreboard()
+{
+	return this->scoreboard;
 }
 
 Track Track::add_map_object(shared_ptr<Map_object> new_map_object)
@@ -124,7 +145,7 @@ void Track::handle_map_object_flags()
 			{
 				shared_ptr<Interactable> reward{ generator_ptr->generate() };
 				this->interactable_list.push_front(reward);
-				
+
 			}
 		}
 	}
@@ -136,6 +157,16 @@ void Track::handle_map_object_flags()
 			it = this->get_character_list().erase(it);
 			if (it == this->get_character_list().end())
 				break;
+		}
+		if ((*it)->type_str() == "enemy_1")
+		{
+			shared_ptr<Enemy_1> enemy_ptr{ dynamic_pointer_cast<Enemy_1>(*it) };
+			if (enemy_ptr->ready_to_fire())
+			{
+				shared_ptr<Character> proj{ enemy_ptr->fire_projectile() };
+				character_list.push_front(proj);
+				enemy_ptr->flip_ready();
+			}
 		}
 	}
 
@@ -154,15 +185,17 @@ void Track::handle_map_object_flags()
 			else if ((*it)->type_str() == "power_up_shroom")
 			{
 				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
-				cout << foobar->get_width();
+			}
+			else if ((*it)->type_str() == "finish_line") {
+				flip_end_of_game();
 			}
 			it = this->get_interactable_list().erase(it);
 			if (it == this->get_interactable_list().end())
 				break;
 		}
 	}
-}
 
+}
 shared_ptr<Foobar> Track::get_foobar()
 {
 	return this->foobar;
@@ -172,3 +205,5 @@ void Track::set_foobar(shared_ptr<Foobar> new_foobar)
 {
 	this->foobar = new_foobar;
 }
+
+
