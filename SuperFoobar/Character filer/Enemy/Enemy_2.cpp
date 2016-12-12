@@ -14,28 +14,36 @@ std::string Enemy_2::type_str()
 	return "enemy_2";
 }
 
-bool Enemy_2::interact_with(std::shared_ptr<Map_object> my_char)
+bool Enemy_2::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if (my_char->type_str() == "foobar")
+	if (map_object->type_str() == "foobar")
 	{
-		this->flip_dead();
-	else if (my_char->type_str() == "projectile") {
+		if ((map_object->get_old_y()) < this->get_y_pos())
+		{
+			this->flip_dead();
+		}
+		else
+		{
+			map_object->flip_dead();
+		}
+	}
+	else if (map_object->type_str() == "projectile") {
 		this->interact();
-		my_char->interact();
+		map_object->interact();
 	}
-	else if (my_char->type_str() == "power_up") {
+	else if (map_object->type_str() == "power_up") {
 		return true;
 	}
-	else if (my_char->type_str() == "coin") {
+	else if (map_object->type_str() == "coin") {
 		return true;
 	}
-	else if (my_char->type_str() == "foobar") {
+	else if (map_object->type_str() == "foobar") {
 		//TODO
 	}
-	else if (my_char->type_str() == "enemy_2") {
+	else if (map_object->type_str() == "enemy_2") {
 		//TODO
 	}
-	else if (my_char->type_str() == "enemy_3") {
+	else if (map_object->type_str() == "enemy_3") {
 		//TODO
 	}
 	return false;

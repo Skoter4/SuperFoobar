@@ -19,15 +19,16 @@ std::string Breakable::type_str()
 
 bool Breakable::interact_with(shared_ptr<Map_object> map_object) 
 {
-	if (map_object->type_str() == "foobar" && ((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
+	if ((map_object->type_str() == "foobar") &&
+		((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
 		this->destruct();
-	else if (my_char->type_str() == "enemy_2")
+	else if (map_object->type_str() == "enemy_2")
 	{
-		dynamic_pointer_cast<Enemy_2> (my_char)->flip_x_velocity();
+		dynamic_pointer_cast<Enemy_2> (map_object)->flip_x_velocity();
 	}
-	else if (my_char->type_str() == "enemy_3")
+	else if (map_object->type_str() == "enemy_3")
 	{
-		dynamic_pointer_cast<Enemy_3> (my_char)->flip_x_velocity();
+		dynamic_pointer_cast<Enemy_3> (map_object)->flip_x_velocity();
 	}
 	return false;
 }

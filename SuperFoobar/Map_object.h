@@ -33,10 +33,6 @@ public:
 	bool is_dead();
 	void flip_dead();
 
-	int get_old_y();
-	int get_old_x();
-	void set_old_x(int);
-	void set_old_y(int);
 
 	int get_x_pos();
 	int get_y_pos();
@@ -48,8 +44,6 @@ public:
 	void set_desy_pos(int);
 
 
-	int old_x{};
-	int old_y{};
 	int get_old_y();
 	int get_old_x();
 	void set_old_x(int);

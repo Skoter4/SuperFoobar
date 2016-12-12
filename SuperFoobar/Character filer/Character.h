@@ -29,8 +29,8 @@ public:
 	int get_y_velocity();	
 	int get_gravity();
 	void set_gravity(int);
-
-
+	
+	void flip_x_velocity();
 protected:
 	Character(int, int, int, int);
 
@@ -42,8 +42,8 @@ protected:
 	int gravity{ 1 };
 
 	struct Velocity {
-		int x_velocity{0};
-		int y_velocity{0};
+		int x_velocity{3};
+		int y_velocity{3};
 	};
 
 	Velocity velocity{};

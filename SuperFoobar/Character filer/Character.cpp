@@ -2,9 +2,12 @@
 //#include "../Collision/Cluster.h"
 
 
-Character::Character(int x_pos, int y_pos,int height, int width) 
+Character::Character(int x_pos, int y_pos, int height, int width)
 	: Map_object(x_pos, y_pos, height, width)
-{}
+{
+	set_old_x(x_pos);
+	set_old_y(y_pos);
+}
 
 
 void Character::move_x(int x_speed) 

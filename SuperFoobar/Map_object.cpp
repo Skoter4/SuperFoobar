@@ -118,22 +118,3 @@ bool Map_object::is_dead()
 	return this->dead;
 }
 
-int Map_object::get_old_x()
-{
-	return this->old_x;
-}
-
-int Map_object::get_old_y()
-{
-	return this->old_y;
-}
-
-void Map_object::set_old_x(int new_old_x)
-{
-	this->old_x = new_old_x;
-}
-
-void Map_object::set_old_y(int new_old_y)
-{
-	this->old_y = new_old_y;
-}
