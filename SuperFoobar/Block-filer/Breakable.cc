@@ -23,6 +23,14 @@ bool Breakable::interact_with(shared_ptr<Map_object> my_char) {
 			this->interact();
 			this->get_cluster()->set_remove(true);
 		}
+	else if (my_char->type_str() == "enemy_2")
+	{
+		dynamic_pointer_cast<Enemy_2> (my_char)->flip_x_velocity();
+	}
+	else if (my_char->type_str() == "enemy_3")
+	{
+		dynamic_pointer_cast<Enemy_3> (my_char)->flip_x_velocity();
+	}
 	return false;
 }
 
