@@ -25,6 +25,7 @@ int main()
 		background_music.setVolume(game_volume);
 
 		// xxx_sound.play() för att spela ljuden
+		// xxx_sound.setVolume(game_volume); 
 		sf::SoundBuffer coin_buffer;
 		sf::SoundBuffer pup_buffer;
 		sf::SoundBuffer pup_appear_buffer;
@@ -315,7 +316,6 @@ int main()
 							(*it)->move_x((*it)->get_x_velocity());
 							block_collision(track->get_foobar(), *it);
 							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
-
 							{
 								block_collision(*it, *it2);
 							}
@@ -332,7 +332,6 @@ int main()
 						}
 					}
 				}
-
 
 				for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
 				{
@@ -395,7 +394,7 @@ int main()
 						first_time = !first_time;
 					}
 				}
-				else {
+				else { // utanför event, man har klickat play game, man är inte död/slut på tid
 					//Timer countdown
 					if ((track->get_timer()).get_time_remaining() > 0.0f)
 					{
