@@ -2,6 +2,7 @@
 #include "Collision\Collision_handler.h"
 #include "Character filer\Foobar\Foobar.h"
 #include "Character filer\Character.h"
+#include "Character filer\Enemy\Enemy_1.h"
 #include "Block-filer\Generator.h"
 #include "Timer.h"
 #include "Score.h"
@@ -12,6 +13,7 @@
 #include <vector>
 #include <stdexcept>
 
+class Character;
 class Foobar;
 class Block;
 class Breakable;

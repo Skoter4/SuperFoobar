@@ -6,6 +6,7 @@
 #include "Timer.h"
 #include "Score.h"
 #include <memory>
+#include <math.h>
 #include "Collision_sfml.h"
 
 int main()
@@ -110,7 +111,7 @@ int main()
 			make_one_line_breakable_seg(6, 170, 7) + make_one_line_breakable_seg(5, 171, 6) + make_one_line_breakable_seg(4, 172, 5) +
 			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
 
-		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
+		character_list + make_foobar() + make_enemy_1(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
 			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10)
 			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
 
@@ -241,31 +242,27 @@ int main()
 					{
 						if (event.key.code == sf::Keyboard::LShift)
 						{
+						if (track->get_foobar()->get_on_ground()) {
 							track->get_foobar()->run();
+							}
 						}
 
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 						{
-							//Ska även ändra bild
-							//Foobar_obj->set_x_velocity(-1);
-							track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
-							track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
+							track->get_foobar()->set_x_velocity(-1);
 						}
 
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 						{
-							//ska även ändra bild
-							//Foobar_obj->set_x_velocity(Foobar_obj->get_max_speed_x());
-							//	Foobar_obj->set_x_velocity(1);
-							track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
-							track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
+							track->get_foobar()->set_x_velocity(1);
 						}
 
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 						{
-							track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
-							track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
-							//Foobar hoppar
+							if (track->get_foobar()->get_on_ground())
+							{
+							track->get_foobar()->jump();
+							}
 						}
 
 						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -280,7 +277,7 @@ int main()
 							track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() + 20);
 						}
 					}
-
+					/*
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 					{
 						//Ska även ändra bild
@@ -292,18 +289,13 @@ int main()
 
 						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 					}
-
+					
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 					{
 						//Ska även ändra bild
 						//Foobar_obj->set_x_velocity(-1);
-						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
-						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
-						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() + 20);
-
-						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
 					}
-
+					*/
 					if (event.type == sf::Event::KeyReleased)
 					{
 						if (event.key.code == sf::Keyboard::Up)
@@ -313,12 +305,12 @@ int main()
 
 						if (event.key.code == sf::Keyboard::Left)
 						{
-							//track->get_foobar()->set_x_velocity(0);
+							track->get_foobar()->set_x_velocity(0);
 						}
 
 						if (event.key.code == sf::Keyboard::Right)
 						{
-							//track->get_foobar()->set_x_velocity(0);
+							track->get_foobar()->set_x_velocity(0);
 						}
 
 						if (event.key.code == sf::Keyboard::Down)
@@ -333,32 +325,73 @@ int main()
 
 						if (event.key.code == sf::Keyboard::LShift)
 						{
-							track->get_foobar()->set_max_speed_x(50);
+							track->get_foobar()->set_max_speed_x(5);
 						}
 					}
 
-					/*
-					Foobar_obj->set_y_velocity(Foobar_obj->get_gravity());
+						track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
 
-					Foobar_obj->set_desx_pos(Foobar_obj->get_x_pos() + Foobar_obj->get_x_velocity());
-					Foobar_obj->set_desy_pos(Foobar_obj->get_y_pos() + Foobar_obj->get_y_velocity());
+			track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
+			track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
 
-					*/
 
-					for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
-					{
-						block_collision(track->get_foobar(), *it);
+
+			float f_time = track->get_timer().get_time_remaining();
+			int i_time = round(f_time);
+			if (i_time % 7 == 0)
+				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+				{
+					if ((*it)->type_str() == "enemy_1") {
+						std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
+
+						if (enemy_ptr->get_prev_time() != i_time) {
+							enemy_ptr->flip_ready();
+							enemy_ptr->set_prev_time(i_time);
+						}
 					}
+				}
 
-					for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
-					{
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+			{
+				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
+				{
+					if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+						(*it)->move_x((*it)->get_x_velocity());
 						block_collision(track->get_foobar(), *it);
-					}
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
 
-					for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-					{
-						block_collision(track->get_foobar(), *it);
+						{
+							block_collision(*it, *it2);
+						}
 					}
+					else {
+						(*it)->move_x((*it)->get_x_velocity());
+						(*it)->move_y((*it)->get_y_velocity());
+						block_collision(track->get_foobar(), *it);
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+						{
+							block_collision(*it, *it2);
+						}
+					}
+				}
+			}
+
+
+			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
+
+			for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
+
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+			{
+				block_collision(track->get_foobar(), *it);
+			}
 
 					//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
 					if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
@@ -374,11 +407,13 @@ int main()
 					//}
 
 
+
 					/* Funktion för game-over om tiden tar slut*/
 
 					// Kolla kollisioner så att Foobar kan förflytta sig eller plocka upp coins/powerups
 
 					// Kolla kollisioner för fiender också
+
 
 					// Vid interaktion med mållinjen ska spelet avslutas och poängen räknas ihop
 

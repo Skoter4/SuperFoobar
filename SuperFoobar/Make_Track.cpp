@@ -89,7 +89,7 @@ list<shared_ptr<Interactable>> add_to_interactable_list(list<shared_ptr<Interact
 // FUNCTIONS TO CREATE SINGLE OBJECTS SUCH AS CHARACTERS, GENERATORS OR INTERACTABLES
 shared_ptr<Foobar> make_foobar()
 {
-	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - ::BLOCK_HEIGHT,50,50} };
+	Foobar* temp_foobar_ptr{ new Foobar{ ::FOOBAR_START_POINT, ::FLOOR - 50, 50, 50} };
 	
 	shared_ptr<Foobar> foobar_ptr{ temp_foobar_ptr };
 
@@ -105,7 +105,7 @@ shared_ptr<Enemy_1> make_enemy_1(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_1_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_1> enemy_1_ptr{ temp_enemy_1_ptr };
@@ -119,7 +119,7 @@ shared_ptr<Enemy_2> make_enemy_2(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_2* temp_enemy_2_ptr{ new Enemy_2{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_2* temp_enemy_2_ptr{ new Enemy_2{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_2_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_2> enemy_2_ptr{ temp_enemy_2_ptr };
@@ -133,7 +133,7 @@ shared_ptr<Enemy_3> make_enemy_3(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_3* temp_enemy_3_ptr{ new Enemy_3{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_3* temp_enemy_3_ptr{ new Enemy_3{ x + 10, y + 20, ::BLOCK_HEIGHT-20, ::BLOCK_WIDTH-20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_3_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_3> enemy_3_ptr{ temp_enemy_3_ptr };
@@ -149,7 +149,7 @@ shared_ptr<Coin> make_coin(int x, int y)
 	x = interp(x);
 	y = interp(y);
 
-	Coin* temp_coin_ptr{ new Coin{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Coin* temp_coin_ptr{ new Coin{ x + 15, y + 20, 50, 50 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_coin_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Coin> coin_ptr{ temp_coin_ptr };
@@ -255,6 +255,22 @@ shared_ptr<Finish_line> make_Finish_Line(int x, int y)
 
 	return  move(finish_line_ptr);
 
+}
+
+shared_ptr<Projectile> make_projectile(int x, int y) {
+	// = interp(x);
+	//y = interp(y);
+
+	Projectile* temp_projectile_ptr{ new Projectile {x - 100, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
+	
+	std::shared_ptr<sf::Sprite> new_sprite_ptr { new sf::Sprite };
+	temp_projectile_ptr->setSprite(new_sprite_ptr);
+
+	shared_ptr<Projectile> projectile_ptr{ temp_projectile_ptr };
+
+	temp_projectile_ptr = nullptr;
+
+	return move(projectile_ptr);
 }
 
 
@@ -378,10 +394,25 @@ void update_sprite(shared_ptr<Map_object> MO)
 {
 	if (MO->type_str() == "foobar")
 	{
-		if (MO->get_height() > 50)
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+		if (dynamic_pointer_cast<Foobar> (MO)->get_x_velocity() >= 0)
+		{
+			if (MO->get_height() > 50)
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HR_pic);
+			}
+			else
+			{
+				update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+			}
+		}
+		else if (MO->get_height() > 50)
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_HL_pic);
+		}
 		else
-			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_R_pic);
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Foobar_L_pic);
+		}
 	}
 	else if (MO->type_str() == "enemy_1")
 	{
@@ -389,7 +420,14 @@ void update_sprite(shared_ptr<Map_object> MO)
 	}
 	else if (MO->type_str() == "enemy_2")
 	{
-		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_L_pic);
+		if (dynamic_pointer_cast<Enemy_2>(MO)->get_x_velocity() >= 0)
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_R_pic);
+		}
+		else
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_L_pic);
+		}
 	}
 	else if (MO->type_str() == "enemy_3")
 	{
@@ -430,7 +468,12 @@ void update_sprite(shared_ptr<Map_object> MO)
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_2_pic);
 	}
+	else if (MO->type_str() == "projectile") 
+	{
+		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Proj_L_pic);
+	}
 	update_sprite_position(MO);
+
 }
 
 void update_sprite(list<shared_ptr<Interactable>> interactable_list)

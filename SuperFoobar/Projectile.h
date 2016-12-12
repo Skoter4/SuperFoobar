@@ -1,7 +1,7 @@
 #pragma once
 #include "../Character filer/Enemy/Enemy_1.h"
 class Projectile :
-	public Enemy_1
+	public Character
 {
 public:
 	Projectile(int, int, int, int);

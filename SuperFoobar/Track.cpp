@@ -22,6 +22,7 @@ Track::Track(list<shared_ptr<Block>> blocks, list<shared_ptr<Character>> charact
 		throw std::invalid_argument("'Characters' list lacks Foobar object!");
 }
 
+
 int Track::get_floor()
 {
 	return this->floor;
@@ -144,7 +145,7 @@ void Track::handle_map_object_flags()
 			{
 				shared_ptr<Interactable> reward{ generator_ptr->generate() };
 				this->interactable_list.push_front(reward);
-				
+
 			}
 		}
 	}
@@ -156,6 +157,16 @@ void Track::handle_map_object_flags()
 			it = this->get_character_list().erase(it);
 			if (it == this->get_character_list().end())
 				break;
+		}
+		if ((*it)->type_str() == "enemy_1")
+		{
+			shared_ptr<Enemy_1> enemy_ptr{ dynamic_pointer_cast<Enemy_1>(*it) };
+			if (enemy_ptr->ready_to_fire())
+			{
+				shared_ptr<Character> proj{ enemy_ptr->fire_projectile() };
+				character_list.push_front(proj);
+				enemy_ptr->flip_ready();
+			}
 		}
 	}
 
@@ -183,8 +194,8 @@ void Track::handle_map_object_flags()
 				break;
 		}
 	}
-}
 
+}
 shared_ptr<Foobar> Track::get_foobar()
 {
 	return this->foobar;
@@ -194,3 +205,5 @@ void Track::set_foobar(shared_ptr<Foobar> new_foobar)
 {
 	this->foobar = new_foobar;
 }
+
+
