@@ -102,22 +102,8 @@ bool Character::to_break(std::shared_ptr<Cluster> other_cluster)
 	}
 
 }
-int Character::get_old_x()
-{
-	return this->old_x;
-}
 
-int Character::get_old_y()
+void Character::flip_x_velocity()
 {
-	return this->old_y;
-}
-
-void Character::set_old_x(int new_old_x)
-{
-	this->old_x = new_old_x;
-}
-
-void Character::set_old_y(int new_old_y)
-{
-	this->old_y = new_old_y;
+	this->set_x_velocity(-this->get_x_velocity());
 }

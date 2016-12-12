@@ -328,6 +328,22 @@ int main()
 
 			*/
 
+			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+			{
+				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
+				{
+					(*it)->set_old_x((*it)->get_x_pos());
+					(*it)->set_old_y((*it)->get_y_pos());
+					(*it)->move_x((*it)->get_x_velocity());
+					//(*it)->move_y((*it)->get_y_velocity());
+					for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+					{
+						block_collision(*it, *it2);
+					}
+				}
+			}
+
+
 			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
 			{
 				block_collision(track->get_foobar(), *it);
