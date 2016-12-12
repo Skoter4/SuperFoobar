@@ -40,7 +40,7 @@ std::string Scoreboard::read_top5()
 	for (int i{1}; i <= 5; i++) {
 		string temp_str{};
 		getline(ss, temp_str, ' ');
-		top_5_str = top_5_str + to_string(i) + ". " +  temp_str + " ";
+		top_5_str = top_5_str + to_string(i) + ". " +  temp_str + "   ";
 	}
 	return top_5_str;
 }

@@ -154,7 +154,7 @@ int main()
 		scoreText.setFont(font);
 		scoreText.setString(std::to_string(static_cast<int>(score.get_score())));
 		scoreText.setPosition(15, 70);
-		scoreText.setCharacterSize(50);	
+		scoreText.setCharacterSize(50);
 
 		sf::Text scoreInfo;
 		scoreInfo.setFont(font);
@@ -186,12 +186,12 @@ int main()
 
 		sf::Text scoreboard_text;
 		scoreboard_text.setFont(font);
-		scoreboard_text.setPosition(280, 530);
+		scoreboard_text.setPosition(243, 530);
 		scoreboard_text.setCharacterSize(50);
 
-		bool gameover{ false };
+		bool time_up{ false };
 		bool play_game{ false };
-		bool show_highscore{ false };
+		bool show_scoreboard{ false };
 		bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
 
 		sf::Event event;
@@ -215,7 +215,7 @@ int main()
 						sf::Vector2i Mouse = sf::Mouse::getPosition(GameWindow);
 						float Mouse_x{ (float)Mouse.x };
 						float Mouse_y{ (float)Mouse.y };
-						if ((Mouse_x > 233 && Mouse_x < 553) && (Mouse_y > 429 && Mouse_y < 516)) { // Play Game
+						if ((Mouse_x > 233 && Mouse_x < 553) && (Mouse_y > 429 && Mouse_y < 516)) { // Clicked play game
 							if (!play_game) {
 								play_game = true;
 								Timer new_timer{};
@@ -223,15 +223,15 @@ int main()
 								background_music.play();
 							}
 						}
-						else if ((Mouse_x > 562 && Mouse_x < 883) && (Mouse_y > 429 && Mouse_y < 516)) { // Show Highscores
+						else if ((Mouse_x > 562 && Mouse_x < 883) && (Mouse_y > 429 && Mouse_y < 516)) { // Clicked show scoreboard
 							if (!play_game) {
-								if (!show_highscore) {
+								if (!show_scoreboard) {
 									scoreboard_text.setString((track->get_scoreboard()).read_top5());
 								}
 								else {
 									scoreboard_text.setString("");
 								}
-								show_highscore = !show_highscore;
+								show_scoreboard = !show_scoreboard;
 							}
 						}
 					}
@@ -242,8 +242,8 @@ int main()
 					{
 						if (event.key.code == sf::Keyboard::LShift)
 						{
-						if (track->get_foobar()->get_on_ground()) {
-							track->get_foobar()->run();
+							if (track->get_foobar()->get_on_ground()) {
+								track->get_foobar()->run();
 							}
 						}
 
@@ -261,48 +261,12 @@ int main()
 						{
 							if (track->get_foobar()->get_on_ground())
 							{
-							track->get_foobar()->jump();
+								track->get_foobar()->jump();
 							}
 						}
-
-						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-						{
-							/*if(!Foobar_obj->get_is_ducking())
-							{
-							Foobar_obj->duck();
-							Foobar_obj->flip_is_ducking();
-							}*/
-							//Ska även ändra bild
-							track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
-							track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() + 20);
-						}
 					}
-					/*
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-					{
-						//Ska även ändra bild
-						//Foobar_obj->set_x_velocity(-1);
-
-						track->get_foobar()->set_old_x(track->get_foobar()->get_x_pos());
-						track->get_foobar()->set_old_y(track->get_foobar()->get_y_pos());
-						track->get_foobar()->set_desx_pos(track->get_foobar()->get_x_pos() - 20);
-
-						track->get_foobar()->set_desy_pos(track->get_foobar()->get_y_pos() - 20);
-					}
-					
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-					{
-						//Ska även ändra bild
-						//Foobar_obj->set_x_velocity(-1);
-					}
-					*/
 					if (event.type == sf::Event::KeyReleased)
 					{
-						if (event.key.code == sf::Keyboard::Up)
-						{
-							//Foobar "avbryter" sitt hopp
-						}
-
 						if (event.key.code == sf::Keyboard::Left)
 						{
 							track->get_foobar()->set_x_velocity(0);
@@ -313,120 +277,83 @@ int main()
 							track->get_foobar()->set_x_velocity(0);
 						}
 
-						if (event.key.code == sf::Keyboard::Down)
-						{
-							if (track->get_foobar()->get_is_ducking())
-							{
-								track->get_foobar()->stand_up();
-								track->get_foobar()->flip_is_ducking();
-							}
-							//Ska även ändra tillbaka bilden
-						}
-
 						if (event.key.code == sf::Keyboard::LShift)
 						{
 							track->get_foobar()->set_max_speed_x(5);
 						}
 					}
-
-						track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
-
-			track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
-			track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
-
-
-
-			float f_time = track->get_timer().get_time_remaining();
-			int i_time = round(f_time);
-			if (i_time % 7 == 0)
-				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-				{
-					if ((*it)->type_str() == "enemy_1") {
-						std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
-
-						if (enemy_ptr->get_prev_time() != i_time) {
-							enemy_ptr->flip_ready();
-							enemy_ptr->set_prev_time(i_time);
-						}
-					}
 				}
-
-			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-			{
-				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
-				{
-					if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
-						(*it)->move_x((*it)->get_x_velocity());
-						block_collision(track->get_foobar(), *it);
-						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
-
-						{
-							block_collision(*it, *it2);
-						}
-					}
-					else {
-						(*it)->move_x((*it)->get_x_velocity());
-						(*it)->move_y((*it)->get_y_velocity());
-						block_collision(track->get_foobar(), *it);
-						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
-
-						{
-							block_collision(*it, *it2);
-						}
-					}
-				}
-			}
-
-
-			for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
-			{
-				block_collision(track->get_foobar(), *it);
-			}
-
-			for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
-			{
-				block_collision(track->get_foobar(), *it);
-			}
-
-			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-			{
-				block_collision(track->get_foobar(), *it);
-			}
-
-					//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
-					if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
-					{
-						//track->get_foobar()->set_x_velocity(0);
-					}
-
-
-
-					//if (/*Foobar y-pos*/ < /*markens nivå*/)
-					//{
-					//Game over
-					//}
-
-
-
-					/* Funktion för game-over om tiden tar slut*/
-
-					// Kolla kollisioner så att Foobar kan förflytta sig eller plocka upp coins/powerups
-
-					// Kolla kollisioner för fiender också
-
-
-					// Vid interaktion med mållinjen ska spelet avslutas och poängen räknas ihop
-
-					// Rita ut det som är aktivt
-
-
-
-				}
-				
-
-			} // event
+			}  // event
 
 			if (play_game) { // utanför event, om man klickat play_game
+
+				track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
+
+				track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
+				track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
+
+				float f_time = track->get_timer().get_time_remaining();
+				int i_time = round(f_time);
+				if (i_time % 7 == 0)
+					for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+					{
+						if ((*it)->type_str() == "enemy_1") {
+							std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
+
+							if (enemy_ptr->get_prev_time() != i_time) {
+								enemy_ptr->flip_ready();
+								enemy_ptr->set_prev_time(i_time);
+							}
+						}
+					}
+
+				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+				{
+					if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
+					{
+						if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+							(*it)->move_x((*it)->get_x_velocity());
+							block_collision(track->get_foobar(), *it);
+							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+							{
+								block_collision(*it, *it2);
+							}
+						}
+						else {
+							(*it)->move_x((*it)->get_x_velocity());
+							(*it)->move_y((*it)->get_y_velocity());
+							block_collision(track->get_foobar(), *it);
+							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+							{
+								block_collision(*it, *it2);
+							}
+						}
+					}
+				}
+
+
+				for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
+				{
+					block_collision(track->get_foobar(), *it);
+				}
+
+				for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+				{
+					block_collision(track->get_foobar(), *it);
+				}
+
+				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+				{
+					block_collision(track->get_foobar(), *it);
+				}
+
+				//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
+				if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
+				{
+					//track->get_foobar()->set_x_velocity(0);
+				}
 
 				GameWindow.clear();
 				GameWindow.draw(Background);
@@ -438,14 +365,23 @@ int main()
 				GameWindow.draw(postgame_text);
 				GameWindow.display();
 
-
-				if (gameover) { // Time-up or death
+				if (time_up) { // Time-up or death
 					if (first_time) {
-						postgame_text.setString("Game Over");
+						postgame_text.setString("Time Up");
 						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_score()).get_score())));
-						background_music.play();
+						background_music.stop();
 						game_over_sound.setVolume(game_volume);
 						game_over_sound.play();
+						first_time = !first_time;
+					}
+				}
+				else if (track->get_foobar()->is_dead()) {
+					if (first_time) {
+						postgame_text.setString("Game Over");
+						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
+						background_music.stop();
+						foobar_dies_sound.setVolume(game_volume);
+						foobar_dies_sound.play();
 						first_time = !first_time;
 					}
 				}
@@ -461,14 +397,14 @@ int main()
 				}
 				else {
 					//Timer countdown
-					if ((track->get_timer()).get_time_remaining() > 500.0f)
+					if ((track->get_timer()).get_time_remaining() > 0.0f)
 					{
 						timerText.setString(std::to_string((track->get_timer()).get_time_remaining()));
 						(track->get_timer()).countdown();
 						timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
 					}
 					else {
-						gameover = true; // Timer hits 0 => game-over
+						time_up = true; // Timer hits 0 => game-over
 					}
 
 					//Så att kameran följer med Foobar men inte går till vänster om start-position
@@ -490,14 +426,13 @@ int main()
 					track->handle_map_object_flags();
 				}
 			}
-			else {
+			else { //utanför event, inte klickat på play game = main menu
 				GameWindow.clear();
 				GameWindow.draw(main_menu_background);
 				GameWindow.draw(scoreboard_text);
 				GameWindow.display();
 			}
-
-		} // is_open
+		} // window is open
 	} // try
 	catch (std::exception& e)
 	{
