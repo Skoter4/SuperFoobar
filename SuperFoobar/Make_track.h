@@ -12,6 +12,7 @@
 #include "Character filer\Enemy\Enemy_1.h"
 #include "Character filer\Enemy\Enemy_2.h"
 #include "Character filer\Enemy\Enemy_3.h"
+#include "Projectile.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Track.h"
@@ -60,6 +61,8 @@ std::shared_ptr<Generator> make_coin_generator(int , int );
 std::shared_ptr<Generator> make_pup_generator(int , int , std::string );
 
 std::shared_ptr<Finish_line> make_Finish_Line(int , int );
+
+std::shared_ptr<Projectile> make_projectile(int, int );
 
 std::list<std::shared_ptr<Block>> make_rect_seg(int , int , int , int );
 

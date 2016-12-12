@@ -104,7 +104,6 @@ shared_ptr<Enemy_1> make_enemy_1(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-
 	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_1_ptr->setSprite(new_sprite_ptr);
@@ -255,6 +254,22 @@ shared_ptr<Finish_line> make_Finish_Line(int x, int y)
 
 	return  move(finish_line_ptr);
 
+}
+
+shared_ptr<Projectile> make_projectile(int x, int y) {
+	// = interp(x);
+	//y = interp(y);
+
+	Projectile* temp_projectile_ptr{ new Projectile {x - 100, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
+	
+	std::shared_ptr<sf::Sprite> new_sprite_ptr { new sf::Sprite };
+	temp_projectile_ptr->setSprite(new_sprite_ptr);
+
+	shared_ptr<Projectile> projectile_ptr{ temp_projectile_ptr };
+
+	temp_projectile_ptr = nullptr;
+
+	return move(projectile_ptr);
 }
 
 
@@ -452,7 +467,12 @@ void update_sprite(shared_ptr<Map_object> MO)
 	{
 		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Power_Up_2_pic);
 	}
+	else if (MO->type_str() == "projectile") 
+	{
+		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Proj_L_pic);
+	}
 	update_sprite_position(MO);
+
 }
 
 void update_sprite(list<shared_ptr<Interactable>> interactable_list)

@@ -1,18 +1,22 @@
 #pragma once
 #include "Enemy_1.h"
 #include "../Projectile.h"
+#include "../Make_track.h"
+
+Enemy_1::Enemy_1(int x, int y, int width, int height)
+	: Character(x, y, width, height) 
+	//my_projectile{ std::shared_ptr <Character>{projectile_ptr} }
+{
+}
 
 Enemy_1::~Enemy_1()
 {
 }
 
-Enemy_1::Enemy_1(int x, int y, int width, int height)
-	: Character(x, y, width, height) {}
+std::shared_ptr<Character> Enemy_1::fire_projectile()
 
-
-void Enemy_1::fire_projectile()
 {
-	Projectile::Projectile(this->get_x_pos(), this->get_y_pos(), 10, 5);
+	return  make_projectile(get_x_pos(), get_y_pos());
 }
 
 void Enemy_1::poly()
@@ -62,4 +66,24 @@ bool Enemy_1::interact_with(std::shared_ptr<Map_object> map_object)
 
 void Enemy_1::interact()
 {
+}
+
+bool Enemy_1::ready_to_fire()
+{
+	return this->to_fire;
+}
+
+void Enemy_1::flip_ready()
+{
+	to_fire = !to_fire;
+}
+
+int Enemy_1::get_prev_time()
+{
+	return prev_time;
+}
+
+void Enemy_1::set_prev_time(int time)
+{
+	prev_time = time;
 }

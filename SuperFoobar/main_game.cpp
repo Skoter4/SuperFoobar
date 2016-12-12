@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "Score.h"
 #include <memory>
+#include <math.h>
 #include "Collision_sfml.h"
 
 int main()
@@ -116,7 +117,7 @@ int main()
 			make_one_line_breakable_seg(6, 170, 7) + make_one_line_breakable_seg(5, 171, 6) + make_one_line_breakable_seg(4, 172, 5) +
 			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
 
-		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
+		character_list + make_foobar() + make_enemy_1(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
 			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10)
 			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
 
@@ -248,7 +249,7 @@ int main()
 					/*
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 					{
-						
+
 						if(!track->get_foobar()->get_is_ducking())
 						{
 							track->get_foobar()->duck();
@@ -314,16 +315,44 @@ int main()
 			track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
 
 
+
+			float f_time = track->get_timer().get_time_remaining();
+			int i_time = round(f_time);
+			if (i_time % 7 == 0)
+				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+				{
+					if ((*it)->type_str() == "enemy_1") {
+						std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
+
+						if (enemy_ptr->get_prev_time() != i_time) {
+							enemy_ptr->flip_ready();
+							enemy_ptr->set_prev_time(i_time);
+						}
+					}
+				}
+
 			for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 			{
 				if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
 				{
-					(*it)->move_x((*it)->get_x_velocity());
-					(*it)->move_y((*it)->get_y_velocity());
-					block_collision(track->get_foobar(), *it);
-					for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
-					{
-						block_collision(*it, *it2);
+					if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+						(*it)->move_x((*it)->get_x_velocity());
+						block_collision(track->get_foobar(), *it);
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+						{
+							block_collision(*it, *it2);
+						}
+					}
+					else {
+						(*it)->move_x((*it)->get_x_velocity());
+						(*it)->move_y((*it)->get_y_velocity());
+						block_collision(track->get_foobar(), *it);
+						for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+
+						{
+							block_collision(*it, *it2);
+						}
 					}
 				}
 			}
