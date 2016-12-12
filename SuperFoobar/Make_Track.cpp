@@ -104,7 +104,7 @@ shared_ptr<Enemy_1> make_enemy_1(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_1* temp_enemy_1_ptr{ new Enemy_1{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_1_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_1> enemy_1_ptr{ temp_enemy_1_ptr };
@@ -118,7 +118,7 @@ shared_ptr<Enemy_2> make_enemy_2(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_2* temp_enemy_2_ptr{ new Enemy_2{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_2* temp_enemy_2_ptr{ new Enemy_2{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_2_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_2> enemy_2_ptr{ temp_enemy_2_ptr };
@@ -132,7 +132,7 @@ shared_ptr<Enemy_3> make_enemy_3(int x, int y)
 {
 	x = interp(x);
 	y = interp(y);
-	Enemy_3* temp_enemy_3_ptr{ new Enemy_3{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Enemy_3* temp_enemy_3_ptr{ new Enemy_3{ x + 10, y + 20, ::BLOCK_HEIGHT-20, ::BLOCK_WIDTH-20 } };
 	std::shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_enemy_3_ptr->setSprite(new_sprite_ptr);
 	shared_ptr<Enemy_3> enemy_3_ptr{ temp_enemy_3_ptr };
@@ -388,7 +388,16 @@ void update_sprite(shared_ptr<Map_object> MO)
 	}
 	else if (MO->type_str() == "enemy_2")
 	{
-		update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
+		if (dynamic_pointer_cast<Enemy_2>(MO)->get_x_velocity() >= 0)
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
+			MO->get_sprite()->setScale(-1.f, 1.f);
+		}
+		else 
+		{
+			update_sprite_texture(MO, ::SUPER_FOOBAR_TEXTURES, ::Enemy2_pic);
+			MO->get_sprite()->setScale(1.f, 1.f);
+		}
 	}
 	else if (MO->type_str() == "enemy_3")
 	{

@@ -1,5 +1,9 @@
 #pragma once
 #include "../Block-filer/Block.h"
+#include "../Character filer/Enemy/Enemy_2.h"
+#include "../Character filer/Enemy/Enemy_3.h"
+
+
 class Non_breakable
 	: public Block
 {
