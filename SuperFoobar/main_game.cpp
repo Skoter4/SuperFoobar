@@ -112,7 +112,7 @@ int main()
 			make_one_line_breakable_seg(6, 170, 7) + make_one_line_breakable_seg(5, 171, 6) + make_one_line_breakable_seg(4, 172, 5) +
 			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
 
-		character_list + make_foobar() + make_enemy_1(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
+		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
 			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10)
 			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
 
@@ -120,6 +120,8 @@ int main()
 
 		std::shared_ptr<Track> track{ make_track(block_list, character_list, interactable_list) };
 		init_sprite(track);
+
+		track->get_block_list().sort([](std::shared_ptr<Block> lhs, std::shared_ptr<Block> rhs) {return (lhs->get_x_pos() < rhs->get_x_pos()); });
 
 		//Skapa spelfönstret
 		sf::ContextSettings settings;
@@ -310,12 +312,12 @@ int main()
 
 				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 				{
+					block_collision(track->get_foobar(), *it);
 					if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
 					{
-						if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+						if ((*it)->type_str() == "projectile") {
 							(*it)->move_x((*it)->get_x_velocity());
-							block_collision(track->get_foobar(), *it);
-							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
 							{
 								block_collision(*it, *it2);
 							}
@@ -324,7 +326,7 @@ int main()
 							(*it)->move_x((*it)->get_x_velocity());
 							(*it)->move_y((*it)->get_y_velocity());
 							block_collision(track->get_foobar(), *it);
-							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
 
 							{
 								block_collision(*it, *it2);
@@ -332,18 +334,12 @@ int main()
 						}
 					}
 				}
-
-				for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
+				for (auto it = track->get_block_list().begin(); (*it)->get_x_pos() < track->get_foobar()->get_x_pos() + track->get_foobar()->get_width(); ++it)
 				{
 					block_collision(track->get_foobar(), *it);
 				}
 
 				for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
-				{
-					block_collision(track->get_foobar(), *it);
-				}
-
-				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 				{
 					block_collision(track->get_foobar(), *it);
 				}
