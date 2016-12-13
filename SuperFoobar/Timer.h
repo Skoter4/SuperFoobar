@@ -10,7 +10,7 @@ public:
 	void countdown();
 
 protected:
-	float time_remaining{ 300.0f };
+	float time_remaining{ 120.0f };
 	float temp_counter{ 0.0f };
 	sf::Clock clock;
 };

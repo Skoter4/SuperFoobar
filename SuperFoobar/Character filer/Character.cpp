@@ -13,19 +13,44 @@ Character::Character(int x_pos, int y_pos, int height, int width)
 void Character::move_x(int x_speed) 
 
 {
-	if (this->get_x_pos() <= 0 && this->get_x_velocity() < 0)
+	if (this->get_desx_pos() <= 0 || this->get_old_x() <= 0 || this->get_x_pos() <= 0)
 	{
 		if (this->type_str() == "foobar")
 		{
 			this->set_x_velocity(0);
+			this->set_desx_pos(0);
+			this->set_old_x(0);
 		}
 		else
+			if (this->type_str() == "projectile")
+			{
+				this->flip_dead();
+			}
+			else
+			{
+				this->flip_x_velocity();
+				this->set_x(2);
+			}
+	}
+	else if (this->get_desx_pos() > 13020 || this->get_old_x() > 13020 || this->get_x_pos() > 13020)
+	{
+		if (this->type_str() == "foobar")
 		{
-			this->flip_x_velocity();
+			this->set_x_velocity(13020);
+			this->set_desx_pos(13020);
+			this->set_old_x(13020);
+		}
+		else {
+			this->flip_dead();
+			this->set_y_velocity(0);
+			this->set_x_velocity(0);
 		}
 	}
-	this->set_old_x(this->get_x_pos());
-	this->set_desx_pos(x_speed + cluster->get_x());
+	else
+	{
+		this->set_desx_pos(x_speed + cluster->get_x());
+		this->set_old_x(this->get_x_pos());
+	}
 }
 
 void Character::move_y(int y_speed)
@@ -43,6 +68,8 @@ void Character::move_y(int y_speed)
 	if(this->get_y_pos() >840)
 	{
 		this->flip_dead();
+		this->set_y_velocity(0);
+		this->set_x_velocity(0);
 	}
 	else
 	{
@@ -54,20 +81,17 @@ void Character::move_y(int y_speed)
 
 void Character::die()
 {
-	if (invulnerable == false && this->get_lifes() == 1)
+	if (this->get_lifes() == 1)
 	{
 		this->flip_dead();
 	}
 	else
 	{
 		this->set_lifes(1);
+		this->set_height(50);
 	}
 }
 
-void Character::flip_invulnerable()
-{
-	invulnerable = !invulnerable;
-}
 
 void Character::flip_active()
 {
