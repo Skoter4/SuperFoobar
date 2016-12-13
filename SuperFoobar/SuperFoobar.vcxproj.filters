@@ -10,9 +10,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Block-filer\Block.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,12 +37,6 @@
     <ClCompile Include="Collision\Cluster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Collision\Collision_handler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision\Collision_matrix.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Interactable-filer\Coin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -56,9 +47,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Interactable-filer\Power_up.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Position-filer\Position.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scoreboard.cpp">
@@ -83,9 +71,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map_object.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SFMLtest\Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main_game.cpp">
@@ -126,19 +111,10 @@
     <ClInclude Include="Interactable-filer\Coin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Collision\Collision_handler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision\Collision_matrix.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Interactable-filer\Finish_line.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Interactable-filer\Interactable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Position-filer\Position.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scoreboard.h">

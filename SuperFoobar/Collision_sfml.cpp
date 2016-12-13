@@ -2,13 +2,6 @@
 #include "Collision_sfml.h"
 
 
-std::list<std::shared_ptr<Block>> block_list;
-std::list<std::shared_ptr<Interactable>> interact_list;
-std::list<std::shared_ptr<Character>> char_list;
-
-//Bör vara två map_objects
-//Så kan gravity osv. sättas i respektive interact
-
 void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> map_object)
 {
 
@@ -79,8 +72,8 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 
 bool point_in_rect(int x, int y, std::shared_ptr<Map_object> obj)
 {
-	if (x < (obj->get_x_pos() + obj->get_width()) && y < (obj->get_y_pos() + obj->get_height())
-		&& x > obj->get_x_pos() && y > obj->get_y_pos()) {
+	if (x <= (obj->get_x_pos() + obj->get_width()) && y <= (obj->get_y_pos() + obj->get_height())
+		&& x >= obj->get_x_pos() && y >= obj->get_y_pos()) {
 		return true;
 	}
 	else {

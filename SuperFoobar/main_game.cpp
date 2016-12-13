@@ -17,64 +17,34 @@ int main()
 		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/AllTextures.png");
 
 		// Bakgrundsmusik och ljud
-		float game_volume{ 10.0f };
+		float game_volume{ 20.0f };
 
 		sf::Music background_music;
 		background_music.openFromFile("Sounds/smb_theme.wav");
 		background_music.setLoop(true);
 		background_music.setVolume(game_volume);
 
-		// xxx_sound.play() för att spela ljuden
-		// xxx_sound.setVolume(game_volume); 
-		sf::SoundBuffer coin_buffer;
-		sf::SoundBuffer pup_buffer;
-		sf::SoundBuffer pup_appear_buffer;
-		sf::SoundBuffer bump_block_buffer;
-		sf::SoundBuffer break_block_buffer;
-		sf::SoundBuffer jump_small_buffer;
-		sf::SoundBuffer jump_big_buffer;
+		sf::SoundBuffer jump_buffer;
 		sf::SoundBuffer foobar_dies_buffer;
 		sf::SoundBuffer game_over_buffer;
-		sf::SoundBuffer kill_enemy_buffer;
 		sf::SoundBuffer time_warning_buffer;
 		sf::SoundBuffer finish_line_buffer;
 
-		coin_buffer.loadFromFile("Sounds/smb_coin.wav");
-		pup_buffer.loadFromFile("Sounds/smb_powerup.wav");
-		pup_appear_buffer.loadFromFile("Sounds/smb_powerup_appears.wav");
-		bump_block_buffer.loadFromFile("Sounds/smb_bump.wav");
-		break_block_buffer.loadFromFile("Sounds/smb_breakblock.wav");
-		jump_small_buffer.loadFromFile("Sounds/smb_jump-small.wav");
-		jump_big_buffer.loadFromFile("Sounds/smb_jump-super.wav");
+		jump_buffer.loadFromFile("Sounds/smb_jump-small.wav");
 		foobar_dies_buffer.loadFromFile("Sounds/smb_mariodie.wav");
 		game_over_buffer.loadFromFile("Sounds/smb_gameover.wav");
-		kill_enemy_buffer.loadFromFile("Sounds/smb_stomp.wav");
 		time_warning_buffer.loadFromFile("Sounds/smb_warning.wav");
 		finish_line_buffer.loadFromFile("Sounds/smb_stage_clear.wav");
 
-		sf::Sound coin_sound;
-		sf::Sound pup_sound;
-		sf::Sound pup_appear_sound; // Efter bump (bump = interaktion med generatorblock)
-		sf::Sound bump_block_sound;
-		sf::Sound break_block_sound;
-		sf::Sound jump_small_sound;
-		sf::Sound jump_big_sound;
+		sf::Sound jump_sound;
 		sf::Sound foobar_dies_sound;
 		sf::Sound game_over_sound;
-		sf::Sound kill_enemy_sound;
-		sf::Sound time_warning_sound; // Lite tid kvar
+		sf::Sound time_warning_sound;
 		sf::Sound finish_line_sound;
 
-		coin_sound.setBuffer(coin_buffer);
-		pup_sound.setBuffer(pup_buffer);
-		pup_appear_sound.setBuffer(pup_appear_buffer);
-		bump_block_sound.setBuffer(bump_block_buffer);
-		break_block_sound.setBuffer(break_block_buffer);
-		jump_small_sound.setBuffer(jump_small_buffer);
-		jump_big_sound.setBuffer(jump_big_buffer);
+		jump_sound.setBuffer(jump_buffer);
 		foobar_dies_sound.setBuffer(foobar_dies_buffer);
 		game_over_sound.setBuffer(game_over_buffer);
-		kill_enemy_sound.setBuffer(kill_enemy_buffer);
 		time_warning_sound.setBuffer(time_warning_buffer);
 		finish_line_sound.setBuffer(finish_line_buffer);
 
@@ -112,7 +82,7 @@ int main()
 			make_one_line_breakable_seg(6, 170, 7) + make_one_line_breakable_seg(5, 171, 6) + make_one_line_breakable_seg(4, 172, 5) +
 			make_one_line_breakable_seg(3, 173, 4) + make_one_line_breakable_seg(2, 174, 3);
 
-		character_list + make_foobar() + make_enemy_1(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
+		character_list + make_foobar() + make_enemy_3(15, 10) + make_enemy_3(35, 10) + make_enemy_3(48, 10) + make_enemy_3(50, 10) +
 			make_enemy_3(90, 10) + make_enemy_3(92, 10) + make_enemy_3(107, 10) + make_enemy_3(109, 10)
 			+ make_enemy_2(100, 10) + make_enemy_1(162, 6) + make_enemy_1(163, 10);
 
@@ -120,6 +90,8 @@ int main()
 
 		std::shared_ptr<Track> track{ make_track(block_list, character_list, interactable_list) };
 		init_sprite(track);
+
+		track->get_block_list().sort([](std::shared_ptr<Block> lhs, std::shared_ptr<Block> rhs) {return (lhs->get_x_pos() < rhs->get_x_pos()); });
 
 		//Skapa spelfönstret
 		sf::ContextSettings settings;
@@ -208,7 +180,6 @@ int main()
 				{
 					GameWindow.close();
 				}
-
 				if (event.type == sf::Event::MouseButtonPressed)
 				{
 					if (event.mouseButton.button == sf::Mouse::Left)
@@ -237,9 +208,8 @@ int main()
 						}
 					}
 				} // event mouse
-
 				if (play_game) { // innanför event, om man klickat play_game
-					if (event.type == sf::Event::KeyPressed)
+					if (event.type == sf::Event::KeyPressed && (!track->get_foobar()->is_dead() && !track->is_end_of_game()))
 					{
 						if (event.key.code == sf::Keyboard::LShift)
 						{
@@ -263,8 +233,30 @@ int main()
 							if (track->get_foobar()->get_on_ground())
 							{
 								track->get_foobar()->jump();
+								jump_sound.setVolume(game_volume);
+								jump_sound.play();
 							}
 						}
+
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+						{
+							if (track->get_foobar()->get_on_ground())
+							{
+								track->get_foobar()->jump();
+							}
+							track->get_foobar()->set_x_velocity(1);
+						}
+
+
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+						{
+							if (track->get_foobar()->get_on_ground())
+							{
+								track->get_foobar()->jump();
+							}
+							track->get_foobar()->set_x_velocity(-1);
+						}
+
 					}
 					if (event.type == sf::Event::KeyReleased)
 					{
@@ -289,12 +281,11 @@ int main()
 			if (play_game) { // utanför event, om man klickat play_game
 
 				track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
-
 				track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
 				track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
 
 				float f_time = track->get_timer().get_time_remaining();
-				int i_time = round(f_time);
+				int i_time = static_cast<int>(round(f_time));
 				if (i_time % 7 == 0)
 					for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 					{
@@ -310,12 +301,12 @@ int main()
 
 				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 				{
+					block_collision(track->get_foobar(), *it);
 					if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
 					{
-						if ((*it)->type_str() != "foobar" && (*it)->type_str() == "projectile") {
+						if ((*it)->type_str() == "projectile") {
 							(*it)->move_x((*it)->get_x_velocity());
-							block_collision(track->get_foobar(), *it);
-							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
 							{
 								block_collision(*it, *it2);
 							}
@@ -323,8 +314,7 @@ int main()
 						else {
 							(*it)->move_x((*it)->get_x_velocity());
 							(*it)->move_y((*it)->get_y_velocity());
-							block_collision(track->get_foobar(), *it);
-							for (auto it2 = track->get_block_list().begin(); it2 != track->get_block_list().end(); ++it2)
+							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
 
 							{
 								block_collision(*it, *it2);
@@ -332,26 +322,16 @@ int main()
 						}
 					}
 				}
-
-				for (auto it = track->get_block_list().begin(); it != track->get_block_list().end(); ++it)
+				for (auto it = track->get_block_list().begin(); (*it)->get_x_pos() < track->get_foobar()->get_x_pos() + track->get_foobar()->get_width(); ++it)
 				{
 					block_collision(track->get_foobar(), *it);
 				}
-
-				for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+				if (track->get_interactable_list().size() > 0)
 				{
-					block_collision(track->get_foobar(), *it);
-				}
-
-				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-				{
-					block_collision(track->get_foobar(), *it);
-				}
-
-				//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
-				if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
-				{
-					//track->get_foobar()->set_x_velocity(0);
+					for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+					{
+						block_collision(track->get_foobar(), *it);
+					}
 				}
 
 				GameWindow.clear();
@@ -364,10 +344,9 @@ int main()
 				GameWindow.draw(postgame_text);
 				GameWindow.display();
 
-				if (time_up) { // Time-up or death
+				if (time_up) { // Time-up
 					if (first_time) {
 						postgame_text.setString("Time Up");
-						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_score()).get_score())));
 						background_music.stop();
 						game_over_sound.setVolume(game_volume);
 						game_over_sound.play();
@@ -377,7 +356,6 @@ int main()
 				else if (track->get_foobar()->is_dead()) {
 					if (first_time) {
 						postgame_text.setString("Game Over");
-						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
 						background_music.stop();
 						foobar_dies_sound.setVolume(game_volume);
 						foobar_dies_sound.play();
@@ -392,12 +370,18 @@ int main()
 						finish_line_sound.setVolume(game_volume);
 						finish_line_sound.play();
 						first_time = !first_time;
+						std::cout << (track->is_end_of_game());
 					}
 				}
 				else { // utanför event, man har klickat play game, man är inte död/slut på tid
 					//Timer countdown
 					if ((track->get_timer()).get_time_remaining() > 0.0f)
 					{
+						if (static_cast<int>((track->get_timer()).get_time_remaining()) == 30)
+						{
+							time_warning_sound.setVolume(game_volume);
+							time_warning_sound.play();
+						}
 						timerText.setString(std::to_string((track->get_timer()).get_time_remaining()));
 						(track->get_timer()).countdown();
 						timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));

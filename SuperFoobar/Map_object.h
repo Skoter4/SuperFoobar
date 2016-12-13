@@ -2,7 +2,6 @@
 #include <memory>
 #include "../Collision/Cluster.h"
 #include <string>
-#include <iostream>
 //#include "SFML\Graphics\Texture.hpp"
 //#include "SFML\Graphics\Sprite.hpp"
 
@@ -16,15 +15,11 @@ class sf::Sprite;
 class Map_object {
 public:
 
-	//Map_object() = default;
-
-	virtual void poly() = 0;
-
 	std::shared_ptr<Cluster> get_cluster();
 
 	virtual std::string type_str() = 0;
 	virtual void interact() = 0;
-	virtual bool interact_with(std::shared_ptr<Map_object>) = 0;
+	virtual void interact_with(std::shared_ptr<Map_object>) = 0;
 	int get_height();
 	int get_width();
 	void set_height(int);
@@ -48,8 +43,6 @@ public:
 	int get_old_x();
 	void set_old_x(int);
 	void set_old_y(int);
-	//int area();
-	//void flip_dead();
 
 	std::shared_ptr<sf::Sprite> get_sprite();
 	void setSprite(std::shared_ptr<sf::Sprite>);

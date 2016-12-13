@@ -27,7 +27,7 @@ sf::IntRect Enemy1_pic(100, 0, 50, 50);
 sf::IntRect Enemy2_L_pic(0, 0, 50, 50);
 sf::IntRect Enemy2_R_pic(175, 223, 50, 50);
 sf::IntRect Enemy3_pic(50, 0, 50, 50);
-sf::IntRect Proj_L_pic(120, 145, 50, 25);
+sf::IntRect Proj_L_pic(70, 145, 50, 25);
 sf::IntRect Floor_pic(70, 50, 70, 70);
 sf::IntRect Breakable_pic(0, 50, 70, 70);
 sf::IntRect Non_Breakable_pic(209, 50, 70, 70);
@@ -36,7 +36,7 @@ sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 sf::IntRect Coin_pic(172, 122, 40, 48);
 sf::IntRect Power_Up_1_pic(211, 120, 50, 50);
 sf::IntRect Finish_Line_pic(107, 222, 63, 68);
-sf::IntRect Power_Up_2_pic(103, 173, 50, 50);
+sf::IntRect Power_Up_2_pic(98, 171, 50, 50);
 
 // END OF GLOBAL VARIABLE DEFINITION
 
@@ -163,7 +163,7 @@ shared_ptr<Power_up> make_pup(int x, int y, string type)
 	x = interp(x);
 	y = interp(y);
 
-	Power_up* temp_pup_ptr{ new Power_up{ x, y, ::BLOCK_HEIGHT, ::BLOCK_WIDTH } };
+	Power_up* temp_pup_ptr{ new Power_up{ x + 10, y + 20, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
 	shared_ptr<sf::Sprite> new_sprite_ptr{ new sf::Sprite };
 	temp_pup_ptr->setSprite(new_sprite_ptr);
 
@@ -261,7 +261,7 @@ shared_ptr<Projectile> make_projectile(int x, int y) {
 	// = interp(x);
 	//y = interp(y);
 
-	Projectile* temp_projectile_ptr{ new Projectile {x - 100, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
+	Projectile* temp_projectile_ptr{ new Projectile {x - ::BLOCK_HEIGHT, y - 10, ::BLOCK_HEIGHT - 45, ::BLOCK_WIDTH - 20} };
 	
 	std::shared_ptr<sf::Sprite> new_sprite_ptr { new sf::Sprite };
 	temp_projectile_ptr->setSprite(new_sprite_ptr);

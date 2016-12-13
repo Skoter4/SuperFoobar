@@ -176,11 +176,12 @@ void Track::handle_map_object_flags()
 		{
 			if ((*it)->type_str() == "coin")
 			{
-				this->score.increase_score();
+				this->score.increase_score(10.0f);
 			}
 			else if ((*it)->type_str() == "power_up_star")
 			{
 				foobar->power_up(dynamic_pointer_cast<Power_up>(*it));
+				this->score.increase_score(100.0f);
 			}
 			else if ((*it)->type_str() == "power_up_shroom")
 			{

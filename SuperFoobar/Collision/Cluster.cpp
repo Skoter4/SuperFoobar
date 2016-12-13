@@ -12,35 +12,6 @@ Cluster::Cluster(int x_s, int y_s, int height_s, int width_s) {
 	desired_y = y_s;
 }
 
-void Cluster::move_x()
-{
-
-}
-
-void Cluster::move_y()
-{
-
-}
-
-int Cluster::begin_x() {
-	return desired_x;
-}
-
-int Cluster::begin_y() {
-	return desired_y;
-}
-
-int Cluster::end_x() {
-	int endx = 0;
-	endx = desired_x + width;
-	return endx;
-}
-
-int Cluster::end_y() {
-	int endy = 0;
-	endy = desired_y + height;
-	return endy;
-}
 
 int Cluster::get_x()
 {
@@ -100,15 +71,3 @@ void Cluster::set_height(int height_set)
 	height = height_set;
 }
 
-void Cluster::set_remove(bool status) {
-	to_remove = status;
-}
-
-bool Cluster::get_to_remove()
-{
-	return to_remove;
-}
-
-void Cluster::print_x_y() {
-	cout << x << " and " << y << endl;
-}
