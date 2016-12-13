@@ -11,9 +11,6 @@ Foobar::Foobar(int x_pos, int y_pos, int width, int height)
 	this->set_y_velocity(0);
 }
 
-void Foobar::poly()
-{
-}
 
 std::string Foobar::type_str()
 {
@@ -22,13 +19,13 @@ std::string Foobar::type_str()
 
 void Foobar::power_up(shared_ptr<Power_up> power_up)
 {
-	if (power_up->type_str() == "power_up_star")
-		this->flip_invulnerable();
-	else if (power_up->type_str() == "power_up_shroom")
+	if (power_up->type_str() == "power_up_shroom")
 	{
 		this->set_lifes(2);
 		this->increase_size(50, 100);
-		this->set_desy_pos(this->get_y_pos() - 40);
+		this->set_y(this->get_y_pos() - 52);
+		this->set_desy_pos(this->get_y_pos() - 52);
+		this->set_old_y(this->get_y_pos() - 52);
 	}
 }
 
@@ -73,14 +70,11 @@ void Foobar::stand_up()
 }
 
 
-bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
+void Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 {
 	if (map_object->type_str() == "projectile") {
 		this->die();
 		map_object->interact();
-	}
-	else if (map_object->type_str() == "power_up"){
-		//TODO
 	}
 	else if (map_object->type_str() == "coin") 
 	{
@@ -90,13 +84,13 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 	{
 		if (this->get_height() == 100)
 		{
-			if ((this->get_old_y() - 50 < map_object->get_y_pos()))
+			if ((this->get_old_y() + 50 < map_object->get_y_pos()))
 			{
 				map_object->flip_dead();
 			}
 			else
 			{
-				this->flip_dead();
+				this->die();
 			}
 		}
 		else if ((this->get_old_y() < map_object->get_y_pos()))
@@ -105,10 +99,9 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 		}
 		else
 		{
-			this->flip_dead();
+			this->die();
 		}
 	}
-	return true;
 }
 
 void Foobar::interact()

@@ -99,11 +99,8 @@ std::shared_ptr<sf::Sprite> Map_object::get_sprite()
 
 void Map_object::setSprite(std::shared_ptr<sf::Sprite> new_sprite)
 {
-	if (new_sprite == nullptr)
+	if (new_sprite != nullptr)
 	{
-		std::cout << "HELLO";
-	}
-	else {
 		object_sprite = new_sprite;
 	}
 }

@@ -12,7 +12,6 @@ public:
 	//Foobar();
 	~Foobar() = default;
 	Foobar(int x_pos, int y_pos, int width, int height);
-	void poly() override;
 	std::string type_str() override;
 
 	void power_up(std::shared_ptr<Power_up>);
@@ -23,12 +22,11 @@ public:
 	void stand_up();
 	void run();
 
-	bool interact_with(std::shared_ptr<Map_object> my_char) override;
+	void interact_with(std::shared_ptr<Map_object> my_char) override;
 
 	void interact() override;
 	void flip_is_ducking();
 	bool get_is_ducking();
-
 
 private:
 	bool is_ducking{ false };
