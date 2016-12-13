@@ -25,8 +25,9 @@ bool Power_up::interact_with(std::shared_ptr<Map_object> map_object)
 	return false;
 }
 
-void Power_up::interact()
+void Power_up::interact() // ta bort?
 {
+	
 }
 
 std::string Power_up::type_str()

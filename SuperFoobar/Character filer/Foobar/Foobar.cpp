@@ -23,12 +23,12 @@ std::string Foobar::type_str()
 void Foobar::power_up(shared_ptr<Power_up> power_up)
 {
 	if (power_up->type_str() == "power_up_star")
-		this->flip_invulnerable();
+		this->flip_invulnerable(); // ?
 	else if (power_up->type_str() == "power_up_shroom")
 	{
-		this->set_lifes(2);
+		this->set_lifes(2); // ?
 		this->increase_size(50, 100);
-		this->set_desy_pos(this->get_y_pos() - 40);
+		this->set_desy_pos(this->get_y_pos() - 40); // wat
 	}
 }
 
@@ -38,7 +38,7 @@ void Foobar::increase_size(int new_width, int new_height)
 	this->set_height(new_height);
 }
 
-void Foobar::pick_up_coin()
+void Foobar::pick_up_coin() // ta bort?
 {
 
 }
@@ -79,8 +79,9 @@ bool Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 		this->die();
 		map_object->interact();
 	}
-	else if (map_object->type_str() == "power_up"){
-		//TODO
+	else if (map_object->type_str() == "power_up")
+	{
+		//map_object->interact();
 	}
 	else if (map_object->type_str() == "coin") 
 	{
