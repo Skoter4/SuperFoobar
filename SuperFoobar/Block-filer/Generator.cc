@@ -43,22 +43,28 @@ std::shared_ptr<Interactable> & Generator::generate()
 
 bool Generator::interact_with(std::shared_ptr<Map_object> map_object)
 {
-	if ((map_object->type_str() == "foobar") && !(this->is_deactivated()) && 
-		((map_object->get_old_y()) >= this->get_height() + this->get_y_pos()))
-		{
-			interact();
-		}
-	else if (map_object->type_str() == "foobar")
+	if (map_object->type_str() == "foobar")
 	{
-		if (this->get_y_pos() > map_object->get_old_y())
+		if (map_object->get_old_y() > this->get_height() + this->get_y_pos())
 		{
+			dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
+			if (!(this->is_deactivated()))
+			{
+				this->interact();
+			}
+		}
+		else if (this->get_y_pos() > map_object->get_old_y())
+		{
+			dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
 			if (!dynamic_pointer_cast<Foobar> (map_object)->get_on_ground())
 			{
 				dynamic_pointer_cast<Foobar> (map_object)->flip_on_ground();
 			}
 		}
-		dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
-
+		else
+		{
+			dynamic_pointer_cast<Foobar> (map_object)->set_x_velocity(0);
+		}
 	}
 	return false;
 }

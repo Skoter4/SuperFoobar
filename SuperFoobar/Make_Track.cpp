@@ -261,7 +261,7 @@ shared_ptr<Projectile> make_projectile(int x, int y) {
 	// = interp(x);
 	//y = interp(y);
 
-	Projectile* temp_projectile_ptr{ new Projectile {x - 100, y, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
+	Projectile* temp_projectile_ptr{ new Projectile {x - ::BLOCK_HEIGHT, y - 10, ::BLOCK_HEIGHT - 20, ::BLOCK_WIDTH - 20} };
 	
 	std::shared_ptr<sf::Sprite> new_sprite_ptr { new sf::Sprite };
 	temp_projectile_ptr->setSprite(new_sprite_ptr);
