@@ -3,17 +3,15 @@
 
 class Projectile;
 
-//#include "../Projectile.h"
 class Enemy_1 :
 	public Character
 {
 public:
 
 	Enemy_1(int x, int y, int width, int height);
-	~Enemy_1();
-	void poly() override;
+	~Enemy_1() = default;
 	std::string type_str() override;
-	bool interact_with(std::shared_ptr<Map_object> my_char) override;
+	void interact_with(std::shared_ptr<Map_object> my_char) override;
 	void interact() override;
 
 	bool ready_to_fire();
