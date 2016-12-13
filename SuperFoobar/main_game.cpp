@@ -263,6 +263,8 @@ int main()
 							if (track->get_foobar()->get_on_ground())
 							{
 								track->get_foobar()->jump();
+								jump_small_sound.setVolume(game_volume);
+								jump_small_sound.play();
 							}
 						}
 					}
@@ -398,7 +400,10 @@ int main()
 					//Timer countdown
 					if ((track->get_timer()).get_time_remaining() > 0.0f)
 					{
-						timerText.setString(std::to_string((track->get_timer()).get_time_remaining()));
+						if (static_cast<int>((track->get_timer()).get_time_remaining()) == 60) {
+							time_warning_sound.setVolume(game_volume);
+							time_warning_sound.play();
+						}
 						(track->get_timer()).countdown();
 						timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
 					}
