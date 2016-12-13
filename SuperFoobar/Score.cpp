@@ -2,9 +2,9 @@
 
 using namespace std;
 
-void Score::increase_score(float num)
+void Score::increase_score()
 {
-	this->score += num;
+	this->score += 1.0f;
 }
 
 float Score::get_score()

@@ -6,7 +6,7 @@ class Score
 public:
 	Score() = default;
 	~Score() = default;
-	void increase_score(float);
+	void increase_score();
 	float get_score();
 	void time_to_score(Timer);
 private:

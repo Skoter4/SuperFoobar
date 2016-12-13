@@ -53,7 +53,7 @@ bool Enemy_1::interact_with(std::shared_ptr<Map_object> map_object)
 	}
 	else if (map_object->type_str() == "foobar") 
 	{
-			map_object->interact(); // gör ju ingenting
+			map_object->interact();
 	}
 	else if (map_object->type_str() == "enemy_2") {
 		//TODO

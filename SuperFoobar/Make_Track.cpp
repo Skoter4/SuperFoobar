@@ -36,7 +36,7 @@ sf::IntRect Used_Generator_pic(0, 120, 70, 70);
 sf::IntRect Coin_pic(172, 122, 40, 48);
 sf::IntRect Power_Up_1_pic(211, 120, 50, 50);
 sf::IntRect Finish_Line_pic(107, 222, 63, 68);
-sf::IntRect Power_Up_2_pic(98, 171, 50, 50);
+sf::IntRect Power_Up_2_pic(103, 173, 50, 50);
 
 // END OF GLOBAL VARIABLE DEFINITION
 

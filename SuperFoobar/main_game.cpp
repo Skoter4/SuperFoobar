@@ -350,6 +350,12 @@ int main()
 					block_collision(track->get_foobar(), *it);
 				}
 
+				//Funktion så att Foobar inte kan gå utanför fönstret till vänster om startposition
+				if (track->get_foobar()->get_x_pos() == 0 && track->get_foobar()->get_x_velocity() < 0)
+				{
+					//track->get_foobar()->set_x_velocity(0);
+				}
+
 				GameWindow.clear();
 				GameWindow.draw(Background);
 				draw_track(track, GameWindow);
@@ -363,6 +369,7 @@ int main()
 				if (time_up) { // Time-up or death
 					if (first_time) {
 						postgame_text.setString("Time Up");
+						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_score()).get_score())));
 						background_music.stop();
 						game_over_sound.setVolume(game_volume);
 						game_over_sound.play();
@@ -372,6 +379,7 @@ int main()
 				else if (track->get_foobar()->is_dead()) {
 					if (first_time) {
 						postgame_text.setString("Game Over");
+						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
 						background_music.stop();
 						foobar_dies_sound.setVolume(game_volume);
 						foobar_dies_sound.play();
@@ -380,7 +388,7 @@ int main()
 				}
 				else if (track->is_end_of_game()) { // Finish_line
 					if (first_time) {
-						postgame_text.setString("gg");
+						postgame_text.setString("there");
 						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
 						background_music.stop();
 						finish_line_sound.setVolume(game_volume);

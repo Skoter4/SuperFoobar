@@ -79,8 +79,8 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 
 bool point_in_rect(int x, int y, std::shared_ptr<Map_object> obj)
 {
-	if (x <= (obj->get_x_pos() + obj->get_width()) && y <= (obj->get_y_pos() + obj->get_height())
-		&& x >= obj->get_x_pos() && y >= obj->get_y_pos()) {
+	if (x < (obj->get_x_pos() + obj->get_width()) && y < (obj->get_y_pos() + obj->get_height())
+		&& x > obj->get_x_pos() && y > obj->get_y_pos()) {
 		return true;
 	}
 	else {
