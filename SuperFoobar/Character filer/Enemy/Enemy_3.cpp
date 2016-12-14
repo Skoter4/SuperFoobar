@@ -1,3 +1,14 @@
+/*
+* FILENAME:       Enemy_3.h
+* PROGRAMMERS:	 Ludvig Danielsson 951221-7937 MED3
+*                Alexander Eriksson 950405-9552 MED3
+*                Martin Allander 951218-6215 Y2b
+*                Tobias Nilsson 950103-6736 MED3
+*                Tomas Widfeldt 940121-2015 MED3
+* DATE:         2016-12-14
+*
+*/
+
 #include "Enemy_3.h"
 
 Enemy_3::Enemy_3(int x, int y, int width, int height)
@@ -44,4 +55,5 @@ void Enemy_3::interact_with(std::shared_ptr<Map_object> map_object)
 
 void Enemy_3::interact()
 {
+	this->flip_dead();
 }
