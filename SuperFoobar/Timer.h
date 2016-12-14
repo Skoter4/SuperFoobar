@@ -1,5 +1,5 @@
 /*
-* FILENAME:       Timer.h
+* FILENAME:      Timer.h
 * PROGRAMMERS:   Ludvig Danielsson 951221-7937 MED3
 *                Alexander Eriksson 950405-9552 MED3
 *                Martin Allander 951218-6215 Y2b

@@ -49,7 +49,6 @@ public:
 
 	void interact() override;
 
-
 	/*
 	*	FUNCTION: generate()
 	*
@@ -57,7 +56,7 @@ public:
 	*
 	*/
 
-	std::shared_ptr<Interactable> & generate();
+	std::shared_ptr<Interactable> const & generate();
 
 	/*
 	*	FUNCTION: interact_with(std::shared_ptr<Map_object> my_char) override
