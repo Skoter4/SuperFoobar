@@ -1,5 +1,5 @@
 /*
-* FILENAME:       Coin.h
+* FILENAME:      Coin.h
 * PROGRAMMERS:   Ludvig Danielsson 951221-7937 MED3
 *                Alexander Eriksson 950405-9552 MED3
 *                Martin Allander 951218-6215 Y2b
@@ -19,7 +19,15 @@
 class Coin : public Interactable
 {
 public:
+
+	/*
+	* CONSTRUCTOR: Coin(int, int, int, int);
+	* Initialize a Coin object with x and y positions as well as height and width
+	* using the constructor from Interactable
+	*/
+
 	Coin(int, int, int, int);
+
 	~Coin() = default;
 
 	/*
