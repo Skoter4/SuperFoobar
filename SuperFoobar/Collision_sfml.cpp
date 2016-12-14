@@ -1,16 +1,28 @@
+/*
+* FILENAME:     Collision_sfml.cpp
+* PROGRAMMERS:	 Ludvig Danielsson 951221-7937 MED3
+*               Alexander Eriksson 950405-9552 MED3
+*               Martin Allander 951218-6215 Y2b
+*               Tobias Nilsson 950103-6736 MED3
+*               Tomas Widfeldt 940121-2015 MED3
+*
+* DATE:         2016-12-14
+*/
+
 #pragma once
 #include "Collision_sfml.h"
 
 
 void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> map_object)
 {
-	
+	//Declarations for easy access of variables needed.
 	int desx = character_object->get_desx_pos();
 	int desy = character_object->get_desy_pos();
 
 
 	if (map_object != character_object)
 	{
+		//Declarations for easy access of variables needed.
 		int width = character_object->get_width();
 		int height = character_object->get_height();
 		int oldx = character_object->get_old_x();

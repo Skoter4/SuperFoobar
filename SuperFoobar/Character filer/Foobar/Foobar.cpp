@@ -1,3 +1,14 @@
+/*
+* FILENAME:       Foobar.h
+* PROGRAMMERS:	 Ludvig Danielsson 951221-7937 MED3
+*                Alexander Eriksson 950405-9552 MED3
+*                Martin Allander 951218-6215 Y2b
+*                Tobias Nilsson 950103-6736 MED3
+*                Tomas Widfeldt 940121-2015 MED3
+* DATE:         2016-12-14
+*
+*/
+
 #include "Foobar.h"
 #include <memory>
 
@@ -35,10 +46,6 @@ void Foobar::increase_size(int new_width, int new_height)
 	this->set_height(new_height);
 }
 
-void Foobar::pick_up_coin()
-{
-
-}
 
 void Foobar::jump()
 {
@@ -49,29 +56,11 @@ void Foobar::jump()
 	}
 }
 
-void Foobar::duck()
-{
-	this->set_height( (get_height()) / 2);
-}
-
-void Foobar::flip_is_ducking()
-{
-	is_ducking = !is_ducking;
-}
-
-bool Foobar::get_is_ducking()
-{
-	return is_ducking;
-}
-
-void Foobar::stand_up()
-{
-	this->set_height((get_height()) * 2);
-}
-
 
 void Foobar::interact_with(std::shared_ptr<Map_object> map_object)
 {
+	//If player collides with a projectile the player itself will die, unless it collides with player from above. 
+	//Otherwise foobar will destruct object that are breakables/generators and only collide with non-breakables.
 	if (map_object->type_str() == "projectile") {
 		this->die();
 		map_object->interact();
