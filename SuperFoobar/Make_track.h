@@ -1,3 +1,18 @@
+/*
+* FILENAME:       Make_track.h
+* PROGRAMMERS: Ludvig Danielsson 951221-7937 MED3
+*                Alexander Eriksson 950405-9552 MED3
+*                Martin Allander 951218-6215 Y2b
+*                Tobias Nilsson 950103-6736 MED3
+*                Tomas Widfeldt 940121-2015 MED3
+* DATE:         2016-12-14
+*
+* DESCRIPTION:
+*
+* Make_track is a comprehensive file containing all the "make" functions, which are used to easily create and contain the different objects
+* that the game contains. It includes every object filed that is to be created or from where it inherits, in order to easily create the lists
+* as well as add Map_objects to them. It also has functionality to update sprite position and texture more easily.
+*/
 #pragma once
 #include "Block-filer\Block.h"
 #include "Block-filer\Non_breakable.h"
