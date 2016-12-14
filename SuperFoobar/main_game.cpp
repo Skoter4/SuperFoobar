@@ -358,7 +358,6 @@ int main()
 						for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
 						{
 							block_collision(track->get_foobar(), *it);
-							std::cout << "kek ";
 						}
 					}
 
