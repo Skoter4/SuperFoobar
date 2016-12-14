@@ -2,71 +2,68 @@
 #include "Collision_sfml.h"
 
 
-std::list<std::shared_ptr<Block>> block_list;
-std::list<std::shared_ptr<Interactable>> interact_list;
-std::list<std::shared_ptr<Character>> char_list;
-
-//Bör vara två map_objects
-//Så kan gravity osv. sättas i respektive interact
-
 void block_collision(std::shared_ptr<Character> character_object, std::shared_ptr<Map_object> map_object)
 {
-
+	
 	int desx = character_object->get_desx_pos();
 	int desy = character_object->get_desy_pos();
 
+
 	if (map_object != character_object)
 	{
-
-
 		int width = character_object->get_width();
 		int height = character_object->get_height();
 		int oldx = character_object->get_old_x();
 		int oldy = character_object->get_old_y();
 
-		if (point_in_rect(desx, desy, map_object) || point_in_rect(desx + width, desy, map_object) ||
-			point_in_rect(desx, desy + height, map_object) || point_in_rect(desx + width, desy + height, map_object)
-			|| point_in_rect(desx + width, desy + (height / 2), map_object) || point_in_rect(desx, desy + (height / 2), map_object))
+
+		bool top_right_collision = point_in_rect(desx + width, desy, map_object);
+		bool top_left_collision = point_in_rect(desx, desy, map_object);
+		bool bottom_left_collision = point_in_rect(desx, desy + height, map_object);
+		bool bottom_right_collision = point_in_rect(desx + width, desy + height, map_object);
+		bool middle_left_collision = point_in_rect(desx, desy + (height / 2), map_object);
+		bool middle_right_collision = point_in_rect(desx + width, desy + (height / 2), map_object);
+
+		if (top_left_collision || top_right_collision || bottom_left_collision
+			|| bottom_right_collision || middle_left_collision || middle_right_collision) // Checks if a collsion happens
 		{
 			map_object->interact_with(character_object);
 
-			if (point_in_rect(desx + width, desy, map_object) || point_in_rect(desx + width, desy + height, map_object) || point_in_rect(desx + width, desy + (height / 2), map_object))
+			if (top_right_collision || bottom_right_collision || middle_right_collision) // Checks if the collsion is from the right
 			{
 				if ((desy + height) >= map_object->get_y_pos() && desy <= (map_object->get_y_pos() + map_object->get_height())
-					&& (oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height())
+					&& (oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height()) //Collision from the side
 				{
 					character_object->set_desx_pos(map_object->get_x_pos() - width);
-
 				}
 
 				else
-					if ((oldy + height) <= map_object->get_y_pos())
+					if ((oldy + height) <= map_object->get_y_pos()) //Collision from above
 					{
 						character_object->set_desy_pos(map_object->get_y_pos() - height);
 					}
-					else
+					else //Collsion from beneath
 					{
 						character_object->set_desy_pos(map_object->get_y_pos() + map_object->get_height());
 					}
 
 			}
 
-			if (point_in_rect(desx, desy, map_object) || point_in_rect(desx, desy + height, map_object) || point_in_rect(desx, desy + (height / 2), map_object))
+			if (top_left_collision || bottom_left_collision || middle_left_collision) // Checks if the collsion is from the left
 			{
 				if ((desy + height) >= map_object->get_y_pos() && desy <= (map_object->get_y_pos() + map_object->get_height()) &&
-					(oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height())
+					(oldy + height) > map_object->get_y_pos() && oldy < map_object->get_y_pos() + map_object->get_height()) // Collsion from the side
 				{
 					character_object->set_desx_pos(map_object->get_x_pos() + map_object->get_width());
-
 				}
 				else
-					if ((oldy + height) <= map_object->get_y_pos())
+					if ((oldy + height) <= map_object->get_y_pos()) // Collision from above
 					{
 						character_object->set_desy_pos(map_object->get_y_pos() - height);
 					}
 					else
 					{
-						character_object->set_desy_pos(map_object->get_y_pos() + map_object->get_height());
+						character_object->set_desy_pos(map_object->get_y_pos() + map_object->get_height()); // Collsion from beneath
 					}
 			}
 		}
@@ -79,8 +76,8 @@ void block_collision(std::shared_ptr<Character> character_object, std::shared_pt
 
 bool point_in_rect(int x, int y, std::shared_ptr<Map_object> obj)
 {
-	if (x < (obj->get_x_pos() + obj->get_width()) && y < (obj->get_y_pos() + obj->get_height())
-		&& x > obj->get_x_pos() && y > obj->get_y_pos()) {
+	if (x <= (obj->get_x_pos() + obj->get_width()) && y <= (obj->get_y_pos() + obj->get_height())
+		&& x >= obj->get_x_pos() && y >= obj->get_y_pos()) {
 		return true;
 	}
 	else {

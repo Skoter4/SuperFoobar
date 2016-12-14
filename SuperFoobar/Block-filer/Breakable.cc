@@ -17,7 +17,7 @@ std::string Breakable::type_str()
 	return "breakable";
 }
 
-bool Breakable::interact_with(shared_ptr<Map_object> map_object) 
+void Breakable::interact_with(shared_ptr<Map_object> map_object)
 {
 	if (map_object->type_str() == "foobar")
 	{
@@ -26,7 +26,8 @@ bool Breakable::interact_with(shared_ptr<Map_object> map_object)
 			dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
 			this->interact();
 		}
-		else if (this->get_y_pos() > map_object->get_old_y())
+		else if (this->get_y_pos() >= map_object->get_old_y() + map_object->get_height() && map_object->get_x_pos() <= this->get_x_pos() + this->get_width()
+			&& map_object->get_x_pos() + map_object->get_width() >= this->get_x_pos())
 		{
 			dynamic_pointer_cast<Foobar> (map_object)->set_y_velocity(0);
 			if (!dynamic_pointer_cast<Foobar> (map_object)->get_on_ground())
@@ -53,15 +54,9 @@ bool Breakable::interact_with(shared_ptr<Map_object> map_object)
 		dynamic_pointer_cast<Enemy_3> (map_object)->flip_x_velocity();
 		}
 	}
-	else if (map_object->type_str() == "foobar")
-	{
-		
-
-	}
 	else if (map_object->type_str() == "projectile") {
 		map_object->flip_dead();
 	}
-	return false;
 }
 
 bool Breakable::to_break(shared_ptr<Cluster> other_cluster) {
@@ -82,8 +77,4 @@ void Breakable::interact()
   this->destruct();
 }
 
-void Breakable::poly()
-{
-
-}
 
