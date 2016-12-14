@@ -9,7 +9,7 @@ class Generator
 public:
 	Generator(int, int, int, int, std::shared_ptr<Interactable>);
 	void interact() override;
-	std::shared_ptr<Interactable> & generate();
+	std::shared_ptr<Interactable> const & generate();
 	void interact_with(std::shared_ptr<Map_object> my_char) override;
 	void flip_deactivated();
 	void flip_generating();

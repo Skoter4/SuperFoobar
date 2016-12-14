@@ -33,7 +33,7 @@ std::string Generator::type_str()
 	return "generator";
 }
 
-std::shared_ptr<Interactable> & Generator::generate()
+std::shared_ptr<Interactable> const & Generator::generate()
 {
 	this->flip_generating();
 	this->flip_deactivated();
