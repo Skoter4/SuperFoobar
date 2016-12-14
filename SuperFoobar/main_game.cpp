@@ -1,3 +1,13 @@
+/*
+* FILENAME:       main_game.cpp
+* PROGRAMMERS:   Ludvig Danielsson 951221-7937 MED3
+*                Alexander Eriksson 950405-9552 MED3
+*                Martin Allander 951218-6215 Y2b
+*                Tobias Nilsson 950103-6736 MED3
+*                Tomas Widfeldt 940121-2015 MED3
+* DATE:         2016-12-14
+*/
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -13,10 +23,9 @@ int main()
 {
 	try
 	{
-		// initiering av texturerna
+		// Initializing textures and sound
 		::SUPER_FOOBAR_TEXTURES.loadFromFile("Pictures/AllTextures.png");
 
-		// Bakgrundsmusik och ljud
 		float game_volume{ 20.0f };
 
 		sf::Music background_music;
@@ -48,7 +57,7 @@ int main()
 		time_warning_sound.setBuffer(time_warning_buffer);
 		finish_line_sound.setBuffer(finish_line_buffer);
 
-		//Skapa Bana
+		// Creation of track with the help of make_track
 		SUPER_FOOBAR_TEXTURES.setRepeated(true);
 
 		std::list<std::shared_ptr<Character>> character_list{};
@@ -73,7 +82,6 @@ int main()
 		block_list + make_one_line_breakable_seg(8, 75, 4) + make_one_line_breakable_seg(4, 116, 4) +
 			make_one_line_breakable_seg(2, 123, 7) + make_one_line_breakable_seg(2, 159, 7);
 
-		// Trappor
 		block_list + make_one_line_breakable_seg(3, 130, 10) + make_one_line_breakable_seg(2, 131, 9) + make_one_line_breakable_seg(1, 132, 8) +
 			make_one_line_breakable_seg(3, 135, 10) + make_one_line_breakable_seg(2, 135, 9) + make_one_line_breakable_seg(1, 135, 8) +
 			make_one_line_breakable_seg(4, 142, 10) + make_one_line_breakable_seg(3, 143, 9) + make_one_line_breakable_seg(2, 144, 8) +
@@ -93,11 +101,16 @@ int main()
 
 		track->get_block_list().sort([](std::shared_ptr<Block> lhs, std::shared_ptr<Block> rhs) {return (lhs->get_x_pos() < rhs->get_x_pos()); });
 
-		//Skapa spelfönstret
+		// GameWindow and initialization of its textures
 		sf::ContextSettings settings;
 		settings.antialiasingLevel = 8;
 
 		sf::RenderWindow GameWindow(sf::VideoMode(16 * 70, 12 * 70), "TEST");
+
+		sf::Event event;
+
+		sf::View view(sf::FloatRect(0, 0, 16 * 70, 12 * 70));
+		GameWindow.setView(view);
 
 		sf::Texture Background_pic;
 		Background_pic.setRepeated(true);
@@ -114,6 +127,8 @@ int main()
 		sf::Sprite main_menu_background(main_menu_background_pic);
 		main_menu_background.setTexture(main_menu_background_pic);
 		main_menu_background.setTextureRect(sf::IntRect(0, 0, track->get_width(), track->get_height()));
+
+		// Initializing textures and sounds
 
 		sf::Font font;
 		if (!font.loadFromFile("smb.ttf"))
@@ -135,6 +150,7 @@ int main()
 		scoreInfo.setPosition(15, 15);
 		scoreInfo.setCharacterSize(50);
 
+		// Used to write score to when completing the game
 		Scoreboard scoreboard{};
 		track->set_score(score);
 		track->set_scoreboard(scoreboard);
@@ -165,12 +181,7 @@ int main()
 		bool time_up{ false };
 		bool play_game{ false };
 		bool show_scoreboard{ false };
-		bool first_time{ true }; // Förhindrar att kvarvarande tid adderas till score flera gånger vid game-over
-
-		sf::Event event;
-
-		sf::View view(sf::FloatRect(0, 0, 16 * 70, 12 * 70));
-		GameWindow.setView(view);
+		bool first_time{ true };
 
 		while (GameWindow.isOpen())
 		{
@@ -187,7 +198,9 @@ int main()
 						sf::Vector2i Mouse = sf::Mouse::getPosition(GameWindow);
 						float Mouse_x{ (float)Mouse.x };
 						float Mouse_y{ (float)Mouse.y };
-						if ((Mouse_x > 233 && Mouse_x < 553) && (Mouse_y > 429 && Mouse_y < 516)) { // Clicked play game
+						// Clicked play game
+						if ((Mouse_x > 233 && Mouse_x < 553) && (Mouse_y > 429 && Mouse_y < 516)) 
+						{ 
 							if (!play_game) {
 								play_game = true;
 								Timer new_timer{};
@@ -195,7 +208,8 @@ int main()
 								background_music.play();
 							}
 						}
-						else if ((Mouse_x > 562 && Mouse_x < 883) && (Mouse_y > 429 && Mouse_y < 516)) { // Clicked show scoreboard
+						// Clicked show scoreboard
+						else if ((Mouse_x > 562 && Mouse_x < 883) && (Mouse_y > 429 && Mouse_y < 516)) { 
 							if (!play_game) {
 								if (!show_scoreboard) {
 									scoreboard_text.setString((track->get_scoreboard()).read_top5());
@@ -207,8 +221,10 @@ int main()
 							}
 						}
 					}
-				} // event mouse
-				if (play_game) { // innanför event, om man klickat play_game
+				} // Mouse event
+
+				  // Inside event, if play game is pressed
+				if (play_game) { 
 					if (event.type == sf::Event::KeyPressed && (!track->get_foobar()->is_dead() && !track->is_end_of_game()))
 					{
 						if (event.key.code == sf::Keyboard::LShift)
@@ -276,105 +292,77 @@ int main()
 						}
 					}
 				}
-			}  // event
+			}  // Event
 
-			if (play_game) { // utanför event, om man klickat play_game
+			if (play_game) // Outside event, if play game is pressed
+			{
+				// If Foobar is alive and playing
+				if (!(track->get_foobar()->is_dead()) && !(time_up) && !(track->is_end_of_game()))
+				{
+					// Moves Foobar
+					track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
+					track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
+					track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
 
-				track->get_foobar()->set_y_velocity(track->get_foobar()->get_y_velocity() + track->get_foobar()->get_gravity());
-				track->get_foobar()->move_x(track->get_foobar()->get_x_velocity());
-				track->get_foobar()->move_y(track->get_foobar()->get_y_velocity());
+					// Fires projectiles
+					float f_time = track->get_timer().get_time_remaining();
+					int i_time = static_cast<int>(round(f_time));
+					if (i_time % 7 == 0)
+						for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
+						{
+							if ((*it)->type_str() == "enemy_1") {
+								std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
 
-				float f_time = track->get_timer().get_time_remaining();
-				int i_time = static_cast<int>(round(f_time));
-				if (i_time % 7 == 0)
+								if (enemy_ptr->get_prev_time() != i_time) {
+									enemy_ptr->flip_ready();
+									enemy_ptr->set_prev_time(i_time);
+								}
+							}
+						}
+
+					// Applies collision to character list on Foobar
 					for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
 					{
-						if ((*it)->type_str() == "enemy_1") {
-							std::shared_ptr<Enemy_1> enemy_ptr{ std::dynamic_pointer_cast<Enemy_1>(*it) };
+						block_collision(track->get_foobar(), *it);
+						if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
+						{
+							// Applies collision between enemies and blocks
+							if ((*it)->type_str() == "projectile")
+							{
+								(*it)->move_x((*it)->get_x_velocity());
+								for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
+								{
+									block_collision(*it, *it2);
+								}
+							}
+							else
+							{
+								(*it)->move_x((*it)->get_x_velocity());
+								(*it)->move_y((*it)->get_y_velocity());
+								for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
 
-							if (enemy_ptr->get_prev_time() != i_time) {
-								enemy_ptr->flip_ready();
-								enemy_ptr->set_prev_time(i_time);
+								{
+									block_collision(*it, *it2);
+								}
 							}
 						}
 					}
 
-				for (auto it = track->get_character_list().begin(); it != track->get_character_list().end(); ++it)
-				{
-					block_collision(track->get_foobar(), *it);
-					if ((*it)->type_str() != "foobar" && (*it)->type_str() != "enemy_1")
-					{
-						if ((*it)->type_str() == "projectile") {
-							(*it)->move_x((*it)->get_x_velocity());
-							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
-							{
-								block_collision(*it, *it2);
-							}
-						}
-						else {
-							(*it)->move_x((*it)->get_x_velocity());
-							(*it)->move_y((*it)->get_y_velocity());
-							for (auto it2 = track->get_block_list().begin(); (*it2)->get_x_pos() < (*it)->get_x_pos() + ((*it)->get_width() * 2); ++it2)
-
-							{
-								block_collision(*it, *it2);
-							}
-						}
-					}
-				}
-				for (auto it = track->get_block_list().begin(); (*it)->get_x_pos() < track->get_foobar()->get_x_pos() + track->get_foobar()->get_width(); ++it)
-				{
-					block_collision(track->get_foobar(), *it);
-				}
-				if (track->get_interactable_list().size() > 0)
-				{
-					for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+					// Applies collision between Foobar and Block
+					for (auto it = track->get_block_list().begin(); (*it)->get_x_pos() < track->get_foobar()->get_x_pos() + track->get_foobar()->get_width(); ++it)
 					{
 						block_collision(track->get_foobar(), *it);
 					}
-				}
+					if (track->get_interactable_list().size() > 0)
+					{
+						for (auto it = track->get_interactable_list().begin(); it != track->get_interactable_list().end(); ++it)
+						{
+							block_collision(track->get_foobar(), *it);
+							std::cout << "kek ";
+						}
+					}
 
-				GameWindow.clear();
-				GameWindow.draw(Background);
-				draw_track(track, GameWindow);
-				GameWindow.draw(timerText);
-				GameWindow.draw(timerInfo);
-				GameWindow.draw(scoreText);
-				GameWindow.draw(scoreInfo);
-				GameWindow.draw(postgame_text);
-				GameWindow.display();
-
-				if (time_up) { // Time-up
-					if (first_time) {
-						postgame_text.setString("Time Up");
-						background_music.stop();
-						game_over_sound.setVolume(game_volume);
-						game_over_sound.play();
-						first_time = !first_time;
-					}
-				}
-				else if (track->get_foobar()->is_dead()) {
-					if (first_time) {
-						postgame_text.setString("Game Over");
-						background_music.stop();
-						foobar_dies_sound.setVolume(game_volume);
-						foobar_dies_sound.play();
-						first_time = !first_time;
-					}
-				}
-				else if (track->is_end_of_game()) { // Finish_line
-					if (first_time) {
-						postgame_text.setString("there");
-						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
-						background_music.stop();
-						finish_line_sound.setVolume(game_volume);
-						finish_line_sound.play();
-						first_time = !first_time;
-						std::cout << (track->is_end_of_game());
-					}
-				}
-				else { // utanför event, man har klickat play game, man är inte död/slut på tid
-					//Timer countdown
+					// Timer countdown
 					if ((track->get_timer()).get_time_remaining() > 0.0f)
 					{
 						if (static_cast<int>((track->get_timer()).get_time_remaining()) == 30)
@@ -386,13 +374,15 @@ int main()
 						(track->get_timer()).countdown();
 						timerText.setString(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining())));
 					}
-					else {
-						time_up = true; // Timer hits 0 => game-over
+					else
+					{
+						time_up = true;
 					}
 
-					//Så att kameran följer med Foobar men inte går till vänster om start-position
-					int camera_x = track->get_foobar()->get_x_pos();
+					// Counteracts the camera moving to the left of Foobars starting position
+					int camera_x = track->get_foobar()->get_x_pos(); 
 
+					// Moves view of GameWindow and all Texts
 					if (track->get_foobar()->get_x_pos() > 512)
 					{
 						sf::View view(sf::FloatRect(static_cast<float>(camera_x - 512), 0, 16 * 70, 12 * 70));
@@ -404,21 +394,74 @@ int main()
 						GameWindow.setView(view);
 					}
 
+					// Updates sprites, 
 					update_sprite(track);
 					scoreText.setString(std::to_string(static_cast<int>(track->get_score().get_score())));
 					track->handle_map_object_flags();
+				} // Foobar alive and playing
+
+				// Clears, draws and displays everything on the GameWindow
+				GameWindow.clear();
+				GameWindow.draw(Background);
+				draw_track(track, GameWindow);
+				GameWindow.draw(timerText);
+				GameWindow.draw(timerInfo);
+				GameWindow.draw(scoreText);
+				GameWindow.draw(scoreInfo);
+				GameWindow.draw(postgame_text);
+				GameWindow.display();
+
+				// If Timer has hit 0
+				if (time_up) 
+				{
+					// Changes text and plays music only once
+					if (first_time) 
+					{
+						postgame_text.setString("Time Up");
+						background_music.stop();
+						game_over_sound.setVolume(game_volume);
+						game_over_sound.play();
+						first_time = !first_time;
+					}
+				}
+				// Foobar have died enemy, projectile or fallen off the map
+				else if (track->get_foobar()->is_dead()) 
+				{
+					if (first_time)
+					{
+						postgame_text.setString("Game Over");
+						background_music.stop();
+						foobar_dies_sound.setVolume(game_volume);
+						foobar_dies_sound.play();
+						first_time = !first_time;
+					}
+				}
+				// Foobar have reached the finish line
+				else if (track->is_end_of_game()) 
+				{
+					// Writes score to a txt file only once
+					if (first_time) 
+					{
+						postgame_text.setString("There");
+						(track->get_scoreboard()).write(std::to_string(static_cast<int>((track->get_timer()).get_time_remaining() + (track->get_score()).get_score())));
+						background_music.stop();
+						finish_line_sound.setVolume(game_volume);
+						finish_line_sound.play();
+						first_time = !first_time;
+					}
 				}
 			}
-			else { //utanför event, inte klickat på play game = main menu
+			else  //utanför event, inte klickat på play game = main menu
+			{
 				GameWindow.clear();
 				GameWindow.draw(main_menu_background);
 				GameWindow.draw(scoreboard_text);
 				GameWindow.display();
 			}
-		} // window is open
-	} // try
+		} // Window is open
+	} // Try
 	catch (std::exception& e)
 	{
 		std::cout << e.what() << "Måste göra en foobar!";
 	}
-} // main
+} // Main
