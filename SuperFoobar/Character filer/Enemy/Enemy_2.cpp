@@ -58,5 +58,5 @@ void Enemy_2::interact_with(std::shared_ptr<Map_object> map_object)
 
 void Enemy_2::interact()
 {
-	this->flip_dead;
+	this->flip_dead();
 }
